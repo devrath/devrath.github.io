@@ -22,9 +22,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <script>if(localStorage.getItem("theme")==="light")document.documentElement.setAttribute("data-theme","light");</script>
-  <link rel="stylesheet" href="styles.css?v=9" />
+  <link rel="stylesheet" href="styles.css?v=10" />
 </head>
-<body>
+<body class="loading">
+  <div id="loader" aria-hidden="true">
+    <svg viewBox="0 0 100 100" role="img" aria-label="Loading">
+      <path class="hex" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+            d="M 50,5 L 11,27 L 11,72 L 50,95 L 89,73 L 89,28 z" />
+      <text class="hex-letter" x="50" y="53" text-anchor="middle" dominant-baseline="middle">D</text>
+    </svg>
+  </div>
+  <noscript><style>#loader{display:none}</style></noscript>
   <div id="spotlight" aria-hidden="true"></div>
 
   <button id="theme-toggle" aria-label="Switch between dark and light theme" title="Toggle theme">
@@ -537,6 +545,6 @@
     </main>
   </div>
 
-  <script src="script.js?v=9"></script>
+  <script src="script.js?v=10"></script>
 </body>
 </html>

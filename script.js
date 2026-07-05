@@ -207,3 +207,18 @@ themeToggle.addEventListener("click", () => {
   }
   applyThemeColor();
 });
+
+// Intro loader: hexagon draws, letter fades in, overlay melts away.
+const loader = document.getElementById("loader");
+if (loader) {
+  const dismiss = () => {
+    loader.classList.add("done");
+    document.body.classList.remove("loading");
+    setTimeout(() => loader.remove(), 450);
+  };
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    dismiss();
+  } else {
+    setTimeout(dismiss, 1900);
+  }
+}
