@@ -1,23 +1,23 @@
-# devrath.com
+# devrath.github.io
 
 Personal portfolio site of **Devrath AD** — Software Engineer (Android).
 
 - Live: [devrath.github.io](https://devrath.github.io)
 - Plain HTML / CSS / JS — no build step, served by GitHub Pages
-- Design inspired by [brittanychiang.com](https://brittanychiang.com)
 
 ## Structure
 
 | File | Purpose |
 | --- | --- |
-| `index.html` | All content (about, experience, projects, writing) |
+| `index.html` | All content (about, experience, recommendations) |
 | `styles.css` | Theme and layout |
 | `script.js` | Cursor spotlight + scroll-spy nav |
 
 ## Editing content
 
 Everything is in `index.html` — sections are marked with comments
-(`<!-- ABOUT -->`, `<!-- EXPERIENCE -->`, `<!-- PROJECTS -->`, `<!-- WRITING -->`).
+(`<!-- ABOUT -->`, `<!-- EXPERIENCE -->`, `<!-- RECOMMENDATIONS -->`).
+To add a role to the experience tree, copy a `<li class="tl-node">` block.
 
 ## Local preview
 
