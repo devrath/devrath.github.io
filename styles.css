@@ -739,9 +739,6 @@ html[data-theme="light"] .site-footer {
   color: rgba(71, 85, 105, 0.6);
 }
 
-
-}
-
 /* ---------- Project cover (trailer) ---------- */
 .project-cover {
   display: block;
@@ -927,11 +924,14 @@ body.typing #tagline-caret {
 .stat,
 .honor-list li {
   will-change: transform;
-  transform-style: preserve-3d;
 }
 
 /* ---------- Parallax cover ---------- */
-.project-cover { overflow: hidden; }
+.project-cover {
+  overflow: hidden;
+  clip-path: inset(0 round 0.75rem);
+  transform: translateZ(0);
+}
 
 .project-cover img {
   transform: scale(1.12);
