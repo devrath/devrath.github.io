@@ -162,3 +162,24 @@ function renderRecommendations() {
 }
 
 renderRecommendations();
+
+// Scroll-reveal: fade sections and cards up as they enter the viewport.
+if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const revealTargets = document.querySelectorAll(
+    "section, .honor-list li, .tl-node, .stat"
+  );
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("revealed");
+        revealObserver.unobserve(entry.target);
+      });
+    },
+    { rootMargin: "0px 0px -8% 0px", threshold: 0.05 }
+  );
+  revealTargets.forEach((el) => {
+    el.classList.add("will-reveal");
+    revealObserver.observe(el);
+  });
+}
