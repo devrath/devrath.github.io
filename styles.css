@@ -189,11 +189,21 @@ section:last-of-type { margin-bottom: 2rem; }
 }
 
 .section-heading h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--text-bright);
+}
+
+.sh-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--accent);
 }
 
 section > p { margin-bottom: 1rem; }
@@ -254,6 +264,80 @@ section p strong { color: var(--text-bright); font-weight: 600; }
 .badge-dot.gold { background: #f4c430; }
 .badge-dot.silver { background: #b4b8bd; }
 .badge-dot.bronze { background: #d38a5e; }
+
+/* ---------- Experience summary ---------- */
+.tl-summary {
+  padding: 1.25rem;
+  margin-bottom: 1.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background-color: var(--bg-card);
+}
+
+.tl-summary p { font-size: 0.95rem; }
+
+.tl-summary .pills { margin-top: 0.85rem; }
+
+/* ---------- Recommendations carousel ---------- */
+.reco-carousel {
+  overflow: hidden;
+  margin-bottom: 1rem;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+}
+
+.reco-track {
+  display: flex;
+  gap: 1rem;
+  width: max-content;
+  animation: reco-marquee var(--reco-dur, 40s) linear infinite;
+}
+
+.reco-carousel:hover .reco-track { animation-play-state: paused; }
+
+@keyframes reco-marquee {
+  to { transform: translateX(-50%); }
+}
+
+.reco-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 20rem;
+  flex-shrink: 0;
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background-color: var(--bg-card);
+}
+
+.reco-card blockquote {
+  font-size: 0.88rem;
+  font-style: italic;
+  color: var(--text);
+}
+
+.reco-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  margin-top: 1rem;
+}
+
+.reco-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+.reco-sub { font-size: 0.78rem; }
+
+.reco-sub.muted { color: rgba(148, 163, 184, 0.7); }
+
+@media (prefers-reduced-motion: reduce) {
+  .reco-track { animation: none; }
+  .reco-carousel { overflow-x: auto; }
+}
 
 /* ---------- Experience timeline (tree) ---------- */
 .timeline {
