@@ -745,7 +745,7 @@ html[data-theme="light"] .site-footer {
 /* ---------- Project cover (trailer) ---------- */
 .project-cover {
   display: block;
-  margin-bottom: 1.75rem;
+  margin-bottom: 2.5rem;
   border-radius: 0.75rem;
   overflow: hidden;
   border: 1px solid var(--border);
