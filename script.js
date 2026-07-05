@@ -183,3 +183,27 @@ if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     revealObserver.observe(el);
   });
 }
+
+// Light / dark theme toggle (persisted in localStorage; dark is default).
+const themeToggle = document.getElementById("theme-toggle");
+const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+
+function applyThemeColor() {
+  const light = document.documentElement.getAttribute("data-theme") === "light";
+  if (themeColorMeta) themeColorMeta.content = light ? "#f1f5f9" : "#0f172a";
+}
+
+applyThemeColor();
+
+themeToggle.addEventListener("click", () => {
+  const root = document.documentElement;
+  const light = root.getAttribute("data-theme") === "light";
+  if (light) {
+    root.removeAttribute("data-theme");
+    localStorage.setItem("theme", "dark");
+  } else {
+    root.setAttribute("data-theme", "light");
+    localStorage.setItem("theme", "light");
+  }
+  applyThemeColor();
+});
