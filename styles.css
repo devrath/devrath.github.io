@@ -303,7 +303,7 @@ section p strong { color: var(--text-bright); font-weight: 600; }
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 20rem;
+  width: min(26rem, 80vw);
   flex-shrink: 0;
   padding: 1.25rem;
   border: 1px solid var(--border);
@@ -435,6 +435,35 @@ section p strong { color: var(--text-bright); font-weight: 600; }
 .tl-node h4 a:hover .arrow,
 .inline-cta:hover .arrow {
   transform: translate(3px, -3px);
+}
+
+/* Sub-roles inside a timeline node (e.g. multiple roles at one company) */
+.tl-subrole {
+  margin-top: 0.9rem;
+  padding-left: 1rem;
+  border-left: 1px solid rgba(94, 234, 212, 0.25);
+}
+
+.tl-subrole h5 {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+.tl-subrole .tl-date { margin-bottom: 0.05rem; }
+
+.tl-subrole p { margin-top: 0.35rem; font-size: 0.88rem; }
+
+.tl-subrole p a { color: var(--text-bright); font-weight: 500; }
+
+.tl-subrole p a:hover { color: var(--accent); }
+
+/* Sub-line for list items (issuer, dates) */
+.item-sub {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.78rem;
+  color: rgba(148, 163, 184, 0.85);
 }
 
 /* Pills */
