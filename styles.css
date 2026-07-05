@@ -942,3 +942,25 @@ body.typing #tagline-caret {
   .project-cover img { transform: none; }
   body.typing #tagline-caret { display: none; }
 }
+
+/* ---------- Project card icon header ---------- */
+.proj-head {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 0.6rem;
+}
+
+.proj-icon {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 13px;
+  border: 1px solid var(--border);
+  background-color: var(--bg);
+  object-fit: cover;
+}
+
+.proj-title h4 { margin: 0; }
+
+.proj-title .item-sub { margin-top: 0.15rem; }
