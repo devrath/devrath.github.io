@@ -270,3 +270,55 @@ if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   }, { threshold: 0.4 });
   document.querySelectorAll(".stat-value").forEach((el) => statObserver.observe(el));
 }
+
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// Typewriter: retype the tagline once the hero cascade has landed.
+const taglineText = document.getElementById("tagline-text");
+if (taglineText && !reducedMotion && loader) {
+  const full = taglineText.textContent;
+  taglineText.textContent = "";
+  setTimeout(() => {
+    document.body.classList.add("typing");
+    let i = 0;
+    const type = () => {
+      taglineText.textContent = full.slice(0, ++i);
+      if (i < full.length) setTimeout(type, 16 + Math.random() * 24);
+      else setTimeout(() => document.body.classList.remove("typing"), 1200);
+    };
+    type();
+  }, 2350); // loader (1.9s) + start of cascade
+}
+
+// 3D tilt on stat and list cards (max ~5deg, resets on leave).
+if (!reducedMotion && matchMedia("(hover: hover)").matches) {
+  document.querySelectorAll(".stat, .honor-list li").forEach((card) => {
+    card.addEventListener("mousemove", (e) => {
+      const r = card.getBoundingClientRect();
+      const rx = ((e.clientY - r.top) / r.height - 0.5) * -5;
+      const ry = ((e.clientX - r.left) / r.width - 0.5) * 5;
+      card.style.transform = `perspective(600px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateY(-3px)`;
+    });
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "";
+    });
+  });
+}
+
+// Parallax: the trailer cover drifts gently as it moves through the viewport.
+const coverImg = document.querySelector(".project-cover img");
+if (coverImg && !reducedMotion) {
+  let coverTick = false;
+  const parallax = () => {
+    const r = coverImg.parentElement.getBoundingClientRect();
+    if (r.bottom > 0 && r.top < innerHeight) {
+      const p = (r.top + r.height / 2 - innerHeight / 2) / innerHeight; // -0.5..0.5
+      coverImg.style.transform = `scale(1.12) translateY(${(-p * 24).toFixed(1)}px)`;
+    }
+    coverTick = false;
+  };
+  addEventListener("scroll", () => {
+    if (!coverTick) { requestAnimationFrame(parallax); coverTick = true; }
+  }, { passive: true });
+  parallax();
+}

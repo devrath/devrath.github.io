@@ -903,3 +903,42 @@ html[data-theme="light"] .pills li:hover {
   .tl-node:first-child::before { animation: none; }
   .pills li:hover { transform: none; }
 }
+
+/* ---------- Typewriter caret ---------- */
+#tagline-caret {
+  display: none;
+  width: 2px;
+  height: 1.05em;
+  margin-left: 3px;
+  vertical-align: -0.15em;
+  background-color: var(--accent);
+}
+
+body.typing #tagline-caret {
+  display: inline-block;
+  animation: caret-blink 0.85s step-end infinite;
+}
+
+@keyframes caret-blink {
+  50% { opacity: 0; }
+}
+
+/* ---------- 3D tilt cards ---------- */
+.stat,
+.honor-list li {
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+/* ---------- Parallax cover ---------- */
+.project-cover { overflow: hidden; }
+
+.project-cover img {
+  transform: scale(1.12);
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-cover img { transform: none; }
+  body.typing #tagline-caret { display: none; }
+}
