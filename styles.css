@@ -4,8 +4,8 @@
   --bg-card: rgba(30, 41, 59, 0.5);
   --text: #94a3b8;          /* slate-400 */
   --text-bright: #e2e8f0;   /* slate-200 */
-  --accent: #5eead4;        /* teal-300 */
-  --pill-bg: rgba(45, 212, 191, 0.1);
+  --accent: #3ddc84;        /* android green */
+  --pill-bg: rgba(61, 220, 132, 0.1);
   --border: rgba(148, 163, 184, 0.1);
 }
 
@@ -227,7 +227,7 @@ section p strong { color: var(--text-bright); font-weight: 600; }
 }
 
 @media (min-width: 640px) {
-  .stats { grid-template-columns: repeat(4, 1fr); }
+  .stats { grid-template-columns: repeat(3, 1fr); }
 }
 
 .stat {
@@ -358,7 +358,7 @@ section p strong { color: var(--text-bright); font-weight: 600; }
   background: linear-gradient(
     to bottom,
     var(--accent),
-    rgba(94, 234, 212, 0.15)
+    rgba(61, 220, 132, 0.15)
   );
 }
 
@@ -385,7 +385,7 @@ section p strong { color: var(--text-bright); font-weight: 600; }
 
 .tl-node:hover::before {
   background-color: var(--accent);
-  box-shadow: 0 0 12px rgba(94, 234, 212, 0.6);
+  box-shadow: 0 0 12px rgba(61, 220, 132, 0.6);
 }
 
 .tl-node:first-child::before {
@@ -441,7 +441,7 @@ section p strong { color: var(--text-bright); font-weight: 600; }
 .tl-subrole {
   margin-top: 0.9rem;
   padding-left: 1rem;
-  border-left: 1px solid rgba(94, 234, 212, 0.25);
+  border-left: 1px solid rgba(61, 220, 132, 0.25);
 }
 
 .tl-subrole h5 {
@@ -537,4 +537,56 @@ section p strong { color: var(--text-bright); font-weight: 600; }
   display: flex;
   flex-wrap: wrap;
   gap: 0 2rem;
+}
+
+
+/* ---------- Experience accordion ---------- */
+.tl-details summary {
+  list-style: none;
+  cursor: pointer;
+  position: relative;
+  padding-right: 1.75rem;
+}
+
+.tl-details summary::-webkit-details-marker { display: none; }
+
+.tl-details summary::after {
+  content: "";
+  position: absolute;
+  right: 0.4rem;
+  top: 0.5rem;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--text);
+  border-bottom: 2px solid var(--text);
+  transform: rotate(45deg);
+  transition: transform 0.2s ease, top 0.2s ease;
+}
+
+.tl-details[open] summary::after {
+  transform: rotate(225deg);
+  top: 0.75rem;
+}
+
+.tl-details summary:hover h4,
+.tl-details summary:hover h4 a { color: var(--accent); }
+
+.tl-body { margin-top: 0.25rem; }
+
+/* ---------- Compact skills grid ---------- */
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem 2rem;
+}
+
+@media (min-width: 640px) {
+  .skills-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.skills-grid .skill-group { margin-bottom: 0; }
+
+.skills-grid .pills li {
+  padding: 0.2rem 0.6rem;
+  font-size: 0.72rem;
 }
