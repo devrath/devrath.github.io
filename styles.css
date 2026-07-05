@@ -592,17 +592,7 @@ section p strong { color: var(--text-bright); font-weight: 600; }
 }
 
 /* ---------- Premium polish ---------- */
-.avatar {
-  display: block;
-  width: 112px;
-  height: 112px;
-  border-radius: 50%;
-  margin-bottom: 1.5rem;
-  border: 2px solid var(--accent);
-  padding: 3px;
-  background-color: var(--bg);
-  box-shadow: 0 0 24px rgba(61, 220, 132, 0.18);
-}
+
 
 /* Scroll reveal (class added by JS; no-JS users see everything) */
 .will-reveal {
@@ -733,9 +723,7 @@ html[data-theme="light"] .stat:hover {
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
 }
 
-html[data-theme="light"] .avatar {
-  box-shadow: 0 0 24px rgba(10, 143, 78, 0.2);
-}
+
 
 html[data-theme="light"] .card:hover,
 html[data-theme="light"] .reco-card {
@@ -757,7 +745,7 @@ html[data-theme="light"] .site-footer {
 /* ---------- Project cover (trailer) ---------- */
 .project-cover {
   display: block;
-  margin-bottom: 1.1rem;
+  margin-bottom: 1.75rem;
   border-radius: 0.75rem;
   overflow: hidden;
   border: 1px solid var(--border);
