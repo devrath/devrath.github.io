@@ -825,3 +825,81 @@ body.loading { overflow: hidden; }
   #loader { display: none; }
   body.loading { overflow: auto; }
 }
+
+/* ---------- Scroll progress bar ---------- */
+#progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: linear-gradient(to right, var(--accent), rgba(61, 220, 132, 0.6));
+  z-index: 40;
+  pointer-events: none;
+}
+
+/* ---------- Hero cascade (after the loader melts away) ---------- */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+
+body.cascade .sidebar h1        { animation: rise 0.55s ease both 0.05s; }
+body.cascade .sidebar h2        { animation: rise 0.55s ease both 0.15s; }
+body.cascade .sidebar .tagline  { animation: rise 0.55s ease both 0.25s; }
+body.cascade .site-nav li:nth-child(1) { animation: rise 0.45s ease both 0.35s; }
+body.cascade .site-nav li:nth-child(2) { animation: rise 0.45s ease both 0.40s; }
+body.cascade .site-nav li:nth-child(3) { animation: rise 0.45s ease both 0.45s; }
+body.cascade .site-nav li:nth-child(4) { animation: rise 0.45s ease both 0.50s; }
+body.cascade .site-nav li:nth-child(5) { animation: rise 0.45s ease both 0.55s; }
+body.cascade .site-nav li:nth-child(6) { animation: rise 0.45s ease both 0.60s; }
+body.cascade .site-nav li:nth-child(7) { animation: rise 0.45s ease both 0.65s; }
+body.cascade .site-nav li:nth-child(8) { animation: rise 0.45s ease both 0.70s; }
+body.cascade .site-nav li:nth-child(9) { animation: rise 0.45s ease both 0.75s; }
+body.cascade .socials           { animation: rise 0.55s ease both 0.85s; }
+
+/* ---------- "Present" dot radar ping ---------- */
+@keyframes dot-ping {
+  0% { box-shadow: 0 0 0 0 rgba(61, 220, 132, 0.5); }
+  70% { box-shadow: 0 0 0 10px rgba(61, 220, 132, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(61, 220, 132, 0); }
+}
+
+.tl-node:first-child::before {
+  animation: dot-ping 2.6s ease-out infinite;
+}
+
+html[data-theme="light"] .tl-node:first-child::before {
+  animation-name: dot-ping-light;
+}
+
+@keyframes dot-ping-light {
+  0% { box-shadow: 0 0 0 0 rgba(10, 143, 78, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(10, 143, 78, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(10, 143, 78, 0); }
+}
+
+/* ---------- Pill micro-interaction ---------- */
+.pills li {
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.pills li:hover {
+  transform: translateY(-2px);
+  background-color: rgba(61, 220, 132, 0.2);
+}
+
+html[data-theme="light"] .pills li:hover {
+  background-color: rgba(10, 143, 78, 0.18);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #progress { display: none; }
+  body.cascade .sidebar h1,
+  body.cascade .sidebar h2,
+  body.cascade .sidebar .tagline,
+  body.cascade .site-nav li,
+  body.cascade .socials { animation: none; }
+  .tl-node:first-child::before { animation: none; }
+  .pills li:hover { transform: none; }
+}

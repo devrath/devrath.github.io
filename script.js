@@ -178,7 +178,11 @@ if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     },
     { rootMargin: "0px 0px -8% 0px", threshold: 0.05 }
   );
+  const perParent = new Map(); // stagger siblings that reveal together
   revealTargets.forEach((el) => {
+    const n = perParent.get(el.parentElement) || 0;
+    perParent.set(el.parentElement, n + 1);
+    el.style.transitionDelay = `${Math.min(n, 6) * 70}ms`;
     el.classList.add("will-reveal");
     revealObserver.observe(el);
   });
@@ -219,6 +223,50 @@ if (loader) {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     dismiss();
   } else {
-    setTimeout(dismiss, 1900);
+    setTimeout(() => {
+      dismiss();
+      document.body.classList.add("cascade"); // hero elements rise in sequence
+    }, 1900);
   }
+}
+
+// Scroll progress bar
+const progress = document.getElementById("progress");
+if (progress) {
+  let ticking = false;
+  const update = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    progress.style.width = max > 0 ? `${(scrollY / max) * 100}%` : "0";
+    ticking = false;
+  };
+  addEventListener("scroll", () => {
+    if (!ticking) { requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  update();
+}
+
+// Count-up animation for the stat values (e.g. 42.9k, 70+, 25+)
+if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const statObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      statObserver.unobserve(entry.target);
+      const node = entry.target.firstChild; // leading text node
+      const match = node && node.nodeType === 3 && node.textContent.match(/^([\d.]+)(.*)$/s);
+      if (!match) return;
+      const target = parseFloat(match[1]);
+      const decimals = (match[1].split(".")[1] || "").length;
+      const suffix = match[2];
+      const t0 = performance.now();
+      const dur = 1200;
+      const tick = (t) => {
+        const p = Math.min((t - t0) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        node.textContent = (target * eased).toFixed(decimals) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+  }, { threshold: 0.4 });
+  document.querySelectorAll(".stat-value").forEach((el) => statObserver.observe(el));
 }
