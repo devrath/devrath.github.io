@@ -9,14 +9,14 @@ Personal portfolio site of **Devrath AD** — Software Engineer (Android).
 
 | File | Purpose |
 | --- | --- |
-| `index.html` | All content (about, experience, recommendations) |
+| `index.html` | All content (about, experience, skills, education, certs, volunteering, honors, languages, recommendations) |
 | `styles.css` | Theme and layout |
 | `script.js` | Cursor spotlight + scroll-spy nav |
 
 ## Editing content
 
 Everything is in `index.html` — sections are marked with comments
-(`<!-- ABOUT -->`, `<!-- EXPERIENCE -->`, `<!-- RECOMMENDATIONS -->`).
+(`<!-- ABOUT -->`, `<!-- EXPERIENCE -->`, `<!-- SKILLS -->`, etc.).
 To add a role to the experience tree, copy a `<li class="tl-node">` block.
 
 ## Local preview

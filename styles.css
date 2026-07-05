@@ -371,6 +371,44 @@ section p strong { color: var(--text-bright); font-weight: 600; }
   font-weight: 500;
 }
 
+/* Skill groups */
+.skill-group { margin-bottom: 1.5rem; }
+
+.skill-group:last-of-type { margin-bottom: 0; }
+
+.skill-group h5 {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-bright);
+  margin-bottom: 0.5rem;
+}
+
+.skill-group .pills { margin-top: 0; }
+
+/* Honors list */
+.honor-list { list-style: none; }
+
+.honor-list li {
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background-color: var(--bg-card);
+}
+
+.honor-list h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+.honor-list p {
+  margin-top: 0.35rem;
+  font-size: 0.85rem;
+}
+
 /* CTA links */
 .inline-cta {
   display: inline-block;
