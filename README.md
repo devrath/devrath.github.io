@@ -2,7 +2,7 @@
 
 Personal portfolio site of **Devrath AD** — Software Engineer (Android).
 
-- Live: [devrath.com](https://devrath.com)
+- Live: [devrath.github.io](https://devrath.github.io)
 - Plain HTML / CSS / JS — no build step, served by GitHub Pages
 - Design inspired by [brittanychiang.com](https://brittanychiang.com)
 
@@ -13,7 +13,6 @@ Personal portfolio site of **Devrath AD** — Software Engineer (Android).
 | `index.html` | All content (about, experience, projects, writing) |
 | `styles.css` | Theme and layout |
 | `script.js` | Cursor spotlight + scroll-spy nav |
-| `CNAME` | Custom domain for GitHub Pages |
 
 ## Editing content
 
