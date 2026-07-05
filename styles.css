@@ -751,34 +751,5 @@ html[data-theme="light"] .site-footer {
   color: rgba(71, 85, 105, 0.6);
 }
 
-/* ---------- Project screenshot ---------- */
-.project-card {
-  display: flex;
-  gap: 1.5rem;
-  align-items: flex-start;
-}
 
-.project-info { flex: 1; min-width: 0; }
-
-.project-media {
-  flex-shrink: 0;
-  display: block;
-  width: 150px;
-  border-radius: 1.1rem;
-  overflow: hidden;
-  border: 2px solid var(--border);
-  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.45);
-  transition: transform 0.25s ease, border-color 0.25s ease;
-}
-
-.project-media img { display: block; width: 100%; height: auto; }
-
-.project-media:hover {
-  transform: translateY(-4px) rotate(1deg);
-  border-color: rgba(61, 220, 132, 0.45);
-}
-
-@media (max-width: 560px) {
-  .project-card { flex-direction: column; }
-  .project-media { align-self: center; }
 }
