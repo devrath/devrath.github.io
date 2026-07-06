@@ -1,5 +1,5 @@
-// Generative constellation background (replaces the static spotlight):
-// faint accent particles that drift and connect near each other and the cursor.
+// Generative constellation background — with a secret: every so often the
+// particles gather into the Android bugdroid, hold, then dissolve back.
 (() => {
   const canvas = document.getElementById("constellation");
   if (!canvas) return;
@@ -22,49 +22,144 @@
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   };
   readAccent(); size();
-  const N = Math.min(70, Math.floor(innerWidth / 22));
+  const N = Math.min(74, Math.floor(innerWidth / 20));
   const pts = Array.from({ length: N }, () => ({
     x: Math.random() * innerWidth, y: Math.random() * innerHeight,
     vx: (Math.random() - 0.5) * 0.22, vy: (Math.random() - 0.5) * 0.22,
+    tx: 0, ty: 0,
   }));
   addEventListener("resize", size);
   addEventListener("mousemove", (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
   new MutationObserver(readAccent).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  document.addEventListener("visibilitychange", () => { slow = 0; last = performance.now(); });
+
+  // --- Bugdroid silhouette as normalized outline points ---
+  const droidPoints = (count) => {
+    const segs = [];
+    const arc = (cx, cy, r, a0, a1, n) => { for (let i = 0; i < n; i++) { const a = a0 + (a1 - a0) * (i / (n - 1)); segs.push([cx + r * Math.cos(a), cy + r * Math.sin(a)]); } };
+    const line = (x0, y0, x1, y1, n) => { for (let i = 0; i < n; i++) { const t = i / (n - 1); segs.push([x0 + (x1 - x0) * t, y0 + (y1 - y0) * t]); } };
+    arc(0, -0.52, 0.55, Math.PI, 2 * Math.PI, 16);            // head dome
+    line(-0.55, -0.45, 0.55, -0.45, 8);                       // head base / body top
+    line(-0.55, -0.38, -0.55, 0.52, 7);                       // body left
+    line(0.55, -0.38, 0.55, 0.52, 7);                         // body right
+    line(-0.55, 0.52, 0.55, 0.52, 7);                         // body bottom
+    line(-0.78, -0.38, -0.78, 0.12, 5);                       // arm left
+    line(0.78, -0.38, 0.78, 0.12, 5);                         // arm right
+    line(-0.26, 0.52, -0.26, 0.88, 4);                        // leg left
+    line(0.26, 0.52, 0.26, 0.88, 4);                          // leg right
+    line(-0.28, -1.0, -0.44, -1.22, 3);                       // antenna left
+    line(0.28, -1.0, 0.44, -1.22, 3);                         // antenna right
+    segs.push([-0.22, -0.72], [0.22, -0.72]);                 // eyes (last two)
+    // resample to exactly `count`
+    const out = [];
+    for (let i = 0; i < count; i++) out.push(segs[Math.floor(i * segs.length / count)]);
+    out[out.length - 2] = [-0.22, -0.72];
+    out[out.length - 1] = [0.22, -0.72];
+    return out;
+  };
+
+  // formation state machine: float -> gather -> hold -> release -> float
+  let mode = "float";
+  let modeT = 0;
+  const GATHER = 110, HOLD = 260;   // in frames (~60fps)
+  const startFormation = () => {
+    if (mode !== "float" || pts.length < 24 || document.hidden) return;
+    const scale = Math.min(W, H) * 0.19;
+    const cx = W * 0.5, cy = H * 0.46;
+    const targets = droidPoints(pts.length).map(([x, y]) => [cx + x * scale, cy + y * scale]);
+    // greedy nearest assignment so particles travel short, organic paths
+    const free = new Set(pts.map((_, i) => i));
+    for (const [tx, ty] of targets) {
+      let best = -1, bd = Infinity;
+      for (const i of free) {
+        const d = (pts[i].x - tx) ** 2 + (pts[i].y - ty) ** 2;
+        if (d < bd) { bd = d; best = i; }
+      }
+      pts[best].tx = tx; pts[best].ty = ty;
+      free.delete(best);
+    }
+    mode = "gather"; modeT = 0;
+  };
+  setTimeout(startFormation, 7000);
+  setInterval(startFormation, 42000);
+
   const LINK = 110, CURSOR = 160;
   let frames = 0, slow = 0, last = performance.now(), degraded = false;
   const frame = () => {
     const now = performance.now();
     const dt = now - last; last = now;
-    if (frames++ > 90) {           // skip warm-up
+    if (frames++ > 90 && !document.hidden && dt < 150) {
       if (dt > 24) slow++; else slow = Math.max(0, slow - 1);
-      if (slow > 45) {             // sustained under ~42fps
-        if (!degraded) { pts.length = Math.floor(pts.length / 2); degraded = true; slow = 0; }
-        else { canvas.remove(); return; }  // still struggling: retire the effect
+      if (slow > 45) {
+        if (!degraded) { pts.length = Math.max(36, Math.floor(pts.length / 2)); degraded = true; slow = 0; }
+        else { canvas.remove(); return; }
       }
     }
     if (!document.hidden) {
       ctx.clearRect(0, 0, W, H);
       const [r, g, b] = accent;
-      for (const p of pts) {
-        p.x += p.vx; p.y += p.vy;
-        if (p.x < 0 || p.x > W) p.vx *= -1;
-        if (p.y < 0 || p.y > H) p.vy *= -1;
-        ctx.fillStyle = `rgba(${r},${g},${b},0.35)`;
-        ctx.fillRect(p.x - 0.8, p.y - 0.8, 1.6, 1.6);
+      const formed = mode === "hold";
+      const forming = mode === "gather" || formed;
+
+      if (forming) {
+        modeT++;
+        const pull = mode === "gather" ? 0.075 : 0.16;
+        for (const p of pts) {
+          p.x += (p.tx - p.x) * pull;
+          p.y += (p.ty - p.y) * pull;
+        }
+        if (mode === "gather" && modeT > GATHER) { mode = "hold"; modeT = 0; }
+        else if (formed && modeT > HOLD) {
+          mode = "float";
+          for (const p of pts) { p.vx = (Math.random() - 0.5) * 0.5; p.vy = (Math.random() - 0.5) * 0.5; }
+        }
+      } else {
+        for (const p of pts) {
+          p.x += p.vx; p.y += p.vy;
+          p.vx = Math.max(-0.25, Math.min(0.25, p.vx * 0.999));
+          p.vy = Math.max(-0.25, Math.min(0.25, p.vy * 0.999));
+          if (p.x < 0 || p.x > W) p.vx *= -1;
+          if (p.y < 0 || p.y > H) p.vy *= -1;
+        }
+      }
+
+      const dotA = formed ? 0.7 : 0.35;
+      const linkA = formed ? 0.26 : 0.10;
+      const linkD = formed ? 64 : LINK;
+      for (let i = 0; i < pts.length; i++) {
+        const p = pts[i];
+        ctx.fillStyle = `rgba(${r},${g},${b},${dotA})`;
+        const s = formed ? 2.2 : 1.6;
+        ctx.fillRect(p.x - s / 2, p.y - s / 2, s, s);
+      }
+      // glowing eyes while the droid is formed
+      if (formed) {
+        const scale = Math.min(W, H) * 0.19;
+        for (const ex of [-0.22, 0.22]) {
+          ctx.beginPath();
+          ctx.arc(W * 0.5 + ex * scale, H * 0.46 - 0.72 * scale, 3.2, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${r},${g},${b},0.95)`;
+          ctx.shadowColor = `rgba(${r},${g},${b},0.9)`;
+          ctx.shadowBlur = 10;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
       }
       for (let i = 0; i < pts.length; i++) {
         for (let k = i + 1; k < pts.length; k++) {
           const dx = pts[i].x - pts[k].x, dy = pts[i].y - pts[k].y;
           const d = Math.hypot(dx, dy);
-          if (d < LINK) {
-            ctx.strokeStyle = `rgba(${r},${g},${b},${0.10 * (1 - d / LINK)})`;
+          if (d < linkD) {
+            ctx.strokeStyle = `rgba(${r},${g},${b},${linkA * (1 - d / linkD)})`;
             ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[k].x, pts[k].y); ctx.stroke();
           }
         }
-        const dm = Math.hypot(pts[i].x - mouse.x, pts[i].y - mouse.y);
-        if (dm < CURSOR) {
-          ctx.strokeStyle = `rgba(${r},${g},${b},${0.22 * (1 - dm / CURSOR)})`;
-          ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+        if (!forming) {
+          const dm = Math.hypot(pts[i].x - mouse.x, pts[i].y - mouse.y);
+          if (dm < CURSOR) {
+            ctx.strokeStyle = `rgba(${r},${g},${b},${0.22 * (1 - dm / CURSOR)})`;
+            ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+          }
         }
       }
     }
