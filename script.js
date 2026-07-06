@@ -330,11 +330,15 @@ if (coverImg && !reducedMotion) {
   const out = document.getElementById("visit-count");
   if (!box || !out) return;
   try {
-    const mode = sessionStorage.getItem("counted") ? "get" : "hit";
-    const res = await fetch(`https://abacus.jasoncameron.dev/${mode}/devrath-github-io/visits`);
+    // Count each browser at most once per 24h (localStorage is shared
+    // across tabs, unlike sessionStorage which is per-tab).
+    const last = Number(localStorage.getItem("visitCountedAt") || 0);
+    const stale = Date.now() - last > 24 * 60 * 60 * 1000;
+    const mode = stale ? "hit" : "get";
+    const res = await fetch(`https://abacus.jasoncameron.dev/${mode}/devrath-github-io/uv`);
     const { value } = await res.json();
     if (!Number.isFinite(value)) return;
-    sessionStorage.setItem("counted", "1");
+    if (stale) localStorage.setItem("visitCountedAt", String(Date.now()));
     box.hidden = false;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       out.textContent = value.toLocaleString();
