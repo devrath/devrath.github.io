@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://devrath.github.io/sitemap.xml

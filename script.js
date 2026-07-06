@@ -420,3 +420,99 @@ document.querySelectorAll(".content section[id] .section-heading h3").forEach((h
   a.setAttribute("aria-label", `Link to the ${id} section`);
   h3.appendChild(a);
 });
+
+// Rotating hero pull-quote (best lines from the recommendations).
+const HERO_QUOTES = [
+  ["“Brilliant engineer!”", "— Divyanshu Grover · VP, Mobile Premier League"],
+  ["“One of the most driven and collaborative professionals I've met.”", "— Richard Chao · Project Manager"],
+  ["“Kept a high bar on code quality — any team will be lucky to have him.”", "— Advait Alai · Product Head, Amazon Japan"],
+];
+const quoteEl = document.getElementById("hero-quote-text");
+const quoteBy = document.getElementById("hero-quote-by");
+if (quoteEl && quoteBy && !reducedMotion) {
+  let qi = 0;
+  setInterval(() => {
+    const fig = quoteEl.closest(".hero-quote");
+    fig.classList.add("fading");
+    setTimeout(() => {
+      qi = (qi + 1) % HERO_QUOTES.length;
+      quoteEl.textContent = HERO_QUOTES[qi][0];
+      quoteBy.textContent = HERO_QUOTES[qi][1];
+      fig.classList.remove("fading");
+    }, 460);
+  }, 7000);
+}
+
+// Command palette (⌘K / Ctrl+K)
+const palette = document.getElementById("palette");
+if (palette) {
+  const input = document.getElementById("palette-input");
+  const list = document.getElementById("palette-list");
+  const COMMANDS = [
+    ...[...document.querySelectorAll(".content section[id]")].map((sec) => ({
+      label: sec.querySelector("h3")?.textContent.replace("#", "").trim() || sec.id,
+      kind: "Jump",
+      run: () => sec.scrollIntoView({ behavior: "smooth" }),
+    })),
+    { label: "Toggle theme", kind: "Action", run: () => document.getElementById("theme-toggle").click() },
+    { label: "Copy email address", kind: "Action", run: () => navigator.clipboard?.writeText("devrath.dev595@gmail.com") },
+    { label: "Email me", kind: "Action", run: () => { location.href = "mailto:devrath.dev595@gmail.com"; } },
+    { label: "GitHub", kind: "Open", run: () => open("https://github.com/devrath", "_blank") },
+    { label: "LinkedIn", kind: "Open", run: () => open("https://www.linkedin.com/in/devrath-ad-01b59022/", "_blank") },
+    { label: "Stack Overflow", kind: "Open", run: () => open("https://stackoverflow.com/users/1083093/devrath", "_blank") },
+    { label: "Medium", kind: "Open", run: () => open("https://medium.com/@devrath.dev595", "_blank") },
+    { label: "Tunify on Google Play", kind: "Open", run: () => open("https://play.google.com/store/apps/details?id=com.istudio.tunify", "_blank") },
+  ];
+  let filtered = COMMANDS;
+  let sel = 0;
+
+  const render = () => {
+    list.innerHTML = "";
+    filtered.forEach((cmd, i) => {
+      const li = document.createElement("li");
+      li.textContent = cmd.label;
+      const kind = document.createElement("span");
+      kind.className = "p-kind";
+      kind.textContent = cmd.kind;
+      li.appendChild(kind);
+      li.setAttribute("role", "option");
+      if (i === sel) li.classList.add("selected");
+      li.addEventListener("click", () => { runCmd(cmd); });
+      li.addEventListener("mousemove", () => { sel = i; render(); });
+      list.appendChild(li);
+    });
+  };
+
+  const openPalette = () => {
+    palette.hidden = false;
+    input.value = "";
+    filtered = COMMANDS;
+    sel = 0;
+    render();
+    input.focus();
+  };
+  const closePalette = () => { palette.hidden = true; };
+  const runCmd = (cmd) => { closePalette(); cmd.run(); };
+
+  addEventListener("keydown", (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+      e.preventDefault();
+      palette.hidden ? openPalette() : closePalette();
+    } else if (!palette.hidden) {
+      if (e.key === "Escape") closePalette();
+      else if (e.key === "ArrowDown") { e.preventDefault(); sel = Math.min(sel + 1, filtered.length - 1); render(); list.children[sel]?.scrollIntoView({ block: "nearest" }); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); sel = Math.max(sel - 1, 0); render(); list.children[sel]?.scrollIntoView({ block: "nearest" }); }
+      else if (e.key === "Enter" && filtered[sel]) runCmd(filtered[sel]);
+    }
+  });
+
+  input.addEventListener("input", () => {
+    const q = input.value.trim().toLowerCase();
+    filtered = COMMANDS.filter((c) => c.label.toLowerCase().includes(q));
+    sel = 0;
+    render();
+  });
+
+  palette.querySelector("[data-close]").addEventListener("click", closePalette);
+  document.getElementById("palette-hint")?.addEventListener("click", openPalette);
+}
