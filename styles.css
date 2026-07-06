@@ -964,3 +964,27 @@ body.typing #tagline-caret {
 .proj-title h4 { margin: 0; }
 
 .proj-title .item-sub { margin-top: 0.15rem; }
+
+/* ---------- Visit counter ---------- */
+#visit-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.8rem;
+  padding: 0.35rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  background-color: var(--bg-card);
+  font-size: 0.78rem;
+  color: var(--text);
+}
+
+#visit-counter svg { color: var(--accent); }
+
+#visit-count {
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+#visit-counter[hidden] { display: none; }

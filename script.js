@@ -322,3 +322,31 @@ if (coverImg && !reducedMotion) {
   }, { passive: true });
   parallax();
 }
+
+// Visit counter (Abacus — anonymous, cookie-free). Counts once per browser
+// session; other page loads just read the current total.
+(async () => {
+  const box = document.getElementById("visit-counter");
+  const out = document.getElementById("visit-count");
+  if (!box || !out) return;
+  try {
+    const mode = sessionStorage.getItem("counted") ? "get" : "hit";
+    const res = await fetch(`https://abacus.jasoncameron.dev/${mode}/devrath-github-io/visits`);
+    const { value } = await res.json();
+    if (!Number.isFinite(value)) return;
+    sessionStorage.setItem("counted", "1");
+    box.hidden = false;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      out.textContent = value.toLocaleString();
+      return;
+    }
+    const t0 = performance.now();
+    const dur = 1000;
+    const tick = (t) => {
+      const p = Math.min((t - t0) / dur, 1);
+      out.textContent = Math.round(value * (1 - Math.pow(1 - p, 3))).toLocaleString();
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  } catch { /* counter is decorative — fail silently */ }
+})();
