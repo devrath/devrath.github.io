@@ -323,3 +323,19 @@ if (coverImg && !reducedMotion) {
   parallax();
 }
 
+
+// Print: expand every experience accordion so the paper resume is complete,
+// then restore the reader's open/closed state afterwards.
+let printSnapshot = null;
+addEventListener("beforeprint", () => {
+  const details = [...document.querySelectorAll("details.tl-details")];
+  printSnapshot = details.map((d) => d.open);
+  details.forEach((d) => { d.open = true; });
+});
+addEventListener("afterprint", () => {
+  if (!printSnapshot) return;
+  [...document.querySelectorAll("details.tl-details")].forEach((d, i) => {
+    d.open = printSnapshot[i];
+  });
+  printSnapshot = null;
+});

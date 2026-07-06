@@ -965,3 +965,124 @@ body.typing #tagline-caret {
 
 .proj-title .item-sub { margin-top: 0.15rem; }
 
+
+/* ---------- Corner monogram ---------- */
+#monogram {
+  position: fixed;
+  top: 1.1rem;
+  left: 1.25rem;
+  z-index: 30;
+  color: var(--accent);
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+#monogram:hover {
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 8px rgba(61, 220, 132, 0.5));
+}
+
+#monogram text { font-family: "Roboto", sans-serif; }
+
+/* ---------- Get in touch ---------- */
+.contact-lede {
+  max-width: 34rem;
+  font-size: 1.05rem;
+}
+
+.cta-button {
+  display: inline-block;
+  margin-top: 1.25rem;
+  padding: 0.85rem 2rem;
+  border: 1px solid var(--accent);
+  border-radius: 0.5rem;
+  color: var(--accent);
+  font-weight: 600;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.cta-button:hover {
+  background-color: var(--accent);
+  color: var(--bg);
+  transform: translateY(-2px);
+}
+
+/* ---------- Section numbering ---------- */
+.content { counter-reset: sec; }
+
+.content section .section-heading h3::before {
+  counter-increment: sec;
+  content: counter(sec, decimal-leading-zero);
+  color: var(--accent);
+  font-weight: 400;
+  opacity: 0.65;
+  letter-spacing: 0.05em;
+}
+
+/* ---------- Custom scrollbar ---------- */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(61, 220, 132, 0.35) var(--bg);
+}
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb {
+  background: rgba(61, 220, 132, 0.3);
+  border-radius: 5px;
+  border: 2px solid var(--bg);
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(61, 220, 132, 0.55); }
+
+html[data-theme="light"] {
+  scrollbar-color: rgba(10, 143, 78, 0.4) var(--bg);
+}
+
+/* ---------- Print: clean paper resume from the same content ---------- */
+@media print {
+  #loader, #spotlight, #progress, #theme-toggle, #monogram,
+  .site-nav, .reco-carousel, .project-cover, .cta-button,
+  #tagline-caret { display: none !important; }
+
+  html { scrollbar-width: auto; }
+
+  body {
+    background: #fff !important;
+    color: #1e293b !important;
+    font-size: 11pt;
+  }
+
+  .layout { display: block; max-width: none; padding: 0; }
+  .sidebar { position: static; width: auto; max-height: none; padding: 0 0 1rem; }
+  .content { width: auto; padding: 0; }
+
+  .sidebar h1, .sidebar h2, .section-heading h3, h4, h5,
+  .stat-value, .tl-node h4, .honor-list h4, .reco-name {
+    color: #0f172a !important;
+  }
+
+  section { margin-bottom: 1.6rem; break-inside: avoid-page; }
+
+  .will-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+
+  .stat, .honor-list li, .tl-summary, .reco-card {
+    background: #fff !important;
+    border: 1px solid #cbd5e1 !important;
+    break-inside: avoid;
+  }
+
+  .pills li { background: #f1f5f9 !important; color: #334155 !important; }
+
+  .sh-icon, .stat-value, .tl-date, #visit-count { color: #0f172a !important; }
+
+  .timeline::before { background: #94a3b8 !important; }
+  .tl-node::before { border-color: #475569 !important; animation: none !important; }
+
+  /* show destinations for the links that matter */
+  .inline-cta[href]::after, .contact-lede + .cta-button[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #64748b;
+  }
+
+  #reco-fallback { display: block !important; }
+}
