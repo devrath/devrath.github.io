@@ -339,3 +339,68 @@ addEventListener("afterprint", () => {
   });
   printSnapshot = null;
 });
+
+// Live Bengaluru clock in the footer.
+const localTime = document.getElementById("local-time");
+if (localTime) {
+  const fmt = new Intl.DateTimeFormat("en-GB", {
+    hour: "2-digit", minute: "2-digit", timeZone: "Asia/Kolkata",
+  });
+  const tickClock = () => { localTime.textContent = `${fmt.format(new Date())} IST, Bengaluru`; };
+  tickClock();
+  setInterval(tickClock, 15000);
+}
+
+// Theme toggle: circular reveal via the View Transitions API when available.
+if (themeToggle && document.startViewTransition && !reducedMotion) {
+  const applyToggle = () => {
+    const root = document.documentElement;
+    const light = root.getAttribute("data-theme") === "light";
+    if (light) { root.removeAttribute("data-theme"); localStorage.setItem("theme", "dark"); }
+    else { root.setAttribute("data-theme", "light"); localStorage.setItem("theme", "light"); }
+    applyThemeColor();
+  };
+  // replace the plain listener with the animated one
+  const clone = themeToggle.cloneNode(true);
+  themeToggle.replaceWith(clone);
+  clone.addEventListener("click", () => {
+    const r = clone.getBoundingClientRect();
+    const cx = r.left + r.width / 2;
+    const cy = r.top + r.height / 2;
+    const radius = Math.hypot(Math.max(cx, innerWidth - cx), Math.max(cy, innerHeight - cy));
+    const vt = document.startViewTransition(applyToggle);
+    vt.ready.then(() => {
+      document.documentElement.animate(
+        { clipPath: [`circle(0px at ${cx}px ${cy}px)`, `circle(${radius}px at ${cx}px ${cy}px)`] },
+        { duration: 550, easing: "ease-in-out", pseudoElement: "::view-transition-new(root)" }
+      );
+    });
+  });
+}
+
+// Trailer blur-up: keep the tiny poster visible until the GIF has loaded.
+const trailerImg = document.querySelector(".project-cover img");
+if (trailerImg && !trailerImg.complete) {
+  trailerImg.classList.add("gif-loading");
+  trailerImg.addEventListener("load", () => trailerImg.classList.remove("gif-loading"), { once: true });
+}
+
+// Easter egg: five quick clicks on the monogram sends a robot across the screen.
+const monogram = document.getElementById("monogram");
+if (monogram) {
+  let clicks = 0, timer = null;
+  monogram.addEventListener("click", () => {
+    clicks += 1;
+    clearTimeout(timer);
+    timer = setTimeout(() => { clicks = 0; }, 1600);
+    if (clicks >= 5 && !document.getElementById("egg-bot") && !reducedMotion) {
+      clicks = 0;
+      const bot = document.createElement("div");
+      bot.id = "egg-bot";
+      bot.title = "beep boop";
+      bot.innerHTML = `<svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.29-.15-.65-.06-.83.22l-1.88 3.24a11.46 11.46 0 0 0-8.94 0L5.65 5.67c-.19-.29-.58-.38-.87-.2-.28.18-.37.54-.22.83l1.84 3.18C3.45 11.15 1.5 13.09 1.5 16h21c0-2.91-1.95-4.85-4.9-6.52zM7 14.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zm10 0c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>`;
+      document.body.appendChild(bot);
+      bot.addEventListener("animationend", () => bot.remove(), { once: true });
+    }
+  });
+}

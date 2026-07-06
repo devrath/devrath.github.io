@@ -1086,3 +1086,123 @@ html[data-theme="light"] {
 
   #reco-fallback { display: block !important; }
 }
+
+/* ---------- Status indicator ---------- */
+.status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.7rem;
+  font-size: 0.85rem;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  animation: dot-ping 2.6s ease-out infinite;
+}
+
+body.cascade .status { animation: rise 0.5s ease both 0.2s; }
+
+/* ---------- Footer clock ---------- */
+#local-time { white-space: nowrap; }
+#local-time:not(:empty)::before { content: " · "; }
+
+/* ---------- Social icon boop ---------- */
+.socials a:hover { transform: none; }
+.socials a:hover svg {
+  transition: transform 0.3s cubic-bezier(0.3, 1.8, 0.5, 1);
+}
+.socials li:nth-child(odd) a:hover svg { transform: scale(1.18) rotate(-8deg); }
+.socials li:nth-child(even) a:hover svg { transform: scale(1.18) rotate(8deg); }
+.socials a svg { transition: transform 0.3s cubic-bezier(0.3, 1.8, 0.5, 1); }
+
+/* ---------- Monogram redraw on hover ---------- */
+#monogram path { stroke-dasharray: 300; stroke-dashoffset: 0; }
+#monogram:hover path { animation: hex-redraw 0.9s ease; }
+@keyframes hex-redraw {
+  from { stroke-dashoffset: 300; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* ---------- Theme-switch circular reveal ---------- */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* ---------- Trailer blur-up ---------- */
+.project-cover {
+  background: url("data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABIMDRANCxIQDhAUExIVGywdGxgYGzYnKSAsQDlEQz85Pj1HUGZXR0thTT0+WXlaYWltcnNyRVV9hnxvhWZwcm7/2wBDARMUFBsXGzQdHTRuST5Jbm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm7/wAARCAASACADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDiVGTTiMUiNg05m3GmA2kNP4xTDzQAgp1FFABQKKKAP//Z") center / cover no-repeat;
+}
+
+.project-cover img { transition: opacity 0.5s ease, transform 0.25s ease; }
+.project-cover img.gif-loading { opacity: 0; }
+
+/* ---------- Tap polish (mobile) ---------- */
+* { -webkit-tap-highlight-color: transparent; }
+a:active, button:active, .pills li:active { transform: scale(0.97); }
+.cta-button:active { transform: translateY(0) scale(0.98); }
+
+/* ---------- Scroll-driven timeline fill ---------- */
+@supports (animation-timeline: view()) {
+  .timeline::before { opacity: 0.25; }
+  .timeline::after {
+    content: "";
+    position: absolute;
+    top: 0.4rem;
+    bottom: 0.4rem;
+    left: 0.42rem;
+    width: 2px;
+    background: var(--accent);
+    transform-origin: top;
+    animation: trunk-fill linear both;
+    animation-timeline: view();
+    animation-range: entry 15% cover 65%;
+  }
+  @keyframes trunk-fill {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+  }
+}
+
+/* ---------- Easter egg robot ---------- */
+#egg-bot {
+  position: fixed;
+  bottom: 8px;
+  left: -60px;
+  z-index: 60;
+  color: var(--accent);
+  pointer-events: none;
+  animation: bot-walk 4s linear forwards;
+}
+
+@keyframes bot-walk {
+  0% { left: -60px; transform: translateY(0); }
+  10% { transform: translateY(-6px); }
+  20% { transform: translateY(0); }
+  30% { transform: translateY(-6px); }
+  40% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  60% { transform: translateY(0); }
+  70% { transform: translateY(-6px); }
+  80% { transform: translateY(0); }
+  90% { transform: translateY(-6px); }
+  100% { left: calc(100vw + 60px); transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status-dot { animation: none; }
+  #monogram:hover path { animation: none; }
+  .socials li a:hover svg { transform: none; }
+  .timeline::before { opacity: 1; }
+  .timeline::after { display: none; }
+  #egg-bot { display: none; }
+}
+
+@media print {
+  #local-time, .status, #egg-bot { display: none !important; }
+}
