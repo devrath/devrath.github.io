@@ -1,4 +1,20 @@
-/* Self-hosted Roboto (variable, latin) */
+/* Self-hosted fonts (latin) */
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("fonts/space-grotesk.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Caveat";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/caveat.woff2") format("woff2");
+}
+
 @font-face {
   font-family: "Roboto";
   font-style: normal;
@@ -9,6 +25,11 @@
 
 /* ---------- Base ---------- */
 :root {
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.3, 1.8, 0.5, 1);
+  --dur-quick: 0.2s;
+  --dur-med: 0.45s;
+  --dur-slow: 0.6s;
   --bg: #0f172a;            /* slate-900 */
   --bg-card: rgba(30, 41, 59, 0.5);
   --text: #94a3b8;          /* slate-400 */
@@ -79,6 +100,7 @@ code {
 }
 
 .sidebar h1 {
+  font-family: "Space Grotesk", "Roboto", sans-serif;
   font-size: clamp(2.5rem, 6vw, 3.25rem);
   font-weight: 700;
   letter-spacing: -0.03em;
@@ -124,7 +146,7 @@ code {
   width: 2rem;
   height: 1px;
   background-color: var(--text);
-  transition: width 0.25s ease, background-color 0.25s ease;
+  transition: width var(--dur-quick) var(--ease), background-color var(--dur-quick) var(--ease);
 }
 
 .nav-link:hover .nav-text,
@@ -147,7 +169,7 @@ code {
 .socials a {
   display: block;
   color: var(--text);
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition: color var(--dur-quick) var(--ease), transform var(--dur-quick) var(--ease);
 }
 
 .socials a:hover { color: var(--accent); transform: translateY(-2px); }
@@ -186,6 +208,7 @@ section:last-of-type { margin-bottom: 2rem; }
 }
 
 .section-heading h3 {
+  font-family: "Space Grotesk", "Roboto", sans-serif;
   display: flex;
   align-items: center;
   gap: 0.6rem;
@@ -208,7 +231,7 @@ section > p { margin-bottom: 1rem; }
 section p a {
   color: var(--text-bright);
   font-weight: 500;
-  transition: color 0.2s ease;
+  transition: color var(--dur-quick) var(--ease);
 }
 
 section p a:hover { color: var(--accent); }
@@ -377,7 +400,7 @@ section p strong { color: var(--text-bright); font-weight: 600; }
   border-radius: 50%;
   background-color: var(--bg);
   border: 2px solid var(--accent);
-  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  transition: background-color var(--dur-quick) var(--ease), box-shadow var(--dur-quick) var(--ease);
 }
 
 .tl-node:hover::before {
@@ -407,7 +430,7 @@ section p strong { color: var(--text-bright); font-weight: 600; }
   color: var(--text-bright);
 }
 
-.tl-node h4 a { transition: color 0.2s ease; }
+.tl-node h4 a { transition: color var(--dur-quick) var(--ease); }
 
 .tl-node h4 a:hover { color: var(--accent); }
 
@@ -426,7 +449,7 @@ section p strong { color: var(--text-bright); font-weight: 600; }
   height: 1em;
   margin-left: 0.25rem;
   vertical-align: -0.15em;
-  transition: transform 0.2s ease;
+  transition: transform var(--dur-quick) var(--ease);
 }
 
 .tl-node h4 a:hover .arrow,
@@ -525,7 +548,7 @@ section p strong { color: var(--text-bright); font-weight: 600; }
   margin-top: 1.5rem;
   font-weight: 600;
   color: var(--text-bright);
-  transition: color 0.2s ease;
+  transition: color var(--dur-quick) var(--ease);
 }
 
 .inline-cta:hover { color: var(--accent); }
@@ -557,7 +580,7 @@ section p strong { color: var(--text-bright); font-weight: 600; }
   border-right: 2px solid var(--text);
   border-bottom: 2px solid var(--text);
   transform: rotate(45deg);
-  transition: transform 0.2s ease, top 0.2s ease;
+  transition: transform var(--dur-quick) var(--ease), top var(--dur-quick) var(--ease);
 }
 
 .tl-details[open] summary::after {
@@ -595,7 +618,7 @@ section p strong { color: var(--text-bright); font-weight: 600; }
 .will-reveal {
   opacity: 0;
   transform: translateY(18px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition: opacity var(--dur-slow) var(--ease), transform var(--dur-slow) var(--ease);
 }
 
 .will-reveal.revealed {
@@ -607,7 +630,7 @@ section p strong { color: var(--text-bright); font-weight: 600; }
 .honor-list li,
 .stat,
 .tl-summary {
-  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  transition: transform var(--dur-quick) var(--ease), border-color var(--dur-quick) var(--ease), box-shadow var(--dur-quick) var(--ease);
 }
 
 .honor-list li:hover,
@@ -665,7 +688,7 @@ section p a:hover {
   backdrop-filter: blur(8px);
   color: var(--text-bright);
   cursor: pointer;
-  transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  transition: color var(--dur-quick) var(--ease), border-color var(--dur-quick) var(--ease), transform var(--dur-quick) var(--ease);
 }
 
 #theme-toggle:hover {
@@ -735,7 +758,7 @@ html[data-theme="light"] .site-footer {
   border-radius: 0.75rem;
   overflow: hidden;
   border: 1px solid var(--border);
-  transition: border-color 0.25s ease, transform 0.25s ease;
+  transition: border-color var(--dur-quick) var(--ease), transform var(--dur-quick) var(--ease);
 }
 
 .project-cover img {
@@ -763,7 +786,7 @@ body.loading { overflow: hidden; }
   display: grid;
   place-items: center;
   background-color: var(--bg);
-  transition: opacity 0.4s ease;
+  transition: opacity var(--dur-med) var(--ease);
 }
 
 #loader.done {
@@ -775,7 +798,7 @@ body.loading { overflow: hidden; }
   width: 90px;
   height: 90px;
   color: var(--accent);
-  animation: loader-pop 0.4s ease 1.45s forwards;
+  animation: loader-pop var(--dur-med) var(--ease) 1.45s forwards;
 }
 
 #loader .hex {
@@ -830,19 +853,19 @@ body.loading { overflow: hidden; }
   to { opacity: 1; transform: none; }
 }
 
-body.cascade .sidebar h1        { animation: rise 0.55s ease both 0.05s; }
-body.cascade .sidebar h2        { animation: rise 0.55s ease both 0.15s; }
-body.cascade .sidebar .tagline  { animation: rise 0.55s ease both 0.25s; }
-body.cascade .site-nav li:nth-child(1) { animation: rise 0.45s ease both 0.35s; }
-body.cascade .site-nav li:nth-child(2) { animation: rise 0.45s ease both 0.40s; }
-body.cascade .site-nav li:nth-child(3) { animation: rise 0.45s ease both 0.45s; }
-body.cascade .site-nav li:nth-child(4) { animation: rise 0.45s ease both 0.50s; }
-body.cascade .site-nav li:nth-child(5) { animation: rise 0.45s ease both 0.55s; }
-body.cascade .site-nav li:nth-child(6) { animation: rise 0.45s ease both 0.60s; }
-body.cascade .site-nav li:nth-child(7) { animation: rise 0.45s ease both 0.65s; }
-body.cascade .site-nav li:nth-child(8) { animation: rise 0.45s ease both 0.70s; }
-body.cascade .site-nav li:nth-child(9) { animation: rise 0.45s ease both 0.75s; }
-body.cascade .socials           { animation: rise 0.55s ease both 0.85s; }
+body.cascade .sidebar h1        { animation: rise var(--dur-med) var(--ease) both 0.05s; }
+body.cascade .sidebar h2        { animation: rise var(--dur-med) var(--ease) both 0.15s; }
+body.cascade .sidebar .tagline  { animation: rise var(--dur-med) var(--ease) both 0.25s; }
+body.cascade .site-nav li:nth-child(1) { animation: rise var(--dur-med) var(--ease) both 0.35s; }
+body.cascade .site-nav li:nth-child(2) { animation: rise var(--dur-med) var(--ease) both 0.40s; }
+body.cascade .site-nav li:nth-child(3) { animation: rise var(--dur-med) var(--ease) both 0.45s; }
+body.cascade .site-nav li:nth-child(4) { animation: rise var(--dur-med) var(--ease) both 0.50s; }
+body.cascade .site-nav li:nth-child(5) { animation: rise var(--dur-med) var(--ease) both 0.55s; }
+body.cascade .site-nav li:nth-child(6) { animation: rise var(--dur-med) var(--ease) both 0.60s; }
+body.cascade .site-nav li:nth-child(7) { animation: rise var(--dur-med) var(--ease) both 0.65s; }
+body.cascade .site-nav li:nth-child(8) { animation: rise var(--dur-med) var(--ease) both 0.70s; }
+body.cascade .site-nav li:nth-child(9) { animation: rise var(--dur-med) var(--ease) both 0.75s; }
+body.cascade .socials           { animation: rise var(--dur-med) var(--ease) both 0.85s; }
 
 /* ---------- "Present" dot radar ping ---------- */
 @keyframes dot-ping {
@@ -867,7 +890,7 @@ html[data-theme="light"] .tl-node:first-child::before {
 
 /* ---------- Pill micro-interaction ---------- */
 .pills li {
-  transition: transform 0.15s ease, background-color 0.15s ease;
+  transition: transform var(--dur-quick) var(--ease), background-color var(--dur-quick) var(--ease);
 }
 
 .pills li:hover {
@@ -964,7 +987,7 @@ body.typing #tagline-caret {
   left: 1.25rem;
   z-index: 30;
   color: var(--accent);
-  transition: transform 0.2s ease, filter 0.2s ease;
+  transition: transform var(--dur-quick) var(--ease), filter var(--dur-quick) var(--ease);
 }
 
 #monogram:hover {
@@ -988,7 +1011,7 @@ body.typing #tagline-caret {
   border-radius: 0.5rem;
   color: var(--accent);
   font-weight: 600;
-  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  transition: background-color var(--dur-quick) var(--ease), color var(--dur-quick) var(--ease), transform var(--dur-quick) var(--ease);
 }
 
 .cta-button:hover {
@@ -1095,16 +1118,16 @@ html[data-theme="light"] {
   animation: dot-ping 2.6s ease-out infinite;
 }
 
-body.cascade .status { animation: rise 0.5s ease both 0.2s; }
+body.cascade .status { animation: rise var(--dur-med) var(--ease) both 0.2s; }
 
 /* ---------- Social icon boop ---------- */
 .socials a:hover { transform: none; }
 .socials a:hover svg {
-  transition: transform 0.3s cubic-bezier(0.3, 1.8, 0.5, 1);
+  transition: transform 0.3s var(--ease-spring);
 }
 .socials li:nth-child(odd) a:hover svg { transform: scale(1.18) rotate(-8deg); }
 .socials li:nth-child(even) a:hover svg { transform: scale(1.18) rotate(8deg); }
-.socials a svg { transition: transform 0.3s cubic-bezier(0.3, 1.8, 0.5, 1); }
+.socials a svg { transition: transform 0.3s var(--ease-spring); }
 
 /* ---------- Monogram redraw on hover ---------- */
 #monogram path { stroke-dasharray: 300; stroke-dashoffset: 0; }
@@ -1127,7 +1150,7 @@ body.cascade .status { animation: rise 0.5s ease both 0.2s; }
 }
 
 .project-cover img,
-.project-cover video { transition: opacity 0.5s ease, transform 0.25s ease; }
+.project-cover video { transition: opacity var(--dur-med) var(--ease), transform var(--dur-quick) var(--ease); }
 .project-cover img.gif-loading,
 .project-cover video.gif-loading { opacity: 0; }
 
@@ -1247,7 +1270,7 @@ a:active, button:active, .pills li:active { transform: scale(0.97); }
   background-color: var(--accent);
   color: var(--bg);
   font-weight: 600;
-  transition: transform 0.2s ease;
+  transition: transform var(--dur-quick) var(--ease);
 }
 
 .skip-link:focus-visible { transform: translate(-50%, 0); }
@@ -1258,7 +1281,7 @@ a:active, button:active, .pills li:active { transform: scale(0.97); }
   color: var(--accent);
   font-weight: 400;
   opacity: 0;
-  transition: opacity 0.15s ease;
+  transition: opacity var(--dur-quick) var(--ease);
 }
 
 .section-heading:hover .anchor-link,
@@ -1280,19 +1303,19 @@ a:active, button:active, .pills li:active { transform: scale(0.97); }
   font-size: 0.92rem;
   font-style: italic;
   color: var(--text-bright);
-  transition: opacity 0.45s ease;
+  transition: opacity var(--dur-med) var(--ease);
 }
 
 .hero-quote figcaption {
   margin-top: 0.3rem;
   font-size: 0.75rem;
-  transition: opacity 0.45s ease;
+  transition: opacity var(--dur-med) var(--ease);
 }
 
 .hero-quote.fading blockquote,
 .hero-quote.fading figcaption { opacity: 0; }
 
-body.cascade .hero-quote { animation: rise 0.5s ease both 0.3s; }
+body.cascade .hero-quote { animation: rise var(--dur-med) var(--ease) both 0.3s; }
 
 /* ---------- Command palette ---------- */
 #palette-hint {
@@ -1311,7 +1334,7 @@ body.cascade .hero-quote { animation: rise 0.5s ease both 0.3s; }
   font-weight: 600;
   letter-spacing: 0.05em;
   cursor: pointer;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition: color var(--dur-quick) var(--ease), border-color var(--dur-quick) var(--ease);
 }
 
 #palette-hint:hover { color: var(--accent); border-color: rgba(61, 220, 132, 0.35); }
@@ -1344,7 +1367,7 @@ body.cascade .hero-quote { animation: rise 0.5s ease both 0.3s; }
   background-color: var(--bg);
   box-shadow: 0 24px 64px rgba(2, 6, 23, 0.6);
   overflow: hidden;
-  animation: palette-in 0.18s ease;
+  animation: palette-in var(--dur-quick) var(--ease);
 }
 
 @keyframes palette-in {
@@ -1485,12 +1508,12 @@ html[data-theme="light"] .code-card .kw { color: #3ddc84; }
   font-size: 0.68rem;
   letter-spacing: 0.01em;
   cursor: default;
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  transition: border-color var(--dur-quick) var(--ease), transform var(--dur-quick) var(--ease);
 }
 
 .award-chips li:hover { border-color: rgba(61, 220, 132, 0.4); transform: translateY(-1px); }
 
-body.cascade .award-chips { animation: rise 0.5s ease both 0.33s; }
+body.cascade .award-chips { animation: rise var(--dur-med) var(--ease) both 0.33s; }
 
 /* ---------- Tenure tooltips on company logos ---------- */
 .tl-head { position: relative; }
@@ -1512,7 +1535,7 @@ body.cascade .award-chips { animation: rise 0.5s ease both 0.33s; }
   opacity: 0;
   transform: translateY(4px);
   pointer-events: none;
-  transition: opacity 0.15s ease, transform 0.15s ease;
+  transition: opacity var(--dur-quick) var(--ease), transform var(--dur-quick) var(--ease);
 }
 
 .tl-head[data-tip]:hover::after { opacity: 1; transform: none; }
@@ -1532,7 +1555,7 @@ body.cascade .award-chips { animation: rise 0.5s ease both 0.33s; }
   backdrop-filter: blur(10px);
   font-family: ui-monospace, "SF Mono", Menlo, monospace;
   font-size: 0.82rem;
-  animation: term-in 0.18s ease;
+  animation: term-in var(--dur-quick) var(--ease);
 }
 
 #terminal[hidden] { display: none; }
@@ -1578,4 +1601,105 @@ body.cascade .award-chips { animation: rise 0.5s ease both 0.33s; }
 @media print {
   #constellation, #terminal, .award-chips { display: none !important; }
   .code-card { display: none !important; }
+}
+
+/* ---------- Atmosphere: aurora + film grain ---------- */
+#aurora {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+#aurora::before,
+#aurora::after {
+  content: "";
+  position: absolute;
+  width: 55vmax;
+  height: 55vmax;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.13;
+}
+
+#aurora::before {
+  top: -20vmax;
+  left: -12vmax;
+  background: radial-gradient(circle, #3ddc84, transparent 65%);
+  animation: aurora-a 46s ease-in-out infinite alternate;
+}
+
+#aurora::after {
+  bottom: -24vmax;
+  right: -14vmax;
+  background: radial-gradient(circle, #1d4ed8, transparent 65%);
+  animation: aurora-b 58s ease-in-out infinite alternate;
+}
+
+@keyframes aurora-a {
+  to { transform: translate(9vmax, 7vmax) scale(1.15); }
+}
+
+@keyframes aurora-b {
+  to { transform: translate(-8vmax, -6vmax) scale(1.1); }
+}
+
+html[data-theme="light"] #aurora::before,
+html[data-theme="light"] #aurora::after { opacity: 0.08; }
+
+#grain {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+html[data-theme="light"] #grain { opacity: 0.05; }
+
+/* ---------- Hand-drawn signature ---------- */
+.signature {
+  max-width: 240px;
+  margin-top: 2.25rem;
+}
+
+.sig-text {
+  font-family: "Caveat", cursive;
+  font-size: 58px;
+  font-weight: 600;
+  fill: var(--text-bright);
+  opacity: 0;
+}
+
+.sig-flourish {
+  stroke: var(--accent);
+  stroke-dasharray: 260;
+  stroke-dashoffset: 260;
+}
+
+.signature.revealed .sig-text {
+  opacity: 1;
+  transition: opacity 0.9s var(--ease) 0.1s;
+}
+
+.signature.revealed .sig-flourish {
+  animation: sig-draw 0.9s var(--ease) 0.55s forwards;
+}
+
+@keyframes sig-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #aurora::before, #aurora::after { animation: none; }
+  .sig-text { opacity: 1; }
+  .sig-flourish { stroke-dashoffset: 0; }
+}
+
+@media print {
+  #aurora, #grain { display: none !important; }
+  .sig-text { fill: #0f172a; opacity: 1; }
+  .sig-flourish { stroke-dashoffset: 0; }
 }

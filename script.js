@@ -31,7 +31,17 @@
   addEventListener("mousemove", (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
   new MutationObserver(readAccent).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
   const LINK = 110, CURSOR = 160;
+  let frames = 0, slow = 0, last = performance.now(), degraded = false;
   const frame = () => {
+    const now = performance.now();
+    const dt = now - last; last = now;
+    if (frames++ > 90) {           // skip warm-up
+      if (dt > 24) slow++; else slow = Math.max(0, slow - 1);
+      if (slow > 45) {             // sustained under ~42fps
+        if (!degraded) { pts.length = Math.floor(pts.length / 2); degraded = true; slow = 0; }
+        else { canvas.remove(); return; }  // still struggling: retire the effect
+      }
+    }
     if (!document.hidden) {
       ctx.clearRect(0, 0, W, H);
       const [r, g, b] = accent;
@@ -224,7 +234,7 @@ renderRecommendations();
 // Scroll-reveal: fade sections and cards up as they enter the viewport.
 if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   const revealTargets = document.querySelectorAll(
-    "section, .honor-list li, .tl-node, .stat"
+    "section, .honor-list li, .tl-node, .stat, .signature"
   );
   const revealObserver = new IntersectionObserver(
     (entries) => {

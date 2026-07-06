@@ -19,6 +19,7 @@
   <meta name="twitter:image" content="https://devrath.github.io/og-image.png?v=3" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233DDC84'><path d='M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.29-.15-.65-.06-.83.22l-1.88 3.24a11.46 11.46 0 0 0-8.94 0L5.65 5.67c-.19-.29-.58-.38-.87-.2-.28.18-.37.54-.22.83l1.84 3.18C3.45 11.15 1.5 13.09 1.5 16h21c0-2.91-1.95-4.85-4.9-6.52zM7 14.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zm10 0c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z'/></svg>" />
   <link rel="preload" href="fonts/roboto.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -44,7 +45,7 @@
   }
   </script>
   <script>if(localStorage.getItem("theme")==="light")document.documentElement.setAttribute("data-theme","light");</script>
-  <link rel="stylesheet" href="styles.css?v=29" />
+  <link rel="stylesheet" href="styles.css?v=30" />
 </head>
 <body class="loading">
   <a class="skip-link" href="#about">Skip to content</a>
@@ -56,7 +57,9 @@
     </svg>
   </div>
   <noscript><style>#loader{display:none}</style></noscript>
+  <div id="aurora" aria-hidden="true"></div>
   <canvas id="constellation" aria-hidden="true"></canvas>
+  <div id="grain" aria-hidden="true"></div>
   <div id="progress" aria-hidden="true"></div>
 
   <a id="monogram" href="#" aria-label="Devrath AD — back to top">
@@ -708,6 +711,13 @@
           inbox is open, and I'll do my best to reply.
         </p>
         <a class="cta-button" href="mailto:devrath.dev595@gmail.com">Say hello</a>
+
+        <div class="signature" aria-hidden="true">
+          <svg viewBox="0 0 260 96">
+            <text x="4" y="58" class="sig-text">Devrath</text>
+            <path class="sig-flourish" fill="none" stroke-width="2.5" stroke-linecap="round" d="M6 78 C 70 92, 160 66, 254 76" />
+          </svg>
+        </div>
       </section>
 
       <footer class="site-footer">
@@ -730,6 +740,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=29"></script>
+  <script src="script.js?v=30"></script>
 </body>
 </html>
