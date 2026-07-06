@@ -1118,10 +1118,6 @@ html[data-theme="light"] {
 
 body.cascade .status { animation: rise 0.5s ease both 0.2s; }
 
-/* ---------- Footer clock ---------- */
-#local-time { white-space: nowrap; }
-#local-time:not(:empty)::before { content: " · "; }
-
 /* ---------- Social icon boop ---------- */
 .socials a:hover { transform: none; }
 .socials a:hover svg {
@@ -1218,7 +1214,7 @@ a:active, button:active, .pills li:active { transform: scale(0.97); }
 }
 
 @media print {
-  #local-time, .status, #egg-bot { display: none !important; }
+  .status, #egg-bot { display: none !important; }
 }
 
 /* ---------- Company logos in the experience tree ---------- */

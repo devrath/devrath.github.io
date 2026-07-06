@@ -340,17 +340,6 @@ addEventListener("afterprint", () => {
   printSnapshot = null;
 });
 
-// Live Bengaluru clock in the footer.
-const localTime = document.getElementById("local-time");
-if (localTime) {
-  const fmt = new Intl.DateTimeFormat("en-GB", {
-    hour: "2-digit", minute: "2-digit", timeZone: "Asia/Kolkata",
-  });
-  const tickClock = () => { localTime.textContent = `${fmt.format(new Date())} IST, Bengaluru`; };
-  tickClock();
-  setInterval(tickClock, 15000);
-}
-
 // Theme toggle: circular reveal via the View Transitions API when available.
 if (themeToggle && document.startViewTransition && !reducedMotion) {
   const applyToggle = () => {
