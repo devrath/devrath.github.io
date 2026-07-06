@@ -335,7 +335,7 @@ if (coverImg && !reducedMotion) {
     const last = Number(localStorage.getItem("visitCountedAt") || 0);
     const stale = Date.now() - last > 24 * 60 * 60 * 1000;
     const mode = stale ? "hit" : "get";
-    const res = await fetch(`https://abacus.jasoncameron.dev/${mode}/devrath-github-io/uv`);
+    const res = await fetch(`https://abacus.jasoncameron.dev/${mode}/devrath-github-io/unique-visits`);
     const { value } = await res.json();
     if (!Number.isFinite(value)) return;
     if (stale) localStorage.setItem("visitCountedAt", String(Date.now()));
