@@ -41,19 +41,6 @@ code {
   color: var(--text-bright);
 }
 
-/* Cursor spotlight */
-#spotlight {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background: radial-gradient(
-    600px at var(--x, 50%) var(--y, 50%),
-    rgba(29, 78, 216, 0.15),
-    transparent 80%
-  );
-}
-
 /* ---------- Layout ---------- */
 .layout {
   position: relative;
@@ -87,7 +74,7 @@ code {
     width: 42%;
     max-height: 100vh;
     overflow-y: auto;
-    padding: 3rem 0 2rem;
+    padding: 2.5rem 0 1.75rem;
   }
 }
 
@@ -125,7 +112,7 @@ code {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 0.36rem 0;
+  padding: 0.3rem 0;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.15em;
@@ -703,14 +690,6 @@ html[data-theme="light"] {
   --border: rgba(15, 23, 42, 0.1);
 }
 
-html[data-theme="light"] #spotlight {
-  background: radial-gradient(
-    600px at var(--x, 50%) var(--y, 50%),
-    rgba(10, 143, 78, 0.07),
-    transparent 80%
-  );
-}
-
 html[data-theme="light"] .section-heading {
   background-color: rgba(241, 245, 249, 0.85);
 }
@@ -1051,7 +1030,7 @@ html[data-theme="light"] {
 
 /* ---------- Print: clean paper resume from the same content ---------- */
 @media print {
-  #loader, #spotlight, #progress, #theme-toggle, #monogram,
+  #loader, #progress, #theme-toggle, #monogram,
   .site-nav, .reco-carousel, .project-cover, .cta-button,
   #tagline-caret { display: none !important; }
 
@@ -1104,7 +1083,7 @@ html[data-theme="light"] {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 0.7rem;
+  margin-top: 0.5rem;
   font-size: 0.85rem;
 }
 
@@ -1291,7 +1270,7 @@ a:active, button:active, .pills li:active { transform: scale(0.97); }
 
 /* ---------- Hero pull-quote ---------- */
 .hero-quote {
-  margin-top: 1rem;
+  margin-top: 0.75rem;
   padding-left: 0.9rem;
   border-left: 2px solid var(--accent);
   max-width: 21rem;
@@ -1430,4 +1409,173 @@ body.cascade .hero-quote { animation: rise 0.5s ease both 0.3s; }
 
 @media print {
   #palette, #palette-hint { display: none !important; }
+}
+
+/* ---------- Constellation background ---------- */
+#constellation {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ---------- Devrath.kt code card ---------- */
+.code-card {
+  margin-top: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+  background-color: rgba(2, 6, 23, 0.55);
+  overflow: hidden;
+}
+
+html[data-theme="light"] .code-card { background-color: #0f172a; }
+
+.code-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.6rem 0.9rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.code-bar .dot { width: 10px; height: 10px; border-radius: 50%; }
+.code-bar .r { background: #ff5f57; }
+.code-bar .y { background: #febc2e; }
+.code-bar .g { background: #28c840; }
+
+.code-file {
+  margin-left: 0.5rem;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.72rem;
+  color: rgba(148, 163, 184, 0.8);
+}
+
+.code-card pre {
+  padding: 1rem 1.1rem;
+  overflow-x: auto;
+}
+
+.code-card code {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.82rem;
+  line-height: 1.7;
+  color: #cbd5e1;
+}
+
+.code-card .kw { color: var(--accent); font-weight: 600; }
+html[data-theme="light"] .code-card .kw { color: #3ddc84; }
+.code-card .ty { color: #82aaff; }
+.code-card .st { color: #f4c430; }
+.code-card .fn { color: #c792ea; }
+
+/* ---------- Award chips ---------- */
+.award-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  list-style: none;
+  margin-top: 0.55rem;
+}
+
+.award-chips li {
+  padding: 0.22rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  background-color: var(--bg-card);
+  font-size: 0.68rem;
+  letter-spacing: 0.01em;
+  cursor: default;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.award-chips li:hover { border-color: rgba(61, 220, 132, 0.4); transform: translateY(-1px); }
+
+body.cascade .award-chips { animation: rise 0.5s ease both 0.33s; }
+
+/* ---------- Tenure tooltips on company logos ---------- */
+.tl-head { position: relative; }
+
+.tl-head[data-tip]::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 8px);
+  z-index: 20;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 0.4rem;
+  background-color: var(--bg);
+  color: var(--text-bright);
+  font-size: 0.7rem;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(4px);
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.tl-head[data-tip]:hover::after { opacity: 1; transform: none; }
+
+/* ---------- Terminal easter egg ---------- */
+#terminal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 210;
+  max-height: 45vh;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid rgba(61, 220, 132, 0.35);
+  background: rgba(2, 6, 23, 0.92);
+  backdrop-filter: blur(10px);
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.82rem;
+  animation: term-in 0.18s ease;
+}
+
+#terminal[hidden] { display: none; }
+
+@keyframes term-in {
+  from { transform: translateY(30%); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+#term-out {
+  overflow-y: auto;
+  padding: 0.9rem 1.1rem 0.3rem;
+  color: #cbd5e1;
+  white-space: pre-wrap;
+}
+
+#term-out .t-accent { color: var(--accent); }
+
+.term-line {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1.1rem 0.9rem;
+}
+
+.term-prompt { color: var(--accent); white-space: nowrap; }
+
+#term-in {
+  flex: 1;
+  border: none;
+  background: none;
+  outline: none;
+  color: #e2e8f0;
+  font-family: inherit;
+  font-size: inherit;
+  caret-color: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #constellation { display: none; }
+}
+
+@media print {
+  #constellation, #terminal, .award-chips { display: none !important; }
+  .code-card { display: none !important; }
 }

@@ -44,7 +44,7 @@
   }
   </script>
   <script>if(localStorage.getItem("theme")==="light")document.documentElement.setAttribute("data-theme","light");</script>
-  <link rel="stylesheet" href="styles.css?v=28" />
+  <link rel="stylesheet" href="styles.css?v=29" />
 </head>
 <body class="loading">
   <a class="skip-link" href="#about">Skip to content</a>
@@ -56,7 +56,7 @@
     </svg>
   </div>
   <noscript><style>#loader{display:none}</style></noscript>
-  <div id="spotlight" aria-hidden="true"></div>
+  <canvas id="constellation" aria-hidden="true"></canvas>
   <div id="progress" aria-hidden="true"></div>
 
   <a id="monogram" href="#" aria-label="Devrath AD — back to top">
@@ -86,6 +86,12 @@
           <blockquote id="hero-quote-text">“Brilliant engineer!”</blockquote>
           <figcaption id="hero-quote-by">— Divyanshu Grover · VP, Mobile Premier League</figcaption>
         </figure>
+
+        <ul class="award-chips" aria-label="Highlights">
+          <li title="Professional Publishers Association, Video Content of the Year 2026 — The Economist's Insider">🏆 PPA Winner ’26</li>
+          <li title="Code Star award, Mobile Premier League">⭐ Code Star · MPL</li>
+          <li title="390th person worldwide to earn the Android gold badge on Stack Overflow">🥇 Android Gold #390</li>
+        </ul>
 
         <nav class="site-nav" aria-label="In-page navigation">
           <ul>
@@ -172,6 +178,16 @@
           </div>
         </div>
 
+
+        <div class="code-card" aria-label="Kotlin snippet describing Devrath">
+          <div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-file">Devrath.kt</span></div>
+          <pre><code><span class="kw">val</span> devrath = <span class="ty">AndroidEngineer</span>(
+    role = <span class="st">"Senior Software Engineer"</span>,
+    currently = <span class="ty">TheEconomist</span>,
+    stack = <span class="fn">listOf</span>(<span class="ty">Kotlin</span>, <span class="ty">Compose</span>, <span class="ty">Media3</span>),
+    openTo = <span class="ty">InterestingConversations</span>,
+)</code></pre>
+        </div>
       </section>
 
       <!-- EXPERIENCE (career tree: newest at top, roots at the bottom) -->
@@ -199,7 +215,7 @@
             <details class="tl-details" open>
               <summary>
                 <span class="tl-date">Apr 2024 — Present</span>
-                <div class="tl-head"><img class="co-logo" src="icons/co-economist.png" alt="" width="34" height="34" loading="lazy" /><h4><a href="https://www.linkedin.com/company/the-economist/" target="_blank" rel="noreferrer">Senior Software Engineer · The Economist <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg></a></h4></div>
+                <div class="tl-head" data-tip="2 yrs 4 mos"><img class="co-logo" src="icons/co-economist.png" alt="" width="34" height="34" loading="lazy" /><h4><a href="https://www.linkedin.com/company/the-economist/" target="_blank" rel="noreferrer">Senior Software Engineer · The Economist <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg></a></h4></div>
               </summary>
               <div class="tl-body">
                 <p>Building the Android app of one of the world's most respected publications. Architected live &amp; VOD audio/video streaming with Picture-in-Picture, podcast playback with offline downloads and pick-up-where-you-left-off, an offline-first reading experience, AdMob integration, and an MVI multi-module architecture with a reusable Compose design system.</p>
@@ -212,7 +228,7 @@
             <details class="tl-details">
               <summary>
                 <span class="tl-date">Jan 2024 — Mar 2024</span>
-                <div class="tl-head"><img class="co-logo" src="icons/co-epam.png" alt="" width="34" height="34" loading="lazy" /><h4><a href="https://www.linkedin.com/company/epam-systems/" target="_blank" rel="noreferrer">Senior Software Engineer · EPAM Systems <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg></a></h4></div>
+                <div class="tl-head" data-tip="3 mos"><img class="co-logo" src="icons/co-epam.png" alt="" width="34" height="34" loading="lazy" /><h4><a href="https://www.linkedin.com/company/epam-systems/" target="_blank" rel="noreferrer">Senior Software Engineer · EPAM Systems <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg></a></h4></div>
               </summary>
               <div class="tl-body">
                 <p>Implemented MVI architecture with Jetpack Compose, led hiring and onboarding for the team, and mentored junior engineers to support their career development.</p>
@@ -225,7 +241,7 @@
             <details class="tl-details">
               <summary>
                 <span class="tl-date">Oct 2023 — Dec 2023</span>
-                <div class="tl-head"><img class="co-logo" src="icons/co-kgen.png" alt="" width="34" height="34" loading="lazy" /><h4><a href="https://www.linkedin.com/company/indigg-dao/" target="_blank" rel="noreferrer">Software Engineering Consultant · Kratos Gaming Network <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg></a></h4></div>
+                <div class="tl-head" data-tip="3 mos"><img class="co-logo" src="icons/co-kgen.png" alt="" width="34" height="34" loading="lazy" /><h4><a href="https://www.linkedin.com/company/indigg-dao/" target="_blank" rel="noreferrer">Software Engineering Consultant · Kratos Gaming Network <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg></a></h4></div>
               </summary>
               <div class="tl-body">
                 <p>Led the go-to-market strategy for Jetpack Compose adoption and designed the integration of a game into a legacy codebase with modern Android components — coordinating sprint planning and technical feasibility with project management.</p>
@@ -238,7 +254,7 @@
             <details class="tl-details">
               <summary>
                 <span class="tl-date">Jan 2022 — Sep 2023</span>
-                <div class="tl-head"><img class="co-logo" src="icons/co-mpl.png" alt="" width="34" height="34" loading="lazy" /><h4><a href="https://www.linkedin.com/company/mpl/" target="_blank" rel="noreferrer">Software Engineer III · Mobile Premier League (MPL) <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg></a></h4></div>
+                <div class="tl-head" data-tip="1 yr 9 mos"><img class="co-logo" src="icons/co-mpl.png" alt="" width="34" height="34" loading="lazy" /><h4><a href="https://www.linkedin.com/company/mpl/" target="_blank" rel="noreferrer">Software Engineer III · Mobile Premier League (MPL) <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg></a></h4></div>
               </summary>
               <div class="tl-body">
                 <p>Built for one of the world's largest eSports mobile platforms, serving ~85 million users: developed the broadcast-streaming module for live tournaments, bridged Android native with React Native and Unity, built a parallel high-speed downloader with WorkManager, and spearheaded Kotlin and DI adoption.</p>
@@ -251,7 +267,7 @@
             <details class="tl-details">
               <summary>
                 <span class="tl-date">Aug 2020 — Jan 2022</span>
-                <div class="tl-head"><img class="co-logo" src="icons/co-recro.png" alt="" width="34" height="34" loading="lazy" /><h4><a href="https://www.linkedin.com/company/recro-io/" target="_blank" rel="noreferrer">Lead Software Engineer · Recro <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg></a></h4></div>
+                <div class="tl-head" data-tip="1 yr 6 mos"><img class="co-logo" src="icons/co-recro.png" alt="" width="34" height="34" loading="lazy" /><h4><a href="https://www.linkedin.com/company/recro-io/" target="_blank" rel="noreferrer">Lead Software Engineer · Recro <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg></a></h4></div>
               </summary>
               <div class="tl-body">
                 <p>Led a large-scale refactor from MVC to MVVM with modularity and automated testing at the core, and delivered <a href="https://play.google.com/store/apps/details?id=com.dealersocket.crm" target="_blank" rel="noreferrer">DealerSocket CRM</a> — a major mobile release for the US automotive client — working directly with client engineers, product owners and designers.</p>
@@ -264,7 +280,7 @@
             <details class="tl-details">
               <summary>
                 <span class="tl-date">Feb 2020 — Aug 2020</span>
-                <div class="tl-head"><img class="co-logo" src="icons/co-cybernetyx.png" alt="" width="34" height="34" loading="lazy" /><h4><a href="https://www.linkedin.com/company/cybernetyx/" target="_blank" rel="noreferrer">Principal Product Engineer II · Cybernetyx <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg></a></h4></div>
+                <div class="tl-head" data-tip="7 mos"><img class="co-logo" src="icons/co-cybernetyx.png" alt="" width="34" height="34" loading="lazy" /><h4><a href="https://www.linkedin.com/company/cybernetyx/" target="_blank" rel="noreferrer">Principal Product Engineer II · Cybernetyx <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg></a></h4></div>
               </summary>
               <div class="tl-body">
                 <p>Spearheaded Android development for the <a href="https://play.google.com/store/apps/details?id=com.cnx.kneurateach" target="_blank" rel="noreferrer">Kneura</a> blended-learning platform — an intelligent assistant that customises learning curriculums — plus a silent-update system across product variants and canvas tools for interactive classroom hardware.</p>
@@ -277,7 +293,7 @@
             <details class="tl-details">
               <summary>
                 <span class="tl-date">Oct 2014 — Jan 2020</span>
-                <div class="tl-head"><img class="co-logo" src="icons/co-spurtree.png" alt="" width="34" height="34" loading="lazy" /><h4><a href="https://www.linkedin.com/company/spurtree-technologies/" target="_blank" rel="noreferrer">SpurTree Technologies · 3 roles over 5+ years <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg></a></h4></div>
+                <div class="tl-head" data-tip="5 yrs 4 mos"><img class="co-logo" src="icons/co-spurtree.png" alt="" width="34" height="34" loading="lazy" /><h4><a href="https://www.linkedin.com/company/spurtree-technologies/" target="_blank" rel="noreferrer">SpurTree Technologies · 3 roles over 5+ years <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg></a></h4></div>
               </summary>
               <div class="tl-body">
                 <div class="tl-subrole">
@@ -304,7 +320,7 @@
             <details class="tl-details">
               <summary>
                 <span class="tl-date">May 2013 — Sep 2014</span>
-                <div class="tl-head"><span class="co-logo co-fallback" aria-hidden="true">T</span><h4>Freelance Developer · TwinVaves Technologies Pvt Ltd</h4></div>
+                <div class="tl-head" data-tip="1 yr 5 mos"><span class="co-logo co-fallback" aria-hidden="true">T</span><h4>Freelance Developer · TwinVaves Technologies Pvt Ltd</h4></div>
               </summary>
               <div class="tl-body">
                 <p>Led development of the "GodiswithMe" app end-to-end — research, story-path design, development, testing, Play Store deployment and maintenance — reaching 8,000+ downloads worldwide.</p>
@@ -317,7 +333,7 @@
             <details class="tl-details">
               <summary>
                 <span class="tl-date">Nov 2011 — Aug 2012</span>
-                <div class="tl-head"><img class="co-logo" src="icons/co-intel.png" alt="" width="34" height="34" loading="lazy" /><h4><a href="https://www.linkedin.com/company/intel-corporation/" target="_blank" rel="noreferrer">Intern · Intel Corporation <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg></a></h4></div>
+                <div class="tl-head" data-tip="10 mos"><img class="co-logo" src="icons/co-intel.png" alt="" width="34" height="34" loading="lazy" /><h4><a href="https://www.linkedin.com/company/intel-corporation/" target="_blank" rel="noreferrer">Intern · Intel Corporation <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg></a></h4></div>
               </summary>
               <div class="tl-body">
                 <p>Where it all began — helped build a recommendation engine through requirements, design, implementation and testing, and supported the IndiaEduServices pilot across colleges.</p>
@@ -700,6 +716,11 @@
     </main>
   </div>
 
+  <div id="terminal" hidden aria-label="Terminal" role="dialog">
+    <div id="term-out"></div>
+    <div class="term-line"><span class="term-prompt">devrath@portfolio:~$</span><input id="term-in" type="text" autocomplete="off" spellcheck="false" aria-label="Terminal input" /></div>
+  </div>
+
   <div id="palette" hidden role="dialog" aria-modal="true" aria-label="Command palette">
     <div class="palette-backdrop" data-close></div>
     <div class="palette-panel">
@@ -709,6 +730,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=28"></script>
+  <script src="script.js?v=29"></script>
 </body>
 </html>

@@ -1,9 +1,67 @@
-// Cursor spotlight
-const spotlight = document.getElementById("spotlight");
-window.addEventListener("mousemove", (e) => {
-  spotlight.style.setProperty("--x", `${e.clientX}px`);
-  spotlight.style.setProperty("--y", `${e.clientY}px`);
-});
+// Generative constellation background (replaces the static spotlight):
+// faint accent particles that drift and connect near each other and the cursor.
+(() => {
+  const canvas = document.getElementById("constellation");
+  if (!canvas) return;
+  const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const coarse = window.matchMedia("(hover: none)").matches;
+  if (rm || coarse) { canvas.remove(); return; }
+  const ctx = canvas.getContext("2d");
+  let W, H, dpr, accent;
+  const mouse = { x: -9999, y: -9999 };
+  const readAccent = () => {
+    const c = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim();
+    const n = parseInt(c.slice(1), 16);
+    accent = [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+  };
+  const size = () => {
+    dpr = Math.min(devicePixelRatio || 1, 2);
+    W = innerWidth; H = innerHeight;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    canvas.style.width = W + "px"; canvas.style.height = H + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
+  readAccent(); size();
+  const N = Math.min(70, Math.floor(innerWidth / 22));
+  const pts = Array.from({ length: N }, () => ({
+    x: Math.random() * innerWidth, y: Math.random() * innerHeight,
+    vx: (Math.random() - 0.5) * 0.22, vy: (Math.random() - 0.5) * 0.22,
+  }));
+  addEventListener("resize", size);
+  addEventListener("mousemove", (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+  new MutationObserver(readAccent).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  const LINK = 110, CURSOR = 160;
+  const frame = () => {
+    if (!document.hidden) {
+      ctx.clearRect(0, 0, W, H);
+      const [r, g, b] = accent;
+      for (const p of pts) {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > W) p.vx *= -1;
+        if (p.y < 0 || p.y > H) p.vy *= -1;
+        ctx.fillStyle = `rgba(${r},${g},${b},0.35)`;
+        ctx.fillRect(p.x - 0.8, p.y - 0.8, 1.6, 1.6);
+      }
+      for (let i = 0; i < pts.length; i++) {
+        for (let k = i + 1; k < pts.length; k++) {
+          const dx = pts[i].x - pts[k].x, dy = pts[i].y - pts[k].y;
+          const d = Math.hypot(dx, dy);
+          if (d < LINK) {
+            ctx.strokeStyle = `rgba(${r},${g},${b},${0.10 * (1 - d / LINK)})`;
+            ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[k].x, pts[k].y); ctx.stroke();
+          }
+        }
+        const dm = Math.hypot(pts[i].x - mouse.x, pts[i].y - mouse.y);
+        if (dm < CURSOR) {
+          ctx.strokeStyle = `rgba(${r},${g},${b},${0.22 * (1 - dm / CURSOR)})`;
+          ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(frame);
+  };
+  requestAnimationFrame(frame);
+})();
 
 // Scroll-spy: highlight the nav link of the section in view
 const navLinks = document.querySelectorAll(".nav-link");
@@ -504,4 +562,56 @@ if (palette) {
 
   palette.querySelector("[data-close]").addEventListener("click", closePalette);
   document.getElementById("palette-hint")?.addEventListener("click", openPalette);
+}
+
+// Terminal easter egg (press ` outside of inputs).
+const term = document.getElementById("terminal");
+if (term) {
+  const tin = document.getElementById("term-in");
+  const tout = document.getElementById("term-out");
+  const println = (text, accent) => {
+    const div = document.createElement("div");
+    if (accent) div.className = "t-accent";
+    div.textContent = text;
+    tout.appendChild(div);
+    tout.scrollTop = tout.scrollHeight;
+  };
+  const CMDS = {
+    help: () => println("commands: whoami · stack · awards · open <github|linkedin|stackoverflow|medium|tunify> · theme · clear · exit"),
+    whoami: () => println("Devrath AD — Senior Software Engineer · Android. Building at The Economist. Bengaluru, India."),
+    stack: () => println("Kotlin · Jetpack Compose · Coroutines & Flow · Media3/ExoPlayer · MVI · Clean Architecture · Hilt"),
+    awards: () => println("🏆 PPA Video Content of the Year '26 · ⭐ Code Star (MPL) · 🥇 390th Android Gold badge worldwide"),
+    theme: () => { document.getElementById("theme-toggle").click(); println("theme toggled"); },
+    clear: () => { tout.innerHTML = ""; },
+    exit: () => { term.hidden = true; },
+  };
+  const OPEN = {
+    github: "https://github.com/devrath",
+    linkedin: "https://www.linkedin.com/in/devrath-ad-01b59022/",
+    stackoverflow: "https://stackoverflow.com/users/1083093/devrath",
+    medium: "https://medium.com/@devrath.dev595",
+    tunify: "https://play.google.com/store/apps/details?id=com.istudio.tunify",
+  };
+  addEventListener("keydown", (e) => {
+    const typing = /^(INPUT|TEXTAREA)$/.test(document.activeElement?.tagName);
+    if (e.key === "`" && !typing) {
+      e.preventDefault();
+      term.hidden = !term.hidden;
+      if (!term.hidden) {
+        if (!tout.childElementCount) { println("Devrath AD portfolio — type 'help' to get started.", true); }
+        tin.focus();
+      }
+    } else if (!term.hidden && e.key === "Escape") term.hidden = true;
+  });
+  tin.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter") return;
+    const raw = tin.value.trim();
+    tin.value = "";
+    if (!raw) return;
+    println(`devrath@portfolio:~$ ${raw}`, true);
+    const [cmd, arg] = raw.toLowerCase().split(/\s+/);
+    if (cmd === "open" && OPEN[arg]) { open(OPEN[arg], "_blank"); println(`opening ${arg}…`); }
+    else if (CMDS[cmd]) CMDS[cmd]();
+    else println(`command not found: ${cmd} — try 'help'`);
+  });
 }
