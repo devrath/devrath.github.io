@@ -18,13 +18,12 @@
   <meta name="twitter:site" content="@Devrath_Dev" />
   <meta name="twitter:image" content="https://devrath.github.io/og-image.png?v=3" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233DDC84'><path d='M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.29-.15-.65-.06-.83.22l-1.88 3.24a11.46 11.46 0 0 0-8.94 0L5.65 5.67c-.19-.29-.58-.38-.87-.2-.28.18-.37.54-.22.83l1.84 3.18C3.45 11.15 1.5 13.09 1.5 16h21c0-2.91-1.95-4.85-4.9-6.52zM7 14.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zm10 0c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z'/></svg>" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preload" href="fonts/roboto.woff2" as="font" type="font/woff2" crossorigin />
   <script>if(localStorage.getItem("theme")==="light")document.documentElement.setAttribute("data-theme","light");</script>
-  <link rel="stylesheet" href="styles.css?v=23" />
+  <link rel="stylesheet" href="styles.css?v=24" />
 </head>
 <body class="loading">
+  <a class="skip-link" href="#about">Skip to content</a>
   <div id="loader" aria-hidden="true">
     <svg viewBox="0 0 100 100" role="img" aria-label="Loading">
       <path class="hex" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
@@ -63,6 +62,7 @@
             <li><a class="nav-link" href="#experience"><span class="nav-line"></span><span class="nav-text">Experience</span></a></li>
             <li><a class="nav-link" href="#recommendations"><span class="nav-line"></span><span class="nav-text">Recommendations</span></a></li>
             <li><a class="nav-link" href="#projects"><span class="nav-line"></span><span class="nav-text">Projects</span></a></li>
+            <li><a class="nav-link" href="#writing"><span class="nav-line"></span><span class="nav-text">Writing</span></a></li>
             <li><a class="nav-link" href="#skills"><span class="nav-line"></span><span class="nav-text">Skills</span></a></li>
             <li><a class="nav-link" href="#education"><span class="nav-line"></span><span class="nav-text">Education</span></a></li>
             <li><a class="nav-link" href="#certifications"><span class="nav-line"></span><span class="nav-text">Certifications</span></a></li>
@@ -336,7 +336,7 @@
         <ul class="honor-list">
           <li>
             <a class="project-cover" href="https://play.google.com/store/apps/details?id=com.istudio.tunify" target="_blank" rel="noreferrer" aria-label="Tunify trailer — view on Google Play">
-              <img src="tunify-trailer.gif" alt="Tunify app trailer — radio, reimagined" width="640" height="360" loading="lazy" />
+              <video src="tunify-trailer.mp4" width="640" height="360" autoplay muted loop playsinline preload="metadata" aria-label="Tunify app trailer — radio, reimagined"></video>
             </a>
             <div class="proj-head">
               <img class="proj-icon" src="icons/tunify.png" alt="" width="56" height="56" loading="lazy" />
@@ -446,6 +446,31 @@
             <ul class="pills"><li>Android</li><li>Lock Screen</li><li>Ed-tech</li></ul>
           </li>
         </ul>
+      </section>
+
+      <!-- WRITING -->
+      <section id="writing" aria-label="Writing">
+        <div class="section-heading">
+          <h3>
+            <svg class="sh-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+            Writing
+          </h3>
+        </div>
+        <ul class="honor-list">
+          <li>
+            <h4><a href="https://medium.com/@devrath.dev595/decoding-android-core-threading-concepts-on-thread-runnable-handler-looper-messagequeue-21a2f7aa6e4a" target="_blank" rel="noreferrer">Decoding Android Core Threading: Thread, Runnable, Handler, Looper &amp; MessageQueue <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg></a></h4>
+            <span class="item-sub">Medium · Android internals</span>
+          </li>
+          <li>
+            <h4><a href="https://medium.com/@devrath.dev595/supporting-multiple-screens-in-android-devices-the-compose-way-e667b7cf5c61" target="_blank" rel="noreferrer">Supporting Multiple Screens in Android — the Compose Way <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg></a></h4>
+            <span class="item-sub">Medium · Jetpack Compose</span>
+          </li>
+          <li>
+            <h4><a href="https://medium.com/@devrath.dev595/how-to-convert-a-callback-into-a-flow-for-android-in-kotlin-27bd4557582d" target="_blank" rel="noreferrer">How to Convert a Callback into a Flow in Kotlin <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg></a></h4>
+            <span class="item-sub">Medium · Coroutines &amp; Flow</span>
+          </li>
+        </ul>
+        <a class="inline-cta" href="https://medium.com/@devrath.dev595" target="_blank" rel="noreferrer">Read all 25+ articles on Medium <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg></a>
       </section>
 
       <!-- SKILLS -->
@@ -634,7 +659,10 @@
           a role you're hiring for, or a project you're excited about. My
           inbox is open, and I'll do my best to reply.
         </p>
-        <a class="cta-button" href="mailto:devrath.dev595@gmail.com">Say hello</a>
+        <div class="cta-group">
+          <a class="cta-button" href="mailto:devrath.dev595@gmail.com">Say hello</a>
+          <button class="cta-button cta-secondary" id="resume-btn" type="button">Download résumé</button>
+        </div>
       </section>
 
       <footer class="site-footer">
@@ -643,6 +671,6 @@
     </main>
   </div>
 
-  <script src="script.js?v=23"></script>
+  <script src="script.js?v=24"></script>
 </body>
 </html>

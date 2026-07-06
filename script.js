@@ -15,12 +15,12 @@ const observer = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
-      navLinks.forEach((link) =>
-        link.classList.toggle(
-          "active",
-          link.getAttribute("href") === `#${entry.target.id}`
-        )
-      );
+      navLinks.forEach((link) => {
+        const active = link.getAttribute("href") === `#${entry.target.id}`;
+        link.classList.toggle("active", active);
+        if (active) link.setAttribute("aria-current", "location");
+        else link.removeAttribute("aria-current");
+      });
     });
   },
   { rootMargin: "-30% 0px -60% 0px" }
@@ -306,7 +306,7 @@ if (!reducedMotion && matchMedia("(hover: hover)").matches) {
 }
 
 // Parallax: the trailer cover drifts gently as it moves through the viewport.
-const coverImg = document.querySelector(".project-cover img");
+const coverImg = document.querySelector(".project-cover video, .project-cover img");
 if (coverImg && !reducedMotion) {
   let coverTick = false;
   const parallax = () => {
@@ -379,10 +379,15 @@ if (themeToggle && document.startViewTransition && !reducedMotion) {
 }
 
 // Trailer blur-up: keep the tiny poster visible until the GIF has loaded.
-const trailerImg = document.querySelector(".project-cover img");
-if (trailerImg && !trailerImg.complete) {
-  trailerImg.classList.add("gif-loading");
-  trailerImg.addEventListener("load", () => trailerImg.classList.remove("gif-loading"), { once: true });
+const trailerImg = document.querySelector(".project-cover video, .project-cover img");
+if (trailerImg) {
+  const ready = trailerImg.tagName === "VIDEO" ? trailerImg.readyState >= 2 : trailerImg.complete;
+  if (!ready) {
+    trailerImg.classList.add("gif-loading");
+    const evt = trailerImg.tagName === "VIDEO" ? "loadeddata" : "load";
+    trailerImg.addEventListener(evt, () => trailerImg.classList.remove("gif-loading"), { once: true });
+  }
+  if (trailerImg.tagName === "VIDEO" && reducedMotion) trailerImg.pause();
 }
 
 // Easter egg: five quick clicks on the monogram sends a robot across the screen.
@@ -404,3 +409,17 @@ if (monogram) {
     }
   });
 }
+
+// Heading anchor links (GitHub-style, discoverable on hover).
+document.querySelectorAll(".content section[id] .section-heading h3").forEach((h3) => {
+  const id = h3.closest("section").id;
+  const a = document.createElement("a");
+  a.className = "anchor-link";
+  a.href = `#${id}`;
+  a.textContent = "#";
+  a.setAttribute("aria-label", `Link to the ${id} section`);
+  h3.appendChild(a);
+});
+
+// Résumé download: the print stylesheet renders the site as a clean resume.
+document.getElementById("resume-btn")?.addEventListener("click", () => window.print());

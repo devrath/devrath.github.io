@@ -1,3 +1,12 @@
+/* Self-hosted Roboto (variable, latin) */
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("fonts/roboto.woff2") format("woff2");
+}
+
 /* ---------- Base ---------- */
 :root {
   --bg: #0f172a;            /* slate-900 */
@@ -933,13 +942,15 @@ body.typing #tagline-caret {
   transform: translateZ(0);
 }
 
-.project-cover img {
+.project-cover img,
+.project-cover video {
   transform: scale(1.12);
   will-change: transform;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .project-cover img { transform: none; }
+  .project-cover img,
+  .project-cover video { transform: none; }
   body.typing #tagline-caret { display: none; }
 }
 
@@ -1139,8 +1150,10 @@ body.cascade .status { animation: rise 0.5s ease both 0.2s; }
   background: url("data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABIMDRANCxIQDhAUExIVGywdGxgYGzYnKSAsQDlEQz85Pj1HUGZXR0thTT0+WXlaYWltcnNyRVV9hnxvhWZwcm7/2wBDARMUFBsXGzQdHTRuST5Jbm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm7/wAARCAASACADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDiVGTTiMUiNg05m3GmA2kNP4xTDzQAgp1FFABQKKKAP//Z") center / cover no-repeat;
 }
 
-.project-cover img { transition: opacity 0.5s ease, transform 0.25s ease; }
-.project-cover img.gif-loading { opacity: 0; }
+.project-cover img,
+.project-cover video { transition: opacity 0.5s ease, transform 0.25s ease; }
+.project-cover img.gif-loading,
+.project-cover video.gif-loading { opacity: 0; }
 
 /* ---------- Tap polish (mobile) ---------- */
 * { -webkit-tap-highlight-color: transparent; }
@@ -1243,4 +1256,59 @@ a:active, button:active, .pills li:active { transform: scale(0.97); }
 
 @media print {
   .co-logo { border-color: #cbd5e1 !important; }
+}
+
+
+/* ---------- Skip link (a11y) ---------- */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 50%;
+  transform: translate(-50%, -300%);
+  z-index: 100;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.5rem;
+  background-color: var(--accent);
+  color: var(--bg);
+  font-weight: 600;
+  transition: transform 0.2s ease;
+}
+
+.skip-link:focus-visible { transform: translate(-50%, 0); }
+
+/* ---------- Heading anchor links ---------- */
+.anchor-link {
+  margin-left: 0.4rem;
+  color: var(--accent);
+  font-weight: 400;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.section-heading:hover .anchor-link,
+.anchor-link:focus-visible { opacity: 0.75; }
+
+/* ---------- Secondary CTA (résumé) ---------- */
+.cta-group { display: flex; flex-wrap: wrap; gap: 0.9rem; }
+
+.cta-group .cta-button { margin-top: 1.25rem; }
+
+.cta-secondary {
+  background: none;
+  border-color: var(--border);
+  color: var(--text-bright);
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.cta-secondary:hover {
+  background: none;
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+@media print {
+  .skip-link, .anchor-link { display: none !important; }
 }
