@@ -1206,3 +1206,41 @@ a:active, button:active, .pills li:active { transform: scale(0.97); }
 @media print {
   #local-time, .status, #egg-bot { display: none !important; }
 }
+
+/* ---------- Company logos in the experience tree ---------- */
+.tl-head {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 0.2rem;
+}
+
+.co-logo {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background-color: #fff;
+  object-fit: contain;
+}
+
+.co-fallback {
+  display: grid;
+  place-items: center;
+  background-color: var(--bg-card);
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* ---------- Mobile: sticky section header clears the corner monogram ---------- */
+@media (max-width: 1023px) {
+  #monogram { top: 0.95rem; left: 1rem; }
+  #monogram svg { width: 34px; height: 34px; }
+  .section-heading { padding-left: 4rem; }
+}
+
+@media print {
+  .co-logo { border-color: #cbd5e1 !important; }
+}
