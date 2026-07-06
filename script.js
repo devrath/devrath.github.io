@@ -420,6 +420,3 @@ document.querySelectorAll(".content section[id] .section-heading h3").forEach((h
   a.setAttribute("aria-label", `Link to the ${id} section`);
   h3.appendChild(a);
 });
-
-// Résumé download: the print stylesheet renders the site as a clean resume.
-document.getElementById("resume-btn")?.addEventListener("click", () => window.print());

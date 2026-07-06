@@ -1288,27 +1288,6 @@ a:active, button:active, .pills li:active { transform: scale(0.97); }
 .section-heading:hover .anchor-link,
 .anchor-link:focus-visible { opacity: 0.75; }
 
-/* ---------- Secondary CTA (résumé) ---------- */
-.cta-group { display: flex; flex-wrap: wrap; gap: 0.9rem; }
-
-.cta-group .cta-button { margin-top: 1.25rem; }
-
-.cta-secondary {
-  background: none;
-  border-color: var(--border);
-  color: var(--text-bright);
-  font-family: inherit;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-.cta-secondary:hover {
-  background: none;
-  border-color: var(--accent);
-  color: var(--accent);
-  transform: translateY(-2px);
-}
-
 @media print {
   .skip-link, .anchor-link { display: none !important; }
 }
