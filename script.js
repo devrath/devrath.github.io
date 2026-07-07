@@ -601,6 +601,7 @@ const quoteBy = document.getElementById("hero-quote-by");
 if (quoteEl && quoteBy && !reducedMotion) {
   let qi = 0;
   setInterval(() => {
+    if (document.hidden) return;
     const fig = quoteEl.closest(".hero-quote");
     fig.classList.add("fading");
     setTimeout(() => {
@@ -769,7 +770,11 @@ if (!reducedMotion) {
       requestAnimationFrame(tick);
     });
   }, { threshold: 0.5 });
-  document.querySelectorAll(".content section .section-heading h3").forEach((h) => decodeObserver.observe(h));
+  document.querySelectorAll(".content section .section-heading h3").forEach((h) => {
+    const node = [...h.childNodes].find((n) => n.nodeType === 3 && n.textContent.trim());
+    if (node) h.setAttribute("aria-label", node.textContent.trim());
+    decodeObserver.observe(h);
+  });
 }
 
 // Magnetic pull: the Say-hello button and the monogram lean toward the cursor.
