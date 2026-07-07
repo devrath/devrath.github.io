@@ -766,7 +766,8 @@ html[data-theme="light"] .site-footer {
   transition: border-color var(--dur-quick) var(--ease), transform var(--dur-quick) var(--ease);
 }
 
-.project-cover img {
+.project-cover img,
+.project-cover video {
   display: block;
   width: 100%;
   height: auto;
