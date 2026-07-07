@@ -45,7 +45,7 @@
   }
   </script>
   <script>if(localStorage.getItem("theme")==="light")document.documentElement.setAttribute("data-theme","light");</script>
-  <link rel="stylesheet" href="styles.css?v=31" />
+  <link rel="stylesheet" href="styles.css?v=33" />
 </head>
 <body class="loading">
   <a class="skip-link" href="#about">Skip to content</a>
@@ -56,7 +56,7 @@
       <text class="hex-letter" x="50" y="53" text-anchor="middle" dominant-baseline="middle">D</text>
     </svg>
   </div>
-  <noscript><style>#loader{display:none}</style></noscript>
+  <noscript><style>#loader{display:none}#monogram{opacity:1 !important}</style></noscript>
   <div id="aurora" aria-hidden="true"></div>
   <canvas id="constellation" aria-hidden="true"></canvas>
   <div id="grain" aria-hidden="true"></div>
@@ -722,6 +722,10 @@
 
       <footer class="site-footer">
         <p>© 2026 Devrath AD</p>
+        <div class="print-qr">
+          <img src="qr.svg" width="92" height="92" alt="QR code linking to devrath.github.io" />
+          <span>Scan for the interactive version — devrath.github.io</span>
+        </div>
       </footer>
     </main>
   </div>
@@ -740,6 +744,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=32"></script>
+  <script src="script.js?v=33"></script>
 </body>
 </html>

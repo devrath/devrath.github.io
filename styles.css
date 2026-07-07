@@ -786,11 +786,11 @@ body.loading { overflow: hidden; }
   display: grid;
   place-items: center;
   background-color: var(--bg);
-  transition: opacity var(--dur-med) var(--ease);
+  transition: background-color var(--dur-med) var(--ease);
 }
 
 #loader.done {
-  opacity: 0;
+  background-color: transparent;
   pointer-events: none;
 }
 
@@ -987,6 +987,7 @@ body.typing #tagline-caret {
   left: 1.25rem;
   z-index: 30;
   color: var(--accent);
+  opacity: 0;
   transition: transform var(--dur-quick) var(--ease), filter var(--dur-quick) var(--ease);
 }
 
@@ -1702,4 +1703,32 @@ html[data-theme="light"] #grain { opacity: 0.05; }
   #aurora, #grain { display: none !important; }
   .sig-text { fill: #0f172a; opacity: 1; }
   .sig-flourish { stroke-dashoffset: 0; }
+}
+
+
+/* Loader morphs into the monogram; then the monogram takes over */
+body.morphed #monogram { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  #monogram { opacity: 1; }
+}
+
+/* ---------- Print QR (paper resume links back to the live site) ---------- */
+.print-qr { display: none; }
+
+@media print {
+  .print-qr {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    color: #475569;
+  }
+  .print-qr img { border: 1px solid #cbd5e1; border-radius: 6px; }
+}
+
+/* ---------- Magnetic CTA ---------- */
+.cta-button, #monogram {
+  will-change: transform;
 }

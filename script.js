@@ -80,6 +80,7 @@
     }
     mode = "gather"; modeT = 0;
   };
+  window.__summonDroid = startFormation;
   setTimeout(startFormation, 7000);
   setInterval(startFormation, 42000);
 
@@ -375,20 +376,36 @@ themeToggle.addEventListener("click", () => {
   applyThemeColor();
 });
 
-// Intro loader: hexagon draws, letter fades in, overlay melts away.
+// Intro loader: hexagon draws, letter fades in — then the mark flies into
+// the corner and becomes the monogram (shared-element continuity).
 const loader = document.getElementById("loader");
 if (loader) {
-  const dismiss = () => {
-    loader.classList.add("done");
-    document.body.classList.remove("loading");
-    setTimeout(() => loader.remove(), 450);
+  const finish = () => {
+    document.body.classList.add("morphed");
+    loader.remove();
   };
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    dismiss();
+    document.body.classList.remove("loading");
+    finish();
   } else {
     setTimeout(() => {
-      dismiss();
-      document.body.classList.add("cascade"); // hero elements rise in sequence
+      document.body.classList.remove("loading");
+      document.body.classList.add("cascade"); // hero rises while the mark flies
+      loader.classList.add("done");           // backdrop fades, svg stays
+      const svg = loader.querySelector("svg");
+      const target = document.querySelector("#monogram svg");
+      if (svg && target) {
+        const a = svg.getBoundingClientRect();
+        const b = target.getBoundingClientRect();
+        const anim = svg.animate([
+          { transform: "none", opacity: 1 },
+          { transform: `translate(${b.left - a.left}px, ${b.top - a.top}px) scale(${b.width / a.width})`, opacity: 1 },
+        ], { duration: 620, easing: "cubic-bezier(0.5, 0, 0.2, 1)", fill: "forwards" });
+        svg.style.transformOrigin = "top left";
+        anim.onfinish = finish;
+      } else {
+        finish();
+      }
     }, 1900);
   }
 }
@@ -606,6 +623,7 @@ if (palette) {
       kind: "Jump",
       run: () => sec.scrollIntoView({ behavior: "smooth" }),
     })),
+    { label: "Summon the droid", kind: "Action", run: () => window.__summonDroid?.() },
     { label: "Toggle theme", kind: "Action", run: () => document.getElementById("theme-toggle").click() },
     { label: "Copy email address", kind: "Action", run: () => navigator.clipboard?.writeText("devrath.dev595@gmail.com") },
     { label: "Email me", kind: "Action", run: () => { location.href = "mailto:devrath.dev595@gmail.com"; } },
@@ -682,10 +700,11 @@ if (term) {
     tout.scrollTop = tout.scrollHeight;
   };
   const CMDS = {
-    help: () => println("commands: whoami · stack · awards · open <github|linkedin|stackoverflow|medium|tunify> · theme · clear · exit"),
+    help: () => println("commands: whoami · stack · awards · droid · open <github|linkedin|stackoverflow|medium|tunify> · theme · clear · exit"),
     whoami: () => println("Devrath AD — Senior Software Engineer · Android. Building at The Economist. Bengaluru, India."),
     stack: () => println("Kotlin · Jetpack Compose · Coroutines & Flow · Media3/ExoPlayer · MVI · Clean Architecture · Hilt"),
     awards: () => println("🏆 PPA Video Content of the Year '26 · ⭐ Code Star (MPL) · 🥇 390th Android Gold badge worldwide"),
+    droid: () => { window.__summonDroid ? (window.__summonDroid(), println("watch the stars…")) : println("the sky is asleep on this device"); },
     theme: () => { document.getElementById("theme-toggle").click(); println("theme toggled"); },
     clear: () => { tout.innerHTML = ""; },
     exit: () => { term.hidden = true; },
@@ -718,5 +737,55 @@ if (term) {
     if (cmd === "open" && OPEN[arg]) { open(OPEN[arg], "_blank"); println(`opening ${arg}…`); }
     else if (CMDS[cmd]) CMDS[cmd]();
     else println(`command not found: ${cmd} — try 'help'`);
+  });
+}
+
+// Text-decode: section headings scramble into place on first reveal.
+if (!reducedMotion) {
+  const GLYPHS = "!<>-_\\/[]{}=+*^?#";
+  const decodeObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      decodeObserver.unobserve(entry.target);
+      const node = [...entry.target.childNodes].find(
+        (n) => n.nodeType === 3 && n.textContent.trim()
+      );
+      if (!node) return;
+      const label = node.textContent;
+      const clean = label.trim();
+      const t0 = performance.now();
+      const dur = 420;
+      const tick = (t) => {
+        const p = Math.min((t - t0) / dur, 1);
+        const solved = Math.floor(clean.length * p);
+        let out = clean.slice(0, solved);
+        for (let i = solved; i < clean.length; i++) {
+          out += clean[i] === " " ? " " : GLYPHS[(Math.random() * GLYPHS.length) | 0];
+        }
+        node.textContent = ` ${out} `;
+        if (p < 1) requestAnimationFrame(tick);
+        else node.textContent = label;
+      };
+      requestAnimationFrame(tick);
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll(".content section .section-heading h3").forEach((h) => decodeObserver.observe(h));
+}
+
+// Magnetic pull: the Say-hello button and the monogram lean toward the cursor.
+if (!reducedMotion && matchMedia("(hover: hover)").matches) {
+  document.querySelectorAll(".cta-button, #monogram").forEach((el) => {
+    const strength = el.id === "monogram" ? 0.35 : 0.3;
+    el.addEventListener("mousemove", (e) => {
+      const r = el.getBoundingClientRect();
+      const dx = e.clientX - (r.left + r.width / 2);
+      const dy = e.clientY - (r.top + r.height / 2);
+      el.style.transition = "transform 0.1s ease-out";
+      el.style.transform = `translate(${(dx * strength).toFixed(1)}px, ${(dy * strength).toFixed(1)}px)`;
+    });
+    el.addEventListener("mouseleave", () => {
+      el.style.transition = "transform 0.45s var(--ease-spring)";
+      el.style.transform = "";
+    });
   });
 }
