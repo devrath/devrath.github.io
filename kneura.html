@@ -57,6 +57,16 @@
     .cs-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; }
     .cs-pills li { list-style: none; padding: 0.3rem 0.75rem; border-radius: 9999px; background: var(--pill-bg); color: var(--accent); font-size: 0.75rem; font-weight: 500; }
     .cs-foot { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: center; font-size: 0.85rem; }
+    .cs-cta.ghost { background: none; cursor: pointer; font-family: inherit; }
+    .cs-dialog { margin: auto; max-width: 26rem; padding: 1.6rem 1.8rem; border: 1px solid var(--border); border-radius: 0.75rem; background: var(--bg); color: var(--text); }
+    .cs-dialog h3 { font-family: "Space Grotesk","Roboto",sans-serif; font-size: 1.15rem; font-weight: 700; color: var(--text-bright); }
+    .cs-dialog p { margin-top: 0.6rem; font-size: 0.95rem; line-height: 1.6; }
+    .cs-dialog .cs-cta { margin-top: 1.3rem; }
+    .cs-dialog::backdrop { background: rgba(2, 6, 23, 0.6); backdrop-filter: blur(4px); }
+    .cs-dialog { opacity: 0; transform: translateY(10px) scale(0.96); transition: opacity 0.25s var(--ease), transform 0.35s var(--ease-spring), overlay 0.35s allow-discrete, display 0.35s allow-discrete; }
+    .cs-dialog[open] { opacity: 1; transform: none; }
+    @starting-style { .cs-dialog[open] { opacity: 0; transform: translateY(10px) scale(0.96); } }
+    @media (prefers-reduced-motion: reduce) { .cs-dialog { transition: none; transform: none; } }
   </style>
 </head>
 <body>
@@ -81,6 +91,7 @@
 
     <div class="cs-links">
       <a class="cs-cta primary" href="https://en.cybernetyx.com/cybernetyx-launches-kneura-a-unified-virtual-classroom-platform-that-enables-learning-to-continue-online-instantly/" target="_blank" rel="noreferrer">Launch announcement</a>
+      <button type="button" class="cs-cta ghost play-discontinued">Google Play</button>
     </div>
 
     <div class="cs-cover">
@@ -176,9 +187,19 @@
       </a>
       <div class="cs-links" style="margin:0">
         <a class="cs-cta primary" href="https://en.cybernetyx.com/cybernetyx-launches-kneura-a-unified-virtual-classroom-platform-that-enables-learning-to-continue-online-instantly/" target="_blank" rel="noreferrer">Announcement</a>
+        <button type="button" class="cs-cta ghost play-discontinued">Google Play</button>
       </div>
     </div>
   </main>
+
+  <dialog id="play-dialog" class="cs-dialog" aria-labelledby="play-dialog-title">
+    <h3 id="play-dialog-title">Discontinued on Google Play</h3>
+    <p>
+      Kneura Teach is no longer available on the Play Store — the platform
+      now ships directly on Cybernetyx interactive classroom panels.
+    </p>
+    <button type="button" class="cs-cta primary" id="play-dialog-close">Got it</button>
+  </dialog>
 
   <script>
     // Lite YouTube embed: thumbnail facade, real player only on demand — muted.
@@ -200,6 +221,16 @@
       facade.addEventListener("keydown", (e) => {
         if (e.key === "Enter" || e.key === " ") { e.preventDefault(); play(); }
       });
+    })();
+
+    // "Google Play" buttons: the app is discontinued there — explain in a dialog.
+    (() => {
+      const dialog = document.getElementById("play-dialog");
+      if (!dialog) return;
+      document.querySelectorAll(".play-discontinued").forEach((b) =>
+        b.addEventListener("click", () => dialog.showModal()));
+      document.getElementById("play-dialog-close").addEventListener("click", () => dialog.close());
+      dialog.addEventListener("click", (e) => { if (e.target === dialog) dialog.close(); });
     })();
   </script>
 </body>
