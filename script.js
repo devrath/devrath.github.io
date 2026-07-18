@@ -10,9 +10,9 @@
   let W, H, dpr, accent;
   const mouse = { x: -9999, y: -9999 };
   const readAccent = () => {
-    const c = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim();
-    const n = parseInt(c.slice(1), 16);
-    accent = [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+    // Fixed sRGB values: --accent may now be oklch(), which canvas rgba() strings can't use.
+    const light = document.documentElement.getAttribute("data-theme") === "light";
+    accent = light ? [10, 143, 78] : [61, 220, 132];
   };
   const size = () => {
     dpr = Math.min(devicePixelRatio || 1, 2);
@@ -373,6 +373,14 @@ themeToggle.addEventListener("click", () => {
     root.setAttribute("data-theme", "light");
     localStorage.setItem("theme", "light");
   }
+  applyThemeColor();
+});
+
+// Follow the OS theme live until the user makes a manual choice.
+window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", (e) => {
+  if (localStorage.getItem("theme")) return;
+  if (e.matches) document.documentElement.setAttribute("data-theme", "light");
+  else document.documentElement.removeAttribute("data-theme");
   applyThemeColor();
 });
 
@@ -793,4 +801,15 @@ if (lazyVideos.length && !reducedMotion && "IntersectionObserver" in window) {
     });
   }, { threshold: 0.25 });
   lazyVideos.forEach((v) => videoObserver.observe(v));
+}
+
+// Cursor spotlight: cards glow softly where the pointer is (pairs with the tilt).
+if (matchMedia("(hover: hover)").matches) {
+  document.querySelectorAll(".honor-list li, .stat").forEach((card) => {
+    card.addEventListener("mousemove", (e) => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty("--spot-x", `${(((e.clientX - r.left) / r.width) * 100).toFixed(1)}%`);
+      card.style.setProperty("--spot-y", `${(((e.clientY - r.top) / r.height) * 100).toFixed(1)}%`);
+    });
+  });
 }

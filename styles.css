@@ -25,6 +25,7 @@
 
 /* ---------- Base ---------- */
 :root {
+  color-scheme: dark;
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-spring: cubic-bezier(0.3, 1.8, 0.5, 1);
   --dur-quick: 0.2s;
@@ -709,6 +710,7 @@ html[data-theme="light"] #theme-toggle .icon-moon { display: block; }
 
 /* ---------- Light theme ---------- */
 html[data-theme="light"] {
+  color-scheme: light;
   --bg: #f1f5f9;
   --bg-card: rgba(255, 255, 255, 0.8);
   --text: #475569;
@@ -1767,6 +1769,76 @@ body.morphed #monogram { opacity: 1; }
     navigation: none;
   }
   .vt-tunify-cover { view-transition-name: none; }
+}
+
+/* ---------- Typographic micro-polish ---------- */
+h1, h2, h3, h4, h5 { text-wrap: balance; }
+p { text-wrap: pretty; }
+
+/* ---------- Wide-gamut accent (P3 screens get the vivid green) ---------- */
+@supports (color: oklch(0% 0 0)) {
+  :root { --accent: oklch(80% 0.21 155); }
+  html[data-theme="light"] { --accent: oklch(55% 0.16 155); }
+}
+
+/* ---------- True spring easing (CSS linear()) ---------- */
+@supports (transition-timing-function: linear(0, 1)) {
+  :root {
+    --ease-spring: linear(
+      0, 0.01, 0.035 2.1%, 0.281 6.7%, 0.723 12.9%, 0.938 16.7%, 1.017,
+      1.077, 1.121, 1.149 24.3%, 1.159, 1.163, 1.161, 1.154 29.9%,
+      1.129 32.8%, 1.051 39.6%, 1.017 43.1%, 0.991, 0.977 51%, 0.974 53.8%,
+      0.975 57.1%, 0.997 69.8%, 1.003 76.9%, 1.001 100%
+    );
+  }
+}
+
+/* ---------- Smooth-opening timeline accordion ---------- */
+@supports (interpolate-size: allow-keywords) {
+  :root { interpolate-size: allow-keywords; }
+
+  .tl-details::details-content {
+    block-size: 0;
+    overflow-y: clip;
+    transition: content-visibility var(--dur-med) allow-discrete,
+                block-size var(--dur-med) var(--ease);
+  }
+  .tl-details[open]::details-content { block-size: auto; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tl-details::details-content { transition: none; }
+  }
+}
+
+/* ---------- Cursor spotlight on cards ---------- */
+@media (hover: hover) {
+  .honor-list li, .stat { position: relative; }
+
+  .honor-list li::after,
+  .stat::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      240px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+      rgba(61, 220, 132, 0.09), transparent 65%
+    );
+    opacity: 0;
+    transition: opacity var(--dur-med) var(--ease);
+    pointer-events: none;
+  }
+
+  .honor-list li:hover::after,
+  .stat:hover::after { opacity: 1; }
+
+  html[data-theme="light"] .honor-list li::after,
+  html[data-theme="light"] .stat::after {
+    background: radial-gradient(
+      240px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+      rgba(10, 143, 78, 0.08), transparent 65%
+    );
+  }
 }
 
 /* ---------- Per-card blur-up poster (The Economist Insider) ---------- */
