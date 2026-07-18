@@ -1764,11 +1764,96 @@ body.morphed #monogram { opacity: 1; }
   view-transition-name: tunify-cover;
 }
 
+.vt-kalima-cover {
+  view-transition-name: kalima-cover;
+}
+
 @media (prefers-reduced-motion: reduce) {
   @view-transition {
     navigation: none;
   }
   .vt-tunify-cover { view-transition-name: none; }
+  .vt-kalima-cover { view-transition-name: none; }
+}
+
+/* ---------- KALIMA design carousel ---------- */
+.carousel { margin-bottom: 2.5rem; }
+
+.carousel-track {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  cursor: grab;
+  border-radius: 0.75rem;
+}
+
+.carousel-track::-webkit-scrollbar { display: none; }
+
+.carousel-track.dragging {
+  scroll-snap-type: none;
+  cursor: grabbing;
+  user-select: none;
+}
+
+.carousel-slide {
+  flex: 0 0 86%;
+  margin: 0;
+  scroll-snap-align: center;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  opacity: 0.45;
+  transform: scale(0.97);
+  transition: opacity var(--dur-med) var(--ease), transform var(--dur-med) var(--ease);
+}
+
+.carousel-slide.is-active { opacity: 1; transform: none; }
+
+.carousel-slide img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.9rem;
+}
+
+.carousel-dots button {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  background-color: var(--border);
+  transition: background-color var(--dur-quick) var(--ease), width var(--dur-med) var(--ease-spring);
+}
+
+.carousel-dots button.active {
+  width: 22px;
+  background-color: var(--accent);
+}
+
+@media (max-width: 640px) {
+  .carousel-slide { height: 320px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel-slide { opacity: 1; transform: none; transition: none; }
 }
 
 /* ---------- Typographic micro-polish ---------- */

@@ -813,3 +813,78 @@ if (matchMedia("(hover: hover)").matches) {
     });
   });
 }
+
+// KALIMA carousel: swipeable design showcase — snap scrolling, drag on
+// desktop, dot sync, and heavy GIFs that only load once they're needed.
+const kalimaCarousel = document.getElementById("kalima-carousel");
+if (kalimaCarousel) {
+  const track = kalimaCarousel.querySelector(".carousel-track");
+  const slides = [...track.querySelectorAll(".carousel-slide")];
+  const dotsWrap = kalimaCarousel.querySelector(".carousel-dots");
+
+  const centerOn = (slide, behavior) => {
+    track.scrollTo({
+      left: slide.offsetLeft - track.offsetLeft - (track.clientWidth - slide.clientWidth) / 2,
+      behavior: behavior || (reducedMotion ? "auto" : "smooth"),
+    });
+  };
+
+  const dots = slides.map((slide, i) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.setAttribute("aria-label", `Go to slide ${i + 1} of ${slides.length}`);
+    b.addEventListener("click", () => centerOn(slide));
+    dotsWrap.appendChild(b);
+    return b;
+  });
+
+  const loadGif = (slide) => {
+    const img = slide.querySelector("img[data-gif]");
+    if (img) { img.src = img.dataset.gif; delete img.dataset.gif; }
+  };
+
+  // Active-slide tracking drives the dot state, the scale/fade animation,
+  // and lazy GIF upgrades (the 9 MB demo only loads when its slide shows).
+  const activeObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const i = slides.indexOf(entry.target);
+      entry.target.classList.toggle("is-active", entry.isIntersecting);
+      dots[i].classList.toggle("active", entry.isIntersecting);
+      if (entry.isIntersecting) loadGif(entry.target);
+    });
+  }, { root: track, threshold: 0.6 });
+  slides.forEach((s) => activeObserver.observe(s));
+
+  // Upgrade the first slide's GIF as soon as the carousel scrolls into view.
+  new IntersectionObserver((entries, obs) => {
+    if (entries.some((e) => e.isIntersecting)) {
+      loadGif(slides[0]);
+      obs.disconnect();
+    }
+  }, { threshold: 0.2 }).observe(kalimaCarousel);
+
+  // Mouse drag-to-swipe (touch uses native scrolling + snap).
+  let dragging = false, moved = false, downX = 0, startLeft = 0;
+  track.addEventListener("pointerdown", (e) => {
+    if (e.pointerType !== "mouse") return;
+    dragging = true; moved = false;
+    downX = e.clientX; startLeft = track.scrollLeft;
+    track.classList.add("dragging");
+  });
+  addEventListener("pointermove", (e) => {
+    if (!dragging) return;
+    if (Math.abs(e.clientX - downX) > 4) moved = true;
+    track.scrollLeft = startLeft - (e.clientX - downX);
+  });
+  addEventListener("pointerup", () => {
+    if (!dragging) return;
+    dragging = false;
+    const center = track.scrollLeft + track.clientWidth / 2;
+    const nearest = slides.reduce((a, s) =>
+      Math.abs(s.offsetLeft + s.clientWidth / 2 - center) <
+      Math.abs(a.offsetLeft + a.clientWidth / 2 - center) ? s : a);
+    centerOn(nearest);
+    setTimeout(() => track.classList.remove("dragging"), 500);
+  });
+  track.addEventListener("click", (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
+}

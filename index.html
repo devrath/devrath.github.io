@@ -48,7 +48,7 @@
   }
   </script>
   <script>(()=>{const s=localStorage.getItem("theme");if(s?s==="light":matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");})();</script>
-  <link rel="stylesheet" href="styles.css?v=41" />
+  <link rel="stylesheet" href="styles.css?v=42" />
 </head>
 <body class="loading">
   <a class="skip-link" href="#about">Skip to content</a>
@@ -495,6 +495,15 @@
           </li>
 
           <li>
+            <div class="carousel vt-kalima-cover" id="kalima-carousel" aria-roledescription="carousel" aria-label="KALIMA design showcase — swipe or drag to browse">
+              <div class="carousel-track" tabindex="0">
+                <figure class="carousel-slide"><img src="kalima/demo-2-still.jpg" data-gif="kalima/demo-2.gif" width="348" height="645" alt="KALIMA lock-screen demo — unlocking the phone by learning an Arabic word" loading="lazy" /></figure>
+                <figure class="carousel-slide"><img src="kalima/demo-1-still.jpg" data-gif="kalima/demo-1.gif" width="348" height="645" alt="KALIMA app flow on a Samsung phone — setup and daily use" loading="lazy" /></figure>
+                <figure class="carousel-slide"><img src="kalima/screens.webp" width="1400" height="1075" alt="KALIMA character and UI design board" loading="lazy" /></figure>
+                <figure class="carousel-slide"><img src="kalima/intro.jpg" width="1400" height="575" alt="Samsung Mobile — KALIMA Lock title card" loading="lazy" /></figure>
+              </div>
+              <div class="carousel-dots" aria-hidden="true"></div>
+            </div>
             <div class="proj-head">
               <img class="proj-icon" src="icons/kalima.png" alt="" width="56" height="56" loading="lazy" />
               <div class="proj-title">
@@ -509,6 +518,10 @@
             </div>
             <p>A lock-screen learning app built for Samsung — children learn a new Arabic word every time they unlock the device, turning the lock screen into a teaching moment.</p>
             <ul class="pills"><li>Android</li><li>Lock Screen</li><li>Ed-tech</li></ul>
+            <a class="inline-cta" href="kalima.html">
+              Read the case study
+              <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg>
+            </a>
           </li>
         </ul>
       </section>
@@ -758,6 +771,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=41"></script>
+  <script src="script.js?v=42"></script>
 </body>
 </html>
