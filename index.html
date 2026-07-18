@@ -48,7 +48,7 @@
   }
   </script>
   <script>if(localStorage.getItem("theme")==="light")document.documentElement.setAttribute("data-theme","light");</script>
-  <link rel="stylesheet" href="styles.css?v=39" />
+  <link rel="stylesheet" href="styles.css?v=40" />
 </head>
 <body class="loading">
   <a class="skip-link" href="#about">Skip to content</a>
@@ -97,6 +97,7 @@
           <li title="Professional Publishers Association, Video Content of the Year 2026 — The Economist's Insider">🏆 PPA Winner ’26</li>
           <li title="Code Star award, Mobile Premier League">⭐ Code Star · MPL</li>
           <li title="390th person worldwide to earn the Android gold badge on Stack Overflow">🥇 Android Gold #390</li>
+          <li title="Built broadcast streaming and the download pipeline for Mobile Premier League's ~85-million-user platform">🚀 85M-user scale</li>
         </ul>
 
         <nav class="site-nav" aria-label="In-page navigation">
@@ -264,6 +265,7 @@
               </summary>
               <div class="tl-body">
                 <p>Built for one of the world's largest eSports mobile platforms, serving ~85 million users: developed the broadcast-streaming module for live tournaments, bridged Android native with React Native and Unity, built a parallel high-speed downloader with WorkManager, and spearheaded Kotlin and DI adoption.</p>
+                <p class="stat-line">📉 Game-asset download failures: 7–19% → &lt;0.5%</p>
                 <ul class="pills"><li>Kotlin</li><li>Streaming</li><li>Unity / React Native interop</li><li>Scale</li></ul>
               </div>
             </details>
@@ -389,8 +391,8 @@
         </p>
         <ul class="honor-list">
           <li>
-            <a class="project-cover" href="https://play.google.com/store/apps/details?id=com.istudio.tunify" target="_blank" rel="noreferrer" aria-label="Tunify trailer — view on Google Play">
-              <video src="tunify-trailer.mp4" width="640" height="360" autoplay muted loop playsinline preload="metadata" aria-label="Tunify app trailer — radio, reimagined"></video>
+            <a class="project-cover vt-tunify-cover" href="https://play.google.com/store/apps/details?id=com.istudio.tunify" target="_blank" rel="noreferrer" aria-label="Tunify trailer — view on Google Play">
+              <video class="lazy-video" src="tunify-trailer.mp4" poster="tunify-trailer-poster.jpg" width="640" height="360" muted loop playsinline preload="none" aria-label="Tunify app trailer — radio, reimagined"></video>
             </a>
             <div class="proj-head">
               <img class="proj-icon" src="icons/tunify.png" alt="" width="56" height="56" loading="lazy" />
@@ -410,6 +412,7 @@
               with music, news, podcasts, sports and cultural shows from
               anywhere in the world, all for free.
             </p>
+            <p class="stat-line">📡 65,000+ stations · 200+ countries · 100% Compose</p>
             <ul class="pills">
               <li>Kotlin</li><li>Jetpack Compose</li><li>ExoPlayer / Media3</li><li>Multi-module</li>
             </ul>
@@ -421,7 +424,7 @@
 
           <li>
             <a class="project-cover economist-cover" href="https://play.google.com/store/apps/details?id=com.economist.lamarr" target="_blank" rel="noreferrer" aria-label="The Economist Insider — view on Google Play">
-              <video src="economist-insider.mp4" width="640" height="360" autoplay muted loop playsinline preload="metadata" aria-label="The Economist Insider — live streaming announcement"></video>
+              <video class="lazy-video" src="economist-insider.mp4" poster="economist-insider-poster.jpg" width="640" height="360" muted loop playsinline preload="none" aria-label="The Economist Insider — live streaming announcement"></video>
             </a>
             <div class="proj-head">
               <img class="proj-icon" src="icons/economist.png" alt="" width="56" height="56" loading="lazy" />
@@ -436,6 +439,7 @@
               </div>
             </div>
             <p>The flagship Android app I build today — live &amp; on-demand audio/video streaming with Picture-in-Picture, podcasts with offline downloads and resume, and an offline-first reading experience for readers worldwide.</p>
+            <p class="stat-line">🏆 PPA Video Content of the Year ’26 · Insider streaming</p>
             <ul class="pills"><li>Kotlin</li><li>Jetpack Compose</li><li>Media3 / ExoPlayer</li><li>MVI</li></ul>
           </li>
 
@@ -754,6 +758,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=39"></script>
+  <script src="script.js?v=40"></script>
 </body>
 </html>

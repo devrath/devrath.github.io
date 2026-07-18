@@ -547,18 +547,6 @@ if (themeToggle && document.startViewTransition && !reducedMotion) {
   });
 }
 
-// Trailer blur-up: keep the tiny poster visible until the GIF has loaded.
-const trailerImg = document.querySelector(".project-cover video, .project-cover img");
-if (trailerImg) {
-  const ready = trailerImg.tagName === "VIDEO" ? trailerImg.readyState >= 2 : trailerImg.complete;
-  if (!ready) {
-    trailerImg.classList.add("gif-loading");
-    const evt = trailerImg.tagName === "VIDEO" ? "loadeddata" : "load";
-    trailerImg.addEventListener(evt, () => trailerImg.classList.remove("gif-loading"), { once: true });
-  }
-  if (trailerImg.tagName === "VIDEO" && reducedMotion) trailerImg.pause();
-}
-
 // Easter egg: five quick clicks on the monogram sends a robot across the screen.
 const monogram = document.getElementById("monogram");
 if (monogram) {
@@ -793,4 +781,16 @@ if (!reducedMotion && matchMedia("(hover: hover)").matches) {
       el.style.transform = "";
     });
   });
+}
+
+// Trailer videos: poster-first with preload="none"; play only while on screen.
+const lazyVideos = document.querySelectorAll("video.lazy-video");
+if (lazyVideos.length && !reducedMotion && "IntersectionObserver" in window) {
+  const videoObserver = new IntersectionObserver((entries) => {
+    entries.forEach(({ target, isIntersecting }) => {
+      if (isIntersecting) target.play().catch(() => {});
+      else target.pause();
+    });
+  }, { threshold: 0.25 });
+  lazyVideos.forEach((v) => videoObserver.observe(v));
 }

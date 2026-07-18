@@ -17,7 +17,7 @@
   <link rel="preload" href="fonts/roboto.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin />
   <script>if(localStorage.getItem("theme")==="light")document.documentElement.setAttribute("data-theme","light");</script>
-  <link rel="stylesheet" href="styles.css?v=38" />
+  <link rel="stylesheet" href="styles.css?v=40" />
   <style>
     .cs { max-width: 820px; margin: 0 auto; padding: 5rem 1.5rem 6rem; position: relative; z-index: 1; }
     .cs-back { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; font-weight: 600; color: var(--text); transition: color var(--dur-quick) var(--ease); }
@@ -91,8 +91,8 @@
       <a class="cs-cta ghost" href="https://github.com/devrath/Tunify" target="_blank" rel="noreferrer">Source on GitHub</a>
     </div>
 
-    <div class="cs-cover">
-      <video src="tunify-trailer.mp4" width="640" height="360" autoplay muted loop playsinline preload="metadata" aria-label="Tunify trailer"></video>
+    <div class="cs-cover vt-tunify-cover">
+      <video class="lazy-video" src="tunify-trailer.mp4" poster="tunify-trailer-poster.jpg" width="640" height="360" muted loop playsinline preload="none" aria-label="Tunify trailer"></video>
     </div>
 
     <div class="cs-stats">
@@ -346,5 +346,20 @@
       </div>
     </div>
   </main>
+
+  <script>
+    // Trailer: poster-first, play only while on screen.
+    (() => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const video = document.querySelector("video.lazy-video");
+      if (!video || !("IntersectionObserver" in window)) return;
+      new IntersectionObserver((entries) => {
+        entries.forEach(({ target, isIntersecting }) => {
+          if (isIntersecting) target.play().catch(() => {});
+          else target.pause();
+        });
+      }, { threshold: 0.25 }).observe(video);
+    })();
+  </script>
 </body>
 </html>
