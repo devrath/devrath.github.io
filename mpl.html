@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mobile Premier League — Case Study · Devrath AD</title>
+  <meta name="description" content="Android engineering at ~85M-user scale — game downloads as revenue infrastructure, ExoPlayer live &amp; VOD streaming, and a Kotlin/MVVM platform migration at Mobile Premier League. A case study by Devrath AD." />
+  <meta name="author" content="Devrath AD" />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="canonical" href="https://devrath.me/mpl.html" />
+  <meta property="og:title" content="Mobile Premier League — Case Study · Devrath AD" />
+  <meta property="og:description" content="Downloads that move revenue, streaming for live eSports, and a platform migration — Android at ~85M-user scale." />
+  <meta property="og:url" content="https://devrath.me/mpl.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://devrath.me/og-image.png?v=4" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233DDC84'><path d='M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.29-.15-.65-.06-.83.22l-1.88 3.24a11.46 11.46 0 0 0-8.94 0L5.65 5.67c-.19-.29-.58-.38-.87-.2-.28.18-.37.54-.22.83l1.84 3.18C3.45 11.15 1.5 13.09 1.5 16h21c0-2.91-1.95-4.85-4.9-6.52zM7 14.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zm10 0c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z'/></svg>" />
+  <link rel="preload" href="fonts/roboto.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin />
+  <script>(()=>{const s=localStorage.getItem("theme");if(s?s==="light":matchMedia("(prefers-color-scheme: light)").matches){document.documentElement.setAttribute("data-theme","light");document.querySelector('meta[name="theme-color"]').setAttribute("content","#f1f5f9");}})();</script>
+  <link rel="stylesheet" href="styles.css?v=42" />
+  <style>
+    .cs { max-width: 820px; margin: 0 auto; padding: 5rem 1.5rem 6rem; position: relative; z-index: 1; }
+    .cs-back { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; font-weight: 600; color: var(--text); transition: color var(--dur-quick) var(--ease); }
+    .cs-back:hover { color: var(--accent); }
+    .cs-eyebrow { margin-top: 2.5rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
+    .cs h1 { font-family: "Space Grotesk","Roboto",sans-serif; font-size: clamp(2.4rem, 6vw, 3.4rem); font-weight: 700; letter-spacing: -0.03em; color: var(--text-bright); margin-top: 0.5rem; }
+    .cs-lede { margin-top: 1rem; font-size: 1.15rem; max-width: 42rem; }
+    .cs-links { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 1.75rem; }
+    .cs-cta { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.7rem 1.4rem; border-radius: 0.5rem; font-weight: 600; font-size: 0.95rem; transition: transform var(--dur-quick) var(--ease), background-color var(--dur-quick) var(--ease), color var(--dur-quick) var(--ease); }
+    .cs-cta.primary { background: var(--accent); color: var(--bg); }
+    .cs-cta.ghost { border: 1px solid var(--border); color: var(--text-bright); }
+    .cs-cta:hover { transform: translateY(-2px); }
+    .cs-cta.ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .cs-stats { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; margin-top: 2.5rem; }
+    @media (min-width: 640px) { .cs-stats { grid-template-columns: repeat(4,1fr); } }
+    .cs-stat { padding: 1rem; border: 1px solid var(--border); border-radius: 0.5rem; background: var(--bg-card); }
+    .cs-stat b { display: block; font-family: "Space Grotesk",sans-serif; font-size: 1.4rem; color: var(--accent); }
+    .cs-stat span { display: block; margin-top: 0.2rem; font-size: 0.72rem; }
+    .cs h2 { font-family: "Space Grotesk","Roboto",sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--text-bright); margin-top: 3.5rem; display: flex; align-items: baseline; gap: 0.6rem; }
+    .cs h2 .n { font-size: 0.85rem; color: var(--accent); font-weight: 400; }
+    .cs h3 { font-size: 1.05rem; font-weight: 600; color: var(--text-bright); margin-top: 2rem; }
+    .cs p { margin-top: 1rem; }
+    .cs p strong, .cs li strong { color: var(--text-bright); font-weight: 600; }
+    .cs code { color: var(--accent); }
+    .cs ul.body { margin-top: 1rem; padding-left: 1.2rem; }
+    .cs ul.body li { margin-top: 0.5rem; }
+    .cs a.inl { color: var(--text-bright); font-weight: 500; }
+    .cs a.inl:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    .cs figure { margin: 2rem 0 0; }
+    .cs figure svg { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 0.6rem; background: var(--bg-card); }
+    .cs figcaption { margin-top: 0.6rem; font-size: 0.78rem; color: rgba(148,163,184,0.85); text-align: center; }
+    .cs-callout { margin-top: 1.5rem; padding: 1.1rem 1.3rem; border-left: 2px solid var(--accent); border-radius: 0 0.4rem 0.4rem 0; background: var(--bg-card); font-size: 0.95rem; }
+    .cs-callout .tag { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+    .cs-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; }
+    .cs-pills li { list-style: none; padding: 0.3rem 0.75rem; border-radius: 9999px; background: var(--pill-bg); color: var(--accent); font-size: 0.75rem; font-weight: 500; }
+    .cs-foot { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: center; font-size: 0.85rem; }
+    /* diagram helpers */
+    .d-box { fill: var(--bg-card); stroke: var(--border); stroke-width: 1; }
+    .d-core { fill: rgba(61,220,132,0.08); stroke: rgba(61,220,132,0.35); }
+    .d-accent { fill: rgba(61,220,132,0.16); stroke: var(--accent); }
+    .d-t { fill: var(--text-bright); font-family: "Roboto",sans-serif; font-size: 12px; font-weight: 600; }
+    .d-s { fill: var(--text); font-family: "Roboto",sans-serif; font-size: 10px; }
+    .d-a { fill: var(--accent); font-family: "Roboto",sans-serif; font-size: 11px; font-weight: 600; }
+    .d-line { stroke: var(--text); stroke-width: 1; opacity: 0.4; }
+    .d-flow { stroke: var(--accent); stroke-width: 1.5; fill: none; }
+  </style>
+</head>
+<body>
+  <div id="aurora" aria-hidden="true"></div>
+  <div id="grain" aria-hidden="true"></div>
+
+  <main class="cs">
+    <a class="cs-back" href="/#projects">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Back to devrath.me
+    </a>
+
+    <p class="cs-eyebrow">Case Study · Software Engineer III at MPL</p>
+    <h1>Mobile Premier League</h1>
+    <p class="cs-lede">
+      One of the world's largest eSports and mobile-gaming platforms, serving
+      <strong>~85 million users</strong>. My Android work here ran across four
+      pods — core, search, unity and streaming — and touched the two systems
+      the business lives on: <strong>game delivery and live streaming</strong>.
+    </p>
+
+    <div class="cs-links">
+      <a class="cs-cta primary" href="https://www.mpl.live/" target="_blank" rel="noreferrer">Visit mpl.live</a>
+    </div>
+
+    <div class="cs-stats">
+      <div class="cs-stat"><b>~85M</b><span>users on the platform</span></div>
+      <div class="cs-stat"><b>7–19%</b><span>game download failure rate — before</span></div>
+      <div class="cs-stat"><b>&lt;0.5%</b><span>failure rate after my download manager</span></div>
+      <div class="cs-stat"><b>⭐</b><span>Code Star award for the impact</span></div>
+    </div>
+
+    <!-- CONTRIBUTIONS -->
+    <h2><span class="n">01</span> My contributions</h2>
+    <p>
+      As <strong>Software Engineer III</strong> I worked where Android
+      engineering and the business meet. Every install, update and stream on
+      an ~85M-user platform passes through code my team owned.
+    </p>
+    <ul class="body">
+      <li><strong>Game download infrastructure</strong> — built the mechanisms that deliver large game files: Unity asset bundles and full game APKs, downloaded in parallel at high speed with WorkManager-backed scheduling, resume and retry.</li>
+      <li><strong>Upgrade &amp; update management</strong> — owned how games and the app itself update on users' devices. Cutting asset-download failures from <strong>7–19% to below 0.5%</strong> directly increased game starts — and with them, <strong>company revenue</strong>. This work earned MPL's Code Star award.</li>
+      <li><strong>Four pods, one platform</strong> — contributed across the <strong>core</strong>, <strong>search</strong>, <strong>unity</strong> and <strong>streaming</strong> pods, from platform plumbing to feature delivery.</li>
+      <li><strong>Live &amp; VOD streaming</strong> — built the ExoPlayer-based broadcast module for live tournaments and video-on-demand (detailed below).</li>
+      <li><strong>Multi-lingual launch</strong> — shipped multi-language application support, opening the product to users across India's language landscape.</li>
+      <li><strong>Legacy migration</strong> — moved the ageing codebase to a modern stack: <strong>pure Kotlin with MVVM architecture</strong>, and spearheaded dependency-injection adoption along the way.</li>
+      <li><strong>Testing culture</strong> — introduced unit-testing and UI-testing frameworks to the product, turning untested legacy paths into guarded ones.</li>
+      <li><strong>Performance</strong> — profiled and improved app launch time and overall responsiveness — at this scale, milliseconds at startup compound into measurable retention.</li>
+      <li><strong>Native ↔ engine bridges</strong> — integrated Android native with <strong>Unity</strong> (embedding games as a library) and <strong>React Native</strong> surfaces in one codebase.</li>
+    </ul>
+
+    <!-- DOWNLOADS -->
+    <h2><span class="n">02</span> Deep-dive: downloads as revenue infrastructure</h2>
+    <p>
+      A real-money gaming platform can't rely on the Play Store for its
+      catalogue — games arrive as large asset bundles and APKs fetched inside
+      the app, over the exact networks where connections drop mid-transfer. A
+      failed download isn't an inconvenience here: it's a user who never plays,
+      and revenue that never happens.
+    </p>
+    <p>
+      The download manager I built treats delivery like infrastructure:
+      files are fetched in <strong>parallel chunks</strong> for speed,
+      <strong>WorkManager</strong> schedules and survives process death,
+      interrupted transfers <strong>resume instead of restarting</strong>, and
+      completed files are verified before handing off to install or the game
+      runtime.
+    </p>
+
+    <figure>
+      <svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MPL download pipeline diagram">
+        <rect class="d-accent" x="20" y="120" width="120" height="50" rx="6"/>
+        <text class="d-t" x="80" y="142" text-anchor="middle">Game catalogue</text>
+        <text class="d-s" x="80" y="158" text-anchor="middle">assets · APKs</text>
+
+        <rect class="d-core" x="205" y="120" width="140" height="50" rx="6"/>
+        <text class="d-t" x="275" y="142" text-anchor="middle">Download manager</text>
+        <text class="d-s" x="275" y="158" text-anchor="middle">WorkManager scheduling</text>
+
+        <g>
+          <rect class="d-box" x="410" y="40" width="120" height="40" rx="6"/>
+          <text class="d-t" x="470" y="64" text-anchor="middle">Chunk 1</text>
+          <rect class="d-box" x="410" y="95" width="120" height="40" rx="6"/>
+          <text class="d-t" x="470" y="119" text-anchor="middle">Chunk 2</text>
+          <rect class="d-box" x="410" y="150" width="120" height="40" rx="6"/>
+          <text class="d-t" x="470" y="174" text-anchor="middle">Chunk n</text>
+          <text class="d-a" x="470" y="215" text-anchor="middle">parallel · resumable</text>
+        </g>
+
+        <rect class="d-core" x="600" y="95" width="140" height="46" rx="6"/>
+        <text class="d-t" x="670" y="114" text-anchor="middle">Verify &amp; assemble</text>
+        <text class="d-s" x="670" y="130" text-anchor="middle">integrity checks</text>
+
+        <rect class="d-accent" x="600" y="170" width="140" height="46" rx="6"/>
+        <text class="d-t" x="670" y="189" text-anchor="middle">Install / launch</text>
+        <text class="d-s" x="670" y="205" text-anchor="middle">upgrade handoff</text>
+
+        <path class="d-flow" marker-end="url(#arm)" d="M140,145 L203,145"/>
+        <path class="d-flow" marker-end="url(#arm)" d="M345,135 C375,120 385,80 408,63"/>
+        <path class="d-flow" marker-end="url(#arm)" d="M345,145 L408,117"/>
+        <path class="d-flow" marker-end="url(#arm)" d="M345,155 C375,160 385,165 408,170"/>
+        <path class="d-flow" marker-end="url(#arm)" d="M530,115 L598,117"/>
+        <path class="d-flow" marker-end="url(#arm)" d="M670,141 L670,168"/>
+        <text class="d-s" x="172" y="135" text-anchor="middle">queue</text>
+        <defs>
+          <marker id="arm" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#3ddc84"/></marker>
+        </defs>
+        <text class="d-s" x="380" y="275" text-anchor="middle">Failures fell from 7–19% to &lt;0.5% — every recovered download is a game that gets played.</text>
+      </svg>
+      <figcaption>The parallel download pipeline — chunked, scheduled, resumable, verified.</figcaption>
+    </figure>
+
+    <div class="cs-callout">
+      <span class="tag">Business impact</span>
+      <p style="margin-top:0.5rem">
+        Downloads and upgrades are where engineering met revenue: when the
+        failure rate collapsed from 7–19% to under 0.5%, more users reached
+        their first game, retention improved, and the revenue curve moved with
+        it. The work was recognised with MPL's <strong>Code Star</strong> award.
+      </p>
+    </div>
+
+    <!-- STREAMING -->
+    <h2><span class="n">03</span> Deep-dive: streaming live eSports</h2>
+    <p>
+      In the streaming pod I built the broadcast experience on
+      <strong>ExoPlayer</strong> — live tournament streams for millions of
+      concurrent viewers, plus a full video-on-demand library:
+    </p>
+    <ul class="body">
+      <li><strong>Live streaming</strong> — HLS-based live playback for tournaments, tuned for low startup latency on mid-range devices.</li>
+      <li><strong>VOD with offline support</strong> — downloadable videos for watching without a connection.</li>
+      <li><strong>Multi-resolution playback</strong> — adaptive bitrate switching plus manual quality selection for constrained data plans.</li>
+      <li><strong>Casting</strong> — playback handoff to the big screen.</li>
+      <li><strong>Multi-language subtitles</strong> — subtitle track selection to match the multi-lingual product push.</li>
+      <li><strong>Cropping &amp; sharing</strong> — clip a moment from a stream and share it — turning viewers into distribution.</li>
+      <li><strong>Chapterisation</strong> — segmented timelines so viewers jump straight to the action in long broadcasts.</li>
+      <li><strong>Playback ergonomics</strong> — media-session integration for notification and lock-screen controls, playback-speed control, and seek-bar thumbnails for scrubbing long VODs.</li>
+    </ul>
+
+    <!-- PLATFORM -->
+    <h2><span class="n">04</span> Modernising the platform</h2>
+    <p>
+      Alongside feature work, I helped drag a large legacy codebase into the
+      modern era without stopping the release train:
+    </p>
+    <ul class="body">
+      <li><strong>Pure Kotlin + MVVM</strong> — migrated legacy Java code to a Kotlin-first architecture with clear view-model boundaries.</li>
+      <li><strong>Testing frameworks</strong> — stood up the unit- and UI-testing infrastructure and the conventions that made tests part of the definition of done.</li>
+      <li><strong>Launch-time performance</strong> — instrumented and optimised the startup path; on an app this size, cold-start wins show up directly in engagement.</li>
+      <li><strong>Multi-lingual support</strong> — launched localisation across the app, a product-wide effort spanning every screen and string.</li>
+    </ul>
+
+    <div class="cs-callout">
+      <span class="tag">Credits</span>
+      <p style="margin-top:0.5rem">
+        MPL is a <strong>Mobile Premier League</strong> product — one of the
+        world's largest eSports platforms. I worked on the Android app as
+        Software Engineer III (2022–2023); figures are from my Code Star award
+        citation.
+      </p>
+    </div>
+
+    <ul class="cs-pills" aria-label="Tech stack">
+      <li>Kotlin</li><li>MVVM</li><li>ExoPlayer</li><li>WorkManager</li>
+      <li>Unity interop</li><li>React Native interop</li><li>Unit &amp; UI testing</li>
+      <li>Performance</li><li>Localisation</li>
+    </ul>
+
+    <div class="cs-foot">
+      <a class="cs-back" href="/#projects">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to portfolio
+      </a>
+      <div class="cs-links" style="margin:0">
+        <a class="cs-cta primary" href="https://www.mpl.live/" target="_blank" rel="noreferrer">mpl.live</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
