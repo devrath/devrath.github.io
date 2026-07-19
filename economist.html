@@ -84,44 +84,88 @@
 
     <div class="cs-stats">
       <div class="cs-stat"><b>🏆 PPA</b><span>Video Content of the Year 2026 — Insider</span></div>
-      <div class="cs-stat"><b>Live+VOD</b><span>audio &amp; video streaming with PiP</span></div>
-      <div class="cs-stat"><b>Offline</b><span>-first reading &amp; podcast downloads</span></div>
-      <div class="cs-stat"><b>MVI</b><span>multi-module Compose architecture</span></div>
+      <div class="cs-stat"><b>4.9★</b><span>on Google Play · 1M+ installs</span></div>
+      <div class="cs-stat"><b>80%</b><span>of Insider viewing happens in the app</span></div>
+      <div class="cs-stat"><b>94%</b><span>of Insider subscribers "very satisfied"</span></div>
     </div>
 
     <!-- CONTRIBUTIONS -->
     <h2><span class="n">01</span> My contributions</h2>
     <p>
       As <strong>Senior Software Engineer</strong> I architect the Android
-      experience that brings independent journalism to millions of readers:
+      experience that brings independent journalism to millions of readers.
+      The heart of my work is <strong>Insider</strong>, The Economist's
+      premium video product:
     </p>
     <ul class="body">
-      <li><strong>Insider streaming</strong> — architected live &amp; VOD audio/video streaming on Media3/ExoPlayer, with Picture-in-Picture so the journalism follows you out of the app.</li>
-      <li><strong>Podcasts</strong> — playback with offline downloads and pick-up-where-you-left-off resume across sessions.</li>
-      <li><strong>Offline-first reading</strong> — the day's edition is there on the train, on the plane, or wherever the connection isn't.</li>
+      <li><strong>Live + VOD streaming in-app</strong> — the Insider hub, built on Media3/ExoPlayer: twice-weekly live shows that become on-demand video.</li>
+      <li><strong>Picture-in-Picture</strong> — video keeps playing outside the app, so the journalism follows you.</li>
+      <li><strong>VOD chapters</strong> — seek-bar markers plus a chapter panel for YouTube-style scrubbing through long episodes.</li>
+      <li><strong>Resume (pick up where you left off)</strong> — Insider video continues exactly where the viewer stopped, across sessions.</li>
+      <li><strong>Featured Insider on Home</strong> — surfacing episodes on the homepage plus the dedicated hub.</li>
+      <li><strong>Gifting</strong> — subscribers can gift Insider episodes.</li>
+      <li><strong>Engagement surfaces</strong> — calendar, follow, sharing and sponsorship touchpoints across Insider.</li>
+      <li><strong>Play tier homepage</strong> — a new home bringing podcasts, Insider, shorts and games together (from ~v4.92).</li>
+      <li><strong>Unified audio/video player</strong> — Phase 1 in progress: seamless audio ↔ video switching for Insider, including background listening with the phone locked.</li>
+    </ul>
+    <p>And across the wider app:</p>
+    <ul class="body">
+      <li><strong>Podcasts</strong> — playback with offline episode downloads and resume across sessions.</li>
+      <li><strong>Offline-first reading</strong> — the weekly edition downloads for offline reading, with auto-pruning beyond the last eight editions.</li>
       <li><strong>Monetisation</strong> — AdMob integration woven into the reading experience without degrading it.</li>
       <li><strong>Architecture</strong> — an MVI multi-module structure with a reusable Jetpack Compose design system, keeping a growing feature set consistent and testable.</li>
     </ul>
 
     <!-- INSIDER -->
-    <h2><span class="n">02</span> Insider — award-winning streaming</h2>
+    <h2><span class="n">02</span> Insider — the award-winning bet</h2>
     <p>
-      Insider is The Economist's video platform — live events and on-demand
-      films inside the app. I played a key role in building it, and in June
-      2026 our team received the Professional Publishers Association's
-      <strong>Video Content of the Year</strong> award for it.
+      Insider was
+      <a class="inl" href="https://www.economistgroup.com/press-centre/the-economist/the-economist-introduces-the-economist-insider-a-new-premium-video-product-available-from-october-9th" target="_blank" rel="noreferrer">announced on 25 September 2025</a>
+      and went live on <strong>9 October 2025</strong> — live and on-demand
+      shows twice a week across Defence, Geopolitics, Economics and Tech.
+      Eight months later it won the Professional Publishers Association's
+      <a class="inl" href="https://www.ppaawards.co.uk/2026/en/page/winners-26" target="_blank" rel="noreferrer">Video Content of the Year 2026</a>.
+    </p>
+    <p>
+      The app is where Insider lives:
+      <a class="inl" href="https://pressgazette.co.uk/paywalls/economist-insider-retention/" target="_blank" rel="noreferrer">Press Gazette reports</a>
+      that <strong>~80% of Insider viewing happens in the app</strong> (20% on
+      web), with <strong>75% of subscribers engaged</strong>, 90% awareness,
+      <strong>94% "very satisfied"</strong> — and 120M social views feeding the
+      funnel. The feature they called out publicly? The app's
+      <strong>audio mode for video</strong> — background listening with the
+      phone locked.
     </p>
     <div class="cs-callout">
-      <span class="tag">🏆 PPA Award '26</span>
+      <span class="tag">🏆 PPA Award 2026</span>
       <p style="margin-top:0.5rem">
         <strong>Video Content of the Year</strong> — Professional Publishers
-        Association, June 2026, for The Economist's Insider. Live streaming,
-        VOD and Picture-in-Picture, built on Media3.
+        Association, June 2026, for The Economist Insider. Live + VOD
+        streaming with Picture-in-Picture, chapters and resume — built on
+        Media3, watched overwhelmingly in the app.
       </p>
     </div>
 
+    <!-- THE APP -->
+    <h2><span class="n">03</span> The app, rebuilt</h2>
+    <p>
+      Insider landed inside an app that was
+      <a class="inl" href="https://myaccount.economist.com/s/article/What-s-new-in-The-Economist-app" target="_blank" rel="noreferrer">rebuilt from scratch</a>
+      for performance and stability — with the old Android app called out as
+      the pain point the rebuild fixed. Highlights of the rebuilt experience
+      I help ship:
+    </p>
+    <ul class="body">
+      <li><strong>Resume everywhere</strong> — narrated articles and podcasts pick up where you left off across sessions (v4.44+), with Continue Listening on the Podcasts tab (v4.49).</li>
+      <li><strong>Audio queue</strong> — build, edit and reorder a listening queue across the app's audio.</li>
+      <li><strong>Video, promoted</strong> — a dedicated video tab and video on Home, with distinct weekday and weekend home experiences.</li>
+      <li><strong>For You</strong> — followed topics, bookmarks and push control in a personalised feed (v4.70+).</li>
+      <li><strong>AI narration</strong> — synthetic narration fills the gap until human narration lands (v4.62+).</li>
+      <li><strong>Broad device support</strong> — targeting Android 12+ and tested back to Android 9.</li>
+    </ul>
+
     <!-- ARCHITECTURE -->
-    <h2><span class="n">03</span> Architecture</h2>
+    <h2><span class="n">04</span> Architecture</h2>
     <p>
       The app runs on an <strong>MVI, multi-module architecture</strong>:
       unidirectional data flow keeps complex screens predictable, module
@@ -135,7 +179,10 @@
       <p style="margin-top:0.5rem">
         The Economist app is a product of <strong>The Economist</strong>.
         I build its Android experience as Senior Software Engineer.
-        Video © The Economist.
+        Video © The Economist. Public figures via
+        <a class="inl" href="https://pressgazette.co.uk/paywalls/economist-insider-retention/" target="_blank" rel="noreferrer">Press Gazette</a>,
+        the <a class="inl" href="https://ppa.co.uk/ppa-awards-2026-winners-revealed" target="_blank" rel="noreferrer">PPA</a>
+        and Google Play.
       </p>
     </div>
 
