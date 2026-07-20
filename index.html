@@ -23,6 +23,7 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233DDC84'><path d='M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.29-.15-.65-.06-.83.22l-1.88 3.24a11.46 11.46 0 0 0-8.94 0L5.65 5.67c-.19-.29-.58-.38-.87-.2-.28.18-.37.54-.22.83l1.84 3.18C3.45 11.15 1.5 13.09 1.5 16h21c0-2.91-1.95-4.85-4.9-6.52zM7 14.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zm10 0c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z'/></svg>" />
   <link rel="preload" href="fonts/roboto.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -48,7 +49,7 @@
   }
   </script>
   <script>(()=>{const s=localStorage.getItem("theme");if(s?s==="light":matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");})();</script>
-  <link rel="stylesheet" href="styles.css?v=42" />
+  <link rel="stylesheet" href="styles.css?v=43" />
 </head>
 <body class="loading">
   <a class="skip-link" href="#about">Skip to content</a>
@@ -100,6 +101,11 @@
           <li title="Built broadcast streaming and the download pipeline for Mobile Premier League's ~85-million-user platform">🚀 85M-user scale</li>
         </ul>
 
+        <a class="inline-cta resume-link" href="resume.pdf" target="_blank" rel="noreferrer">
+          Résumé (PDF)
+          <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg>
+        </a>
+
         <nav class="site-nav" aria-label="In-page navigation">
           <ul>
             <li><a class="nav-link active" href="#about"><span class="nav-line"></span><span class="nav-text">About</span></a></li>
@@ -108,10 +114,7 @@
             <li><a class="nav-link" href="#projects"><span class="nav-line"></span><span class="nav-text">Projects</span></a></li>
             <li><a class="nav-link" href="#writing"><span class="nav-line"></span><span class="nav-text">Writing</span></a></li>
             <li><a class="nav-link" href="#skills"><span class="nav-line"></span><span class="nav-text">Skills</span></a></li>
-            <li><a class="nav-link" href="#education"><span class="nav-line"></span><span class="nav-text">Education</span></a></li>
-            <li><a class="nav-link" href="#certifications"><span class="nav-line"></span><span class="nav-text">Certifications</span></a></li>
-            <li><a class="nav-link" href="#volunteering"><span class="nav-line"></span><span class="nav-text">Volunteering</span></a></li>
-            <li><a class="nav-link" href="#honors"><span class="nav-line"></span><span class="nav-text">Honors &amp; Awards</span></a></li>
+            <li><a class="nav-link" href="#beyond"><span class="nav-line"></span><span class="nav-text">Beyond Work</span></a></li>
             <li><a class="nav-link" href="#contact"><span class="nav-line"></span><span class="nav-text">Get In Touch</span></a></li>
           </ul>
         </nav>
@@ -364,9 +367,7 @@
             Recommendations
           </h3>
         </div>
-        <div class="reco-carousel" id="reco-carousel" hidden>
-          <div class="reco-track" id="reco-track"></div>
-        </div>
+        <div class="reco-grid" id="reco-grid" hidden></div>
         <p id="reco-fallback">
           Colleagues, leads and managers I've worked with have shared
           recommendations about my work over the years.
@@ -394,7 +395,7 @@
             <div class="proj-head">
               <img class="proj-icon" src="icons/tunify.png" alt="" width="56" height="56" loading="lazy" />
               <div class="proj-title">
-              <h4>
+              <h4 class="vt-tunify-title">
               <a href="https://play.google.com/store/apps/details?id=com.istudio.tunify" target="_blank" rel="noreferrer">
                 Tunify — Radio, Music &amp; Podcasts
                 <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg>
@@ -423,7 +424,7 @@
             <div class="proj-head">
               <img class="proj-icon" src="icons/economist.png" alt="" width="56" height="56" loading="lazy" />
               <div class="proj-title">
-              <h4>
+              <h4 class="vt-economist-title">
               <a href="https://play.google.com/store/apps/details?id=com.economist.lamarr" target="_blank" rel="noreferrer">
                 The Economist — News, Podcasts
                 <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg>
@@ -445,7 +446,7 @@
             <div class="proj-head">
               <img class="proj-icon" src="icons/co-mpl.png" alt="" width="56" height="56" loading="lazy" />
               <div class="proj-title">
-              <h4>
+              <h4 class="vt-mpl-title">
               <a href="https://www.mpl.live/" target="_blank" rel="noreferrer">
                 Mobile Premier League (MPL)
                 <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg>
@@ -463,85 +464,30 @@
             </a>
           </li>
 
-          <li>
-            <div class="proj-head">
-              <img class="proj-icon" src="icons/disney.png" alt="" width="56" height="56" loading="lazy" />
-              <div class="proj-title">
-              <h4>
-              <a href="https://play.google.com/store/apps/details?id=com.disney.cruise.sept_goo" target="_blank" rel="noreferrer">
-                Disney Cruise Line Navigator
-                <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg>
-              </a>
-            </h4>
-              <span class="item-sub">Contribution · SpurTree Technologies for Disney · Live on Google Play</span>
-              </div>
-            </div>
-            <p>The companion app for Disney cruises — helping guests navigate the ship, plan activities and organise their day, from shows to shopping.</p>
-            <ul class="pills"><li>Android</li><li>Java</li><li>Maps &amp; Location</li></ul>
-            <a class="inline-cta" href="disney.html">
-              Read about my work
-              <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg>
-            </a>
-          </li>
+        </ul>
 
-          <li>
-            <div class="proj-head">
-              <img class="proj-icon" src="icons/shoppersstop.png" alt="" width="56" height="56" loading="lazy" />
-              <div class="proj-title">
-              <h4>
-              <a href="https://play.google.com/store/apps/details?id=shoppersstop.shoppersstop" target="_blank" rel="noreferrer">
-                Shoppers Stop Fashion Shopping
-                <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg>
-              </a>
-            </h4>
-              <span class="item-sub">Contribution · SpurTree Technologies for Shoppers Stop · Live on Google Play</span>
-              </div>
-            </div>
-            <p>Fashion e-commerce for one of India's largest department store chains — apparel, accessories and more from leading brands, delivered to your doorstep.</p>
-            <ul class="pills"><li>Android</li><li>Java</li><li>RxJava</li></ul>
-          </li>
-
-          <li>
-            <div class="proj-head">
-              <img class="proj-icon" src="icons/kalima.png" alt="" width="56" height="56" loading="lazy" />
-              <div class="proj-title">
-              <h4>
-              <a href="https://www.youtube.com/watch?v=_ulqN586tgk" target="_blank" rel="noreferrer">
-                Samsung KALIMA Lock App
-                <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg>
-              </a>
-            </h4>
-              <span class="item-sub">Contribution · Built for Samsung · Watch on YouTube</span>
-              </div>
-            </div>
-            <p>A lock-screen learning app built for Samsung — children learn a new Arabic word every time they unlock the device, turning the lock screen into a teaching moment.</p>
-            <ul class="pills"><li>Android</li><li>Lock Screen</li><li>Ed-tech</li></ul>
-            <a class="inline-cta" href="kalima.html">
-              Read about my work
-              <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg>
-            </a>
-          </li>
-
-          <li>
-            <div class="proj-head">
-              <img class="proj-icon" src="icons/co-cybernetyx.png" alt="" width="56" height="56" loading="lazy" />
-              <div class="proj-title">
-              <h4>
-              <a href="kneura.html">
-                Kneura — Smart Classroom Platform
-                <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg>
-              </a>
-            </h4>
-              <span class="item-sub">Contribution · Cybernetyx · Interactive classroom panels on custom AOSP</span>
-              </div>
-            </div>
-            <p>An AI-powered blended-learning platform for K-12 classrooms, running on interactive panels with a custom AOSP Android OS — I spearheaded the Android apps, the silent-update pipeline with its download manager, and the canvas tooling across hardware variants.</p>
-            <ul class="pills"><li>Android</li><li>Custom AOSP</li><li>RxJava</li><li>Ed-tech</li></ul>
-            <a class="inline-cta" href="kneura.html">
-              Read about my work
-              <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg>
-            </a>
-          </li>
+        <h4 class="other-title">Other noteworthy projects</h4>
+        <ul class="mini-projects">
+          <li><a href="disney.html">
+            <img src="icons/disney.png" alt="" width="38" height="38" loading="lazy" />
+            <span class="mini-info"><strong>Disney Cruise Line Navigator</strong><span>Companion app for Disney cruises — offline-first at sea</span></span>
+            <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg>
+          </a></li>
+          <li><a href="https://play.google.com/store/apps/details?id=shoppersstop.shoppersstop" target="_blank" rel="noreferrer">
+            <img src="icons/shoppersstop.png" alt="" width="38" height="38" loading="lazy" />
+            <span class="mini-info"><strong>Shoppers Stop Fashion Shopping</strong><span>Fashion e-commerce for one of India's largest department chains</span></span>
+            <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg>
+          </a></li>
+          <li><a href="kalima.html">
+            <img src="icons/kalima.png" alt="" width="38" height="38" loading="lazy" />
+            <span class="mini-info"><strong>Samsung KALIMA Lock App</strong><span>Lock-screen Arabic learning for kids — built for Samsung Gulf</span></span>
+            <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg>
+          </a></li>
+          <li><a href="kneura.html">
+            <img src="icons/co-cybernetyx.png" alt="" width="38" height="38" loading="lazy" />
+            <span class="mini-info"><strong>Kneura — Smart Classroom Platform</strong><span>AI classroom platform on custom-AOSP interactive panels</span></span>
+            <svg class="arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06z"/></svg>
+          </a></li>
         </ul>
       </section>
 
@@ -619,13 +565,15 @@
       </section>
 
       <!-- EDUCATION -->
-      <section id="education" aria-label="Education">
+      <!-- BEYOND WORK (education · certifications · volunteering · honors) -->
+      <section id="beyond" aria-label="Beyond work">
         <div class="section-heading">
           <h3>
-            <svg class="sh-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>
-            Education
+            <svg class="sh-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            Beyond Work
           </h3>
         </div>
+                <h4 class="beyond-sub"><svg class="sh-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg> Education</h4>
         <ul class="honor-list">
           <li>
             <h4>Ramaiah Institute Of Technology</h4>
@@ -638,32 +586,14 @@
             <p>Dissertation: "Multi-model Video Surveillance using pyro-electric infrared sensors".</p>
           </li>
         </ul>
-      </section>
-
-      <!-- LICENSES & CERTIFICATIONS -->
-      <section id="certifications" aria-label="Licenses and certifications">
-        <div class="section-heading">
-          <h3>
-            <svg class="sh-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M9 14.5 8 22l4-2 4 2-1-7.5"/></svg>
-            Licenses &amp; Certifications
-          </h3>
-        </div>
+                <h4 class="beyond-sub"><svg class="sh-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M9 14.5 8 22l4-2 4 2-1-7.5"/></svg> Licenses &amp; Certifications</h4>
         <ul class="honor-list">
           <li>
             <h4>Google Associate Android Developer Certification</h4>
             <span class="item-sub">Issued Feb 2022</span>
           </li>
         </ul>
-      </section>
-
-      <!-- VOLUNTEERING -->
-      <section id="volunteering" aria-label="Volunteering">
-        <div class="section-heading">
-          <h3>
-            <svg class="sh-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
-            Volunteering
-          </h3>
-        </div>
+                <h4 class="beyond-sub"><svg class="sh-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg> Volunteering</h4>
         <ul class="honor-list">
           <li>
             <h4>Community Moderator · Stack Overflow</h4>
@@ -702,16 +632,7 @@
             </p>
           </li>
         </ul>
-      </section>
-
-      <!-- HONORS & AWARDS -->
-      <section id="honors" aria-label="Honors and awards">
-        <div class="section-heading">
-          <h3>
-            <svg class="sh-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4"/><path d="M7 4h10v6a5 5 0 0 1-10 0V4z"/><path d="M7 6H4a2 2 0 0 0 2 5h1M17 6h3a2 2 0 0 1-2 5h-1"/></svg>
-            Honors &amp; Awards
-          </h3>
-        </div>
+                <h4 class="beyond-sub"><svg class="sh-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4"/><path d="M7 4h10v6a5 5 0 0 1-10 0V4z"/><path d="M7 6H4a2 2 0 0 0 2 5h1M17 6h3a2 2 0 0 1-2 5h-1"/></svg> Honors &amp; Awards</h4>
         <ul class="honor-list">
           <li>
             <h4>Video Content of the Year</h4>
@@ -768,6 +689,7 @@
 
       <footer class="site-footer">
         <p>© 2026 Devrath AD</p>
+        <span class="colophon">Hand-built with vanilla <code>HTML</code> · <code>CSS</code> · <code>JS</code> — no frameworks, no build step.</span>
         <div class="print-qr">
           <img src="qr.svg" width="92" height="92" alt="QR code linking to devrath.me" />
           <span>Scan for the interactive version — devrath.me</span>
@@ -790,6 +712,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=42"></script>
+  <script src="script.js?v=43"></script>
 </body>
 </html>

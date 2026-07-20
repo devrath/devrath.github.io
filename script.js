@@ -282,20 +282,34 @@ const RECOMMENDATIONS = [
   },
 ];
 
+// Curated: the strongest four render as cards; the rest live on LinkedIn.
+const FEATURED_RECOS = ["Joy Cruz Vargas", "Richard Chao", "Advait Alai", "Sreenivas Makam"];
+
 function renderRecommendations() {
-  if (!RECOMMENDATIONS.length) return; // fallback text stays visible
-
-  const carousel = document.getElementById("reco-carousel");
-  const track = document.getElementById("reco-track");
+  const grid = document.getElementById("reco-grid");
   const fallback = document.getElementById("reco-fallback");
+  if (!grid) return;
 
-  // Two copies of the list make the marquee loop seamless.
-  [...RECOMMENDATIONS, ...RECOMMENDATIONS].forEach((rec) => {
+  const picks = FEATURED_RECOS
+    .map((n) => RECOMMENDATIONS.find((r) => r.name === n))
+    .filter(Boolean);
+  if (!picks.length) return; // fallback text stays visible
+
+  picks.forEach((rec) => {
     const card = document.createElement("article");
-    card.className = "reco-card";
+    card.className = "reco-card clamped";
 
     const quote = document.createElement("blockquote");
     quote.textContent = `“${rec.text}”`;
+
+    const more = document.createElement("button");
+    more.type = "button";
+    more.className = "reco-more";
+    more.textContent = "Read more";
+    more.addEventListener("click", () => {
+      const clamped = card.classList.toggle("clamped");
+      more.textContent = clamped ? "Read more" : "Show less";
+    });
 
     const meta = document.createElement("footer");
     meta.className = "reco-meta";
@@ -315,13 +329,16 @@ function renderRecommendations() {
       .join(" · ");
 
     meta.append(name, title, context);
-    card.append(quote, meta);
-    track.appendChild(card);
+    card.append(quote, more, meta);
+    grid.appendChild(card);
+
+    // Hide the toggle when the quote fits without clamping.
+    requestAnimationFrame(() => {
+      if (quote.scrollHeight <= quote.clientHeight + 2) more.hidden = true;
+    });
   });
 
-  // ~12s of scroll per card keeps long quotes readable.
-  track.style.setProperty("--reco-dur", `${RECOMMENDATIONS.length * 12}s`);
-  carousel.hidden = false;
+  grid.hidden = false;
   if (fallback) fallback.hidden = true;
 }
 
@@ -887,4 +904,29 @@ if (kalimaCarousel) {
     setTimeout(() => track.classList.remove("dragging"), 500);
   });
   track.addEventListener("click", (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
+}
+
+// Scroll-scrubbed intro: About paragraphs brighten word by word as you scroll.
+if (!reducedMotion && CSS.supports("animation-timeline: view()")) {
+  document.querySelectorAll("#about > p").forEach((p) => {
+    [...p.childNodes].forEach((node) => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        const frag = document.createDocumentFragment();
+        node.textContent.split(/(\s+)/).forEach((part) => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) {
+            frag.appendChild(document.createTextNode(part));
+          } else {
+            const s = document.createElement("span");
+            s.className = "scrub-word";
+            s.textContent = part;
+            frag.appendChild(s);
+          }
+        });
+        p.replaceChild(frag, node);
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        node.classList.add("scrub-word");
+      }
+    });
+  });
 }
