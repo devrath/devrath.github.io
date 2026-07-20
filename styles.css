@@ -523,7 +523,7 @@ section p strong { color: var(--text-bright); font-weight: 600; }
 
 .skill-group:last-of-type { margin-bottom: 0; }
 
-.skill-group h5 {
+.skill-group h4 {
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.05em;
@@ -2007,13 +2007,13 @@ code { font-variant-numeric: tabular-nums slashed-zero; }
 /* ---------- Scroll-scrubbed About intro ---------- */
 @supports (animation-timeline: view()) {
   .scrub-word {
-    opacity: 0.22;
+    opacity: 0.3;
     animation: scrub-brighten linear both;
     animation-timeline: view();
     animation-range: cover 5% cover 35%;
   }
   @keyframes scrub-brighten { to { opacity: 1; } }
-  @media (prefers-reduced-motion: reduce) {
+  @media (prefers-reduced-motion: reduce), (prefers-contrast: more) {
     .scrub-word { animation: none; opacity: 1; }
   }
 }
@@ -2154,6 +2154,28 @@ code { font-variant-numeric: tabular-nums slashed-zero; }
 }
 
 .reco-grid .reco-meta { margin-top: 0.9rem; }
+
+/* ---------- Now line ---------- */
+.now-line {
+  margin-top: 0.5rem;
+  max-width: 22rem;
+  font-size: 0.8rem;
+  color: var(--text);
+}
+
+.now-tag {
+  display: inline-block;
+  margin-right: 0.35rem;
+  padding: 0.05rem 0.5rem;
+  border: 1px solid rgba(61, 220, 132, 0.35);
+  border-radius: 9999px;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
 
 /* ---------- Colophon ---------- */
 .colophon {

@@ -930,3 +930,57 @@ if (!reducedMotion && CSS.supports("animation-timeline: view()")) {
     });
   });
 }
+
+// Live stats: current GitHub / Stack Overflow numbers, cached for 12h in
+// localStorage and fetched at idle. Hardcoded markup values are the fallback.
+(() => {
+  const kFmt = (n) => (n >= 1000 ? `${(n / 1000).toFixed(1).replace(/\.0$/, "")}k` : `${n}`);
+
+  const apply = (s) => {
+    if (!s) return;
+    const repos = document.getElementById("stat-repos");
+    if (repos && s.repos > 0) repos.textContent = `${s.repos}`;
+    const so = document.getElementById("stat-so");
+    if (so && s.rep > 0) {
+      const dot = (cls) => {
+        const el = document.createElement("span");
+        el.className = `badge-dot ${cls}`;
+        return el;
+      };
+      so.replaceChildren(
+        `${kFmt(s.rep)} · ${s.gold}`, dot("gold"),
+        `${s.silver}`, dot("silver"),
+        `${s.bronze}`, dot("bronze")
+      );
+    }
+  };
+
+  let cached = null;
+  try { cached = JSON.parse(localStorage.getItem("live-stats")); } catch { /* ignore */ }
+  apply(cached);
+  if (cached && Date.now() - cached.t < 12 * 60 * 60 * 1000) return;
+
+  const refresh = async () => {
+    const next = { ...(cached || {}), t: Date.now() };
+    try {
+      const r = await fetch("https://api.github.com/users/devrath");
+      if (r.ok) next.repos = (await r.json()).public_repos;
+    } catch { /* keep fallback */ }
+    try {
+      const r = await fetch("https://api.stackexchange.com/2.3/users/1083093?site=stackoverflow");
+      if (r.ok) {
+        const u = ((await r.json()).items || [])[0];
+        if (u && u.badge_counts) {
+          next.rep = u.reputation;
+          next.gold = u.badge_counts.gold;
+          next.silver = u.badge_counts.silver;
+          next.bronze = u.badge_counts.bronze;
+        }
+      }
+    } catch { /* keep fallback */ }
+    apply(next);
+    try { localStorage.setItem("live-stats", JSON.stringify(next)); } catch { /* ignore */ }
+  };
+
+  ("requestIdleCallback" in window ? requestIdleCallback : (f) => setTimeout(f, 2500))(refresh);
+})();

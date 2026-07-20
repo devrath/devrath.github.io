@@ -49,7 +49,7 @@
   }
   </script>
   <script>(()=>{const s=localStorage.getItem("theme");if(s?s==="light":matchMedia("(prefers-color-scheme: light)").matches)document.documentElement.setAttribute("data-theme","light");})();</script>
-  <link rel="stylesheet" href="styles.css?v=43" />
+  <link rel="stylesheet" href="styles.css?v=44" />
 </head>
 <body class="loading">
   <a class="skip-link" href="#about">Skip to content</a>
@@ -87,6 +87,7 @@
         <h1><a href="/">Devrath&nbsp;AD</a></h1>
         <h2>Senior Software Engineer · Android</h2>
         <p class="status"><span class="status-dot" aria-hidden="true"></span>Currently building at The Economist</p>
+        <p class="now-line"><span class="now-tag">Now</span> building Insider's unified audio ↔ video player · evolving Tunify across form factors</p>
         <p class="tagline"><span id="tagline-text">I build reliable, thoughtfully-architected Android apps with Kotlin and Jetpack Compose.</span><span id="tagline-caret" aria-hidden="true"></span></p>
 
         <figure class="hero-quote">
@@ -175,11 +176,11 @@
 
         <div class="stats" role="list">
           <div class="stat" role="listitem">
-            <span class="stat-value">42.9k · 55<span class="badge-dot gold"></span>211<span class="badge-dot silver"></span>318<span class="badge-dot bronze"></span></span>
+            <span class="stat-value" id="stat-so">42.9k · 55<span class="badge-dot gold"></span>211<span class="badge-dot silver"></span>318<span class="badge-dot bronze"></span></span>
             <span class="stat-label">Stack Overflow reputation &amp; badges</span>
           </div>
           <div class="stat" role="listitem">
-            <span class="stat-value">70+</span>
+            <span class="stat-value" id="stat-repos">70+</span>
             <span class="stat-label">Open-source repos</span>
           </div>
           <div class="stat" role="listitem">
@@ -526,37 +527,37 @@
         </div>
         <div class="skills-grid">
         <div class="skill-group">
-          <h5>Languages &amp; UI</h5>
+          <h4 class="skill-title">Languages &amp; UI</h4>
           <ul class="pills">
             <li>Kotlin</li><li>Java</li><li>Jetpack Compose</li><li>Material 3</li><li>XML &amp; Custom Views</li>
           </ul>
         </div>
         <div class="skill-group">
-          <h5>Concurrency &amp; Reactive</h5>
+          <h4 class="skill-title">Concurrency &amp; Reactive</h4>
           <ul class="pills">
             <li>Coroutines</li><li>Kotlin Flow</li><li>RxJava</li><li>LiveData</li>
           </ul>
         </div>
         <div class="skill-group">
-          <h5>Architecture</h5>
+          <h4 class="skill-title">Architecture</h4>
           <ul class="pills">
             <li>Clean Architecture</li><li>MVVM / MVI</li><li>Multi-module</li><li>SOLID</li><li>Design Patterns</li>
           </ul>
         </div>
         <div class="skill-group">
-          <h5>Dependency Injection &amp; Data</h5>
+          <h4 class="skill-title">Dependency Injection &amp; Data</h4>
           <ul class="pills">
             <li>Hilt</li><li>Dagger 2</li><li>Koin</li><li>Room</li><li>DataStore</li><li>Retrofit / OkHttp</li>
           </ul>
         </div>
         <div class="skill-group">
-          <h5>Testing &amp; Tooling</h5>
+          <h4 class="skill-title">Testing &amp; Tooling</h4>
           <ul class="pills">
             <li>JUnit</li><li>Espresso</li><li>TDD</li><li>Gradle</li><li>Git</li><li>Detekt / ktlint</li><li>CI/CD</li>
           </ul>
         </div>
         <div class="skill-group">
-          <h5>Platform &amp; Media</h5>
+          <h4 class="skill-title">Platform &amp; Media</h4>
           <ul class="pills">
             <li>Media3 / ExoPlayer</li><li>Services &amp; WorkManager</li><li>AIDL / IPC</li><li>Notifications</li><li>Google Maps</li><li>Unity / React Native interop</li>
           </ul>
@@ -662,6 +663,15 @@
             </p>
           </li>
         </ul>
+
+        <h4 class="beyond-sub"><svg class="sh-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> Uses</h4>
+        <ul class="honor-list">
+          <li>
+            <h4>Daily drivers</h4>
+            <span class="item-sub">The tools behind the work</span>
+            <p><strong>Android Studio</strong> on macOS, set in <strong>JetBrains Mono</strong> — the same face as this site. <strong>Kotlin</strong> and <strong>Jetpack Compose</strong> for everything UI, <strong>Gradle</strong> multi-module builds, quality guarded by <strong>Detekt</strong>, <strong>ktlint</strong> and <strong>JUnit</strong>, shipped through <strong>GitHub</strong> and CI/CD. This site: hand-written HTML, CSS and vanilla JS — no frameworks, no build step.</p>
+          </li>
+        </ul>
       </section>
 
       <!-- GET IN TOUCH -->
@@ -691,7 +701,7 @@
         <p>© 2026 Devrath AD</p>
         <span class="colophon">Hand-built with vanilla <code>HTML</code> · <code>CSS</code> · <code>JS</code> — no frameworks, no build step.</span>
         <div class="print-qr">
-          <img src="qr.svg" width="92" height="92" alt="QR code linking to devrath.me" />
+          <img src="qr.svg" width="92" height="92" alt="QR code linking to devrath.me" loading="lazy" />
           <span>Scan for the interactive version — devrath.me</span>
         </div>
       </footer>
@@ -712,6 +722,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=44"></script>
+  <script src="script.js?v=45"></script>
 </body>
 </html>
