@@ -283,7 +283,7 @@ const RECOMMENDATIONS = [
 ];
 
 // Curated: the strongest four render as cards; the rest live on LinkedIn.
-const FEATURED_RECOS = ["Joy Cruz Vargas", "Richard Chao", "Advait Alai", "Sreenivas Makam"];
+const FEATURED_RECOS = ["Amit Kumar Singh", "Richard Chao", "Advait Alai", "Sreenivas Makam"];
 
 function renderRecommendations() {
   const grid = document.getElementById("reco-grid");
