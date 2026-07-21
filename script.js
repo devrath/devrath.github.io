@@ -393,14 +393,6 @@ themeToggle.addEventListener("click", () => {
   applyThemeColor();
 });
 
-// Follow the OS theme live until the user makes a manual choice.
-window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", (e) => {
-  if (localStorage.getItem("theme")) return;
-  if (e.matches) document.documentElement.setAttribute("data-theme", "light");
-  else document.documentElement.removeAttribute("data-theme");
-  applyThemeColor();
-});
-
 // Intro loader: hexagon draws, letter fades in — then the mark flies into
 // the corner and becomes the monogram (shared-element continuity).
 const loader = document.getElementById("loader");
