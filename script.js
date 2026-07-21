@@ -980,3 +980,46 @@ if (!reducedMotion && CSS.supports("animation-timeline: view()")) {
 // Footer year: always current.
 const footerYear = document.getElementById("footer-year");
 if (footerYear) footerYear.textContent = new Date().getFullYear();
+
+// Hover-prefetch: warm a case-study page when the pointer enters its card/row,
+// so the click (with its view-transition morph) lands on a cached document.
+(() => {
+  const seen = new Set();
+  const warm = (href) => {
+    if (!href || seen.has(href) || /^https?:/.test(href)) return;
+    seen.add(href);
+    const l = document.createElement("link");
+    l.rel = "prefetch";
+    l.href = href;
+    document.head.appendChild(l);
+  };
+  document.querySelectorAll('#projects a[href$=".html"], .mini-projects a[href$=".html"]').forEach((a) => {
+    a.addEventListener("pointerenter", () => warm(a.getAttribute("href")), { once: true });
+    a.addEventListener("focus", () => warm(a.getAttribute("href")), { once: true });
+  });
+})();
+
+// Click-to-copy email on the hero mail icon, with a toast. "Say hello" still
+// opens the mail client; the icon copies (falls back to mailto if no clipboard).
+(() => {
+  const EMAIL = "devrath.dev595@gmail.com";
+  const toast = document.getElementById("copy-toast");
+  let hideT = null;
+  const flash = (msg) => {
+    if (!toast) return;
+    toast.textContent = msg;
+    toast.classList.add("show");
+    clearTimeout(hideT);
+    hideT = setTimeout(() => toast.classList.remove("show"), 1800);
+  };
+  document.querySelectorAll('.socials a[href^="mailto:"]').forEach((a) => {
+    a.addEventListener("click", (e) => {
+      if (!navigator.clipboard) return; // let the mailto proceed
+      e.preventDefault();
+      navigator.clipboard.writeText(EMAIL).then(
+        () => flash("Email copied ✓"),
+        () => { location.href = a.getAttribute("href"); }
+      );
+    });
+  });
+})();

@@ -2187,6 +2187,78 @@ code { font-variant-numeric: tabular-nums slashed-zero; }
 
 .colophon code { font-size: 0.72rem; color: inherit; }
 
+/* ---------- Case-study reading progress ---------- */
+#cs-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: linear-gradient(to right, var(--accent), rgba(61, 220, 132, 0.6));
+  z-index: 40;
+  pointer-events: none;
+}
+
+/* ---------- Next project (case-study foot) ---------- */
+.cs-next {
+  margin-top: 3.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.cs-next .lbl {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.cs-next a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: "Space Grotesk", "Roboto", sans-serif;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 700;
+  color: var(--text-bright);
+  transition: color var(--dur-quick) var(--ease), gap var(--dur-med) var(--ease-spring);
+}
+
+.cs-next a:hover { color: var(--accent); gap: 1rem; }
+.cs-next svg { width: 22px; height: 22px; flex-shrink: 0; }
+
+/* ---------- Accent list markers on case studies ---------- */
+.cs ul.body li::marker { color: var(--accent); }
+
+/* ---------- Copy-email toast ---------- */
+#copy-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 2rem;
+  transform: translateX(-50%) translateY(1rem);
+  padding: 0.6rem 1.1rem;
+  border-radius: 9999px;
+  background: var(--accent);
+  color: var(--bg);
+  font-size: 0.85rem;
+  font-weight: 600;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 60;
+  transition: opacity var(--dur-quick) var(--ease), transform var(--dur-med) var(--ease-spring);
+}
+
+#copy-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  #copy-toast { transition: opacity var(--dur-quick) var(--ease); }
+}
+
 /* ---------- Per-card blur-up poster (The Economist Insider) ---------- */
 .economist-cover {
   background: url("data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABIMDRANCxIQDhAUExIVGywdGxgYGzYnKSAsQDlEQz85Pj1HUGZXR0thTT0+WXlaYWltcnNyRVV9hnxvhWZwcm7/2wBDARMUFBsXGzQdHTRuST5Jbm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm7/wAARCAASACADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDiE+8M1chiIbeFyPeqS/eFbtrp9xcRqdwVT0oGjLuEO8sRj6VVrorzQpILZpWk3YFc8RgmgQL94V1dkT9kj5NFFJlR3Ll6c6XJ9K4h/vn60UUxM//Z") center / cover no-repeat;
