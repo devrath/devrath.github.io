@@ -984,3 +984,7 @@ if (!reducedMotion && CSS.supports("animation-timeline: view()")) {
 
   ("requestIdleCallback" in window ? requestIdleCallback : (f) => setTimeout(f, 2500))(refresh);
 })();
+
+// Footer year: always current.
+const footerYear = document.getElementById("footer-year");
+if (footerYear) footerYear.textContent = new Date().getFullYear();
