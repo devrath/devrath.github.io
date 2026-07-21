@@ -656,11 +656,19 @@ section p strong { color: var(--text-bright); font-weight: 600; }
 
 /* Accessible focus states */
 a:focus-visible,
-summary:focus-visible {
+summary:focus-visible,
+button:focus-visible,
+.carousel-track:focus-visible,
+[tabindex]:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 4px;
 }
+
+/* Round buttons keep a circular ring */
+#theme-toggle:focus-visible,
+#palette-hint:focus-visible,
+.carousel-dots button:focus-visible { border-radius: 9999px; }
 
 /* Inline link underline on hover */
 section p a:hover {
@@ -2186,6 +2194,26 @@ code { font-variant-numeric: tabular-nums slashed-zero; }
 }
 
 .colophon code { font-size: 0.72rem; color: inherit; }
+
+/* ---------- Render-perf: skip off-screen section layout/paint ---------- */
+#writing, #skills, #beyond, #contact {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
+
+/* ---------- Case-study print styles ---------- */
+@media print {
+  #aurora, #grain, #cs-progress, .cs-back, .cs-links,
+  .cs-video .yt-play, .cs-video .yt-hint, .cs-next, .cs-foot { display: none !important; }
+  html[data-theme] { color-scheme: light; }
+  body { background: #fff !important; color: #1a1a1a !important; }
+  .cs { padding: 1rem 0; max-width: 100%; }
+  .cs h1, .cs h2, .cs h3, .cs-stat b { color: #000 !important; }
+  .cs p, .cs li { color: #1a1a1a !important; }
+  .cs-stat, .cs-callout, .cs figure svg, .cs figure img { break-inside: avoid; }
+  .cs-eyebrow, .cs-stat b, .cs-callout .tag { color: #0a8f4e !important; }
+  * { animation: none !important; transition: none !important; opacity: 1 !important; }
+}
 
 /* ---------- Case-study reading progress ---------- */
 #cs-progress {
