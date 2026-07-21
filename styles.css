@@ -2195,12 +2195,6 @@ code { font-variant-numeric: tabular-nums slashed-zero; }
 
 .colophon code { font-size: 0.72rem; color: inherit; }
 
-/* ---------- Render-perf: skip off-screen section layout/paint ---------- */
-#writing, #skills, #beyond, #contact {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 600px;
-}
-
 /* ---------- Case-study print styles ---------- */
 @media print {
   #aurora, #grain, #cs-progress, .cs-back, .cs-links,
