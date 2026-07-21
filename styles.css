@@ -825,8 +825,8 @@ body.loading { overflow: hidden; }
 
 #loader .hex-letter {
   font-family: "Roboto", -apple-system, sans-serif;
-  font-size: 40px;
-  font-weight: 600;
+  font-size: 36px;
+  font-weight: 700;
   fill: var(--accent);
   opacity: 0;
   animation: hex-letter-in 0.35s ease 0.9s forwards;
